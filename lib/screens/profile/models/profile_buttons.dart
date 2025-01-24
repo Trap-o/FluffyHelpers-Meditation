@@ -1,0 +1,4 @@
+enum ProfileButtons {
+  profileDetails,
+  about
+}
