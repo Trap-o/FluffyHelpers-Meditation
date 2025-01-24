@@ -1,0 +1,64 @@
+name: flutter_duo_practice
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_bloc: ^8.1.6
+  flutter_launcher_icons: ^0.14.2
+  cupertino_icons: ^1.0.8
+  flutter_inappwebview: ^6.1.5
+  shared_preferences: ^2.3.4
+  path_provider: ^2.0.12
+  json_annotation: ^4.8.0
+  just_audio: ^0.9.20
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+  flutter_native_splash: ^2.4.3
+
+flutter:
+  uses-material-design: true
+  fonts:
+   - family: Comfortaa
+     fonts:
+      - asset: assets/fonts/Comfortaa/Comfortaa-Bold.ttf
+        weight: 700
+      - asset: assets/fonts/Comfortaa/Comfortaa-SemiBold.ttf
+        weight: 600
+      - asset: assets/fonts/Comfortaa/Comfortaa-Medium.ttf
+        weight: 500
+      - asset: assets/fonts/Comfortaa/Comfortaa-Regular.ttf
+        weight: 400
+      - asset: assets/fonts/Comfortaa/Comfortaa-Light.ttf
+        weight: 200
+
+  assets:
+    - assets/images/
+    - assets/images/subcategories_backgrounds/
+    - assets/music/
+    - assets/users/users.json
+
+flutter_icons:
+  android: true
+  ios: false
+  image_path: "assets/images/icon/icon.png"
+
+flutter_native_splash:
+  color: "#081320"
+  color_dark: "#081320"
+
+  android_12:
+    image: assets/images/icon_splash.png
+    image_dark: assets/images/icon_splash.png
+
