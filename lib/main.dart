@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_text_styles.dart';
+import 'package:flutter_duo_practice/screens/constructor/constructor.dart';
+import 'package:flutter_duo_practice/screens/feed/feed.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../constants/app_colors.dart';
 import '../constants/app_routes.dart';
-import '../screens/home/home.dart';
+import '../screens/library/library.dart';
 import '../screens/profile/profile.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'screens/player/player.dart';
 
 void main() async {
@@ -23,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Meditation',
+      title: 'FluffyHelpers',
       theme: ThemeData(
         textTheme: TextTheme(titleLarge: AppTextStyles.body),
         colorScheme: ColorScheme.fromSeed(
@@ -58,20 +61,22 @@ class _MainPageState extends State<MainPage> {
   bool isPlayerPageOpened = false;
 
   final List<Widget> _screens = [
-    const Home(),
+    const Library(),
+    const Feed(),
     const Player(),
+    const Constructor(),
     const Profile(),
   ];
 
   void _onItemTapped(int index) {
-    if (index == 1 && !isPlayerPageOpened) {
+    if (index == 2 && !isPlayerPageOpened) {
       isPlayerPageOpened = true;
       Navigator.pushNamed(context, AppRoutes.player).then((_) {
         setState(() {
           isPlayerPageOpened = false;
         });
       });
-    } else if (index != 1) {
+    } else if (index != 2) {
       setState(() {
         _selectedIndex = index;
       });
@@ -92,12 +97,20 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: AppColors.secondaryBackground,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(Icons.home, size: 40),
+              icon: Icon(Icons.my_library_music_rounded, size: 40),
+              label: ""
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.rss_feed_rounded, size: 40),
               label: ""
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.play_circle_rounded, size: 70),
             label: "",
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.music_note_rounded, size: 40),
+              label: ""
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle_rounded, size: 40),

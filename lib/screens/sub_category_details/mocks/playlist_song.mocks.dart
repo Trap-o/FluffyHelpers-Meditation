@@ -1,5 +1,5 @@
 import '../../../constants/app_music_paths.dart';
-import '../../home/mocks/sub_category.mocks.dart';
+import '../../library/mocks/sub_category.mocks.dart';
 import '../models/playlist_song.dart';
 
 final List<PlaylistSong> playlistSongs = [

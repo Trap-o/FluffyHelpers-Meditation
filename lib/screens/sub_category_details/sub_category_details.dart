@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_text_styles.dart';
 import 'package:flutter_duo_practice/screens/sub_category_details/mocks/playlist_song.mocks.dart';
 import 'package:flutter_duo_practice/screens/sub_category_details/models/playlist_song.dart';
+
 import '../../constants/app_colors.dart';
 import '../../constants/app_routes.dart';
-import '../home/models/sub_category.dart';
+import '../library/models/sub_category.dart';
 
 class SubCategoryDetails extends StatelessWidget {
   const SubCategoryDetails({super.key, required this.subCategory});

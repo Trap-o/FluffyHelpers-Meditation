@@ -3,6 +3,7 @@ import 'package:flutter_duo_practice/constants/app_button_styles.dart';
 import 'package:flutter_duo_practice/constants/app_colors.dart';
 import 'package:flutter_duo_practice/constants/app_images_paths.dart';
 import 'package:flutter_duo_practice/constants/app_spacing.dart';
+
 import '../../constants/app_routes.dart';
 import '../../constants/app_text_styles.dart';
 
@@ -54,6 +55,14 @@ class _LandingScreenState extends State<LandingScreen> {
                     },
                     style: AppButtonStyles.secondary,
                     child: const Text('Увійти')
+                ),
+                const SizedBox(height: AppSpacing.small),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, AppRoutes.loginScreen);
+                    },
+                    style: AppButtonStyles.secondary,
+                    child: const Text('Увійти з Google')
                 )
               ],
             ),

@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_colors.dart';
 import 'package:flutter_duo_practice/constants/app_routes.dart';
-import 'package:flutter_duo_practice/screens/home/models/sub_category.dart';
+import 'package:flutter_duo_practice/screens/library/models/sub_category.dart';
+
 import '../../constants/app_text_styles.dart';
 import 'mocks/main_category.mocks.dart';
 import 'mocks/sub_category.mocks.dart';
 import 'models/main_category.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class Library extends StatefulWidget {
+  const Library({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<Library> createState() => _LibraryState();
 }
 
-class _HomeState extends State<Home> {
+class _LibraryState extends State<Library> {
   final String _defaultCategory = "All";
-  final String _titleText = "Home page";
+  final String _titleText = "Library page";
   late String _selectedCategory;
   late List<SubCategory> filteredSubCategories;
 
