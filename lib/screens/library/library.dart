@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_duo_practice/constants/app_colors.dart';
-import 'package:flutter_duo_practice/constants/app_routes.dart';
-import 'package:flutter_duo_practice/screens/library/models/sub_category.dart';
 
+import '../../constants/app_colors.dart';
+import '../../constants/app_routes.dart';
 import '../../constants/app_text_styles.dart';
 import 'mocks/main_category.mocks.dart';
 import 'mocks/sub_category.mocks.dart';
 import 'models/main_category.dart';
+import 'models/sub_category.dart';
 
 class Library extends StatefulWidget {
   const Library({super.key});
@@ -17,7 +17,7 @@ class Library extends StatefulWidget {
 
 class _LibraryState extends State<Library> {
   final String _defaultCategory = "All";
-  final String _titleText = "Library page";
+  final String _titleText = "Бібліотека";
   late String _selectedCategory;
   late List<SubCategory> filteredSubCategories;
 
@@ -41,25 +41,30 @@ class _LibraryState extends State<Library> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(_titleText),
-          backgroundColor: AppColors.primaryBackground,
-          titleTextStyle: AppTextStyles.title,
-          centerTitle: true,
-        ),
+      appBar: AppBar(
+        title: Text(_titleText),
         backgroundColor: AppColors.primaryBackground,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            MainCategoriesChips(
+        titleTextStyle: AppTextStyles.title,
+        centerTitle: true,
+      ),
+      backgroundColor: AppColors.primaryBackground,
+      body: SafeArea(
+        child:
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              MainCategoriesChips(
                 selectedCategory: _selectedCategory,
                 mainCategories: mainCategories,
                 onCategorySelected: selectCategory),
-            Expanded(
+              Expanded(
                 child: SubCategoriesGridView(
-                    filteredSubCategories: filteredSubCategories))
-          ],
-        ));
+                  filteredSubCategories: filteredSubCategories)
+              )
+            ],
+          ),
+      )
+    );
   }
 }
 

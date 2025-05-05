@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "402256439542",
+    "project_id": "fluffyhelpers-meditation",
+    "storage_bucket": "fluffyhelpers-meditation.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402256439542:android:dae2af2af0c531004624d7",
+        "android_client_info": {
+          "package_name": "com.example.flutter_duo_practice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402256439542-spublmhgv9dmeruv736f98i4v4ag81sh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRkt2vBJMfobTTzxqu-nGEOlwY1P9tHG8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "402256439542-spublmhgv9dmeruv736f98i4v4ag81sh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "402256439542-epn77rcpashr07lfe6s9kl2v6f77bc5b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterDuoPractice"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

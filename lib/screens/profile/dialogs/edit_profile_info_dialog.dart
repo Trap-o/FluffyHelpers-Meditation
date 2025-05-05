@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_duo_practice/constants/app_text_styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../constants/app_button_styles.dart';
 import '../../../constants/app_colors.dart';
+import '../../../constants/app_text_styles.dart';
 import '../../auth_screens/forms/custom_fields/custom_text_field.dart';
 import '../../auth_screens/forms/input_validators/name_validator.dart';
 

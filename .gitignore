@@ -25,3 +25,12 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+lib/firebase_options.dart
+dotenv
+*.keystore
+lib/constants/private_data.dart

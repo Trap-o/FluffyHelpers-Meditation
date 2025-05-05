@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_duo_practice/constants/app_colors.dart';
-import 'package:flutter_duo_practice/constants/app_text_styles.dart';
+
+import 'app_colors.dart';
+import 'app_text_styles.dart';
 
 class AppButtonStyles{
 
@@ -15,6 +16,24 @@ class AppButtonStyles{
     backgroundColor: WidgetStateProperty.all(AppColors.highlight),
     foregroundColor: WidgetStateProperty.all(AppColors.secondaryText),
     textStyle: WidgetStateProperty.all(AppTextStyles.buttonPrimary),
+  );
+
+  static final ButtonStyle auth = _base.copyWith(
+    foregroundColor: WidgetStateProperty.all(AppColors.error),
+    textStyle: WidgetStateProperty.all(AppTextStyles.buttonAuth),
+  );
+
+  static final ButtonStyle delete = _base.copyWith(
+    foregroundColor: WidgetStateProperty.all(AppColors.text),
+    backgroundColor: WidgetStateProperty.all(AppColors.error),
+    textStyle: WidgetStateProperty.all(AppTextStyles.buttonAuth),
+    side: WidgetStateProperty.all(
+      const BorderSide(
+        color: AppColors.error,
+        width: 2.0,
+        style: BorderStyle.solid,
+      ),
+    ),
   );
 
   static final ButtonStyle secondary = _base.copyWith(
