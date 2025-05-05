@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_duo_practice/constants/app_text_styles.dart';
+
 import '../../../constants/app_button_styles.dart';
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_routes.dart';
+import '../../../constants/app_text_styles.dart';
 
 const String devCredits =
     "Додаток було розроблено студентами Софією Киричок та Віталієм Яценко "

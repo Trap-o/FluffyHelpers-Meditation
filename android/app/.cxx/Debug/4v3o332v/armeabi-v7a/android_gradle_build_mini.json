@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "G:\\Apps\\flutter\\flutter\\packages\\flutter_tools\\gradle\\src\\main\\groovy\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "G:\\Apps\\AndroidSDK\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "G:\\Programing\\Progs\\Flutter\\Main\\FluffyHelpers-Meditation\\android\\app\\.cxx\\Debug\\4v3o332v\\armeabi-v7a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "G:\\Apps\\AndroidSDK\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "G:\\Programing\\Progs\\Flutter\\Main\\FluffyHelpers-Meditation\\android\\app\\.cxx\\Debug\\4v3o332v\\armeabi-v7a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

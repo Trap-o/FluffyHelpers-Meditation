@@ -1,0 +1,71 @@
+Flutter crash report.
+Please report a bug at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter --no-color attach --machine --device-id=emulator-5554 lib\main.dart
+
+## exception
+
+StateError: Bad state: Future already completed
+
+```
+#0      _AsyncCompleter.complete (dart:async/future_impl.dart:84:31)
+#1      FlutterDevice.connect.<anonymous closure> (package:flutter_tools/src/resident_runner.dart:364:19)
+<asynchronous suspension>
+```
+
+## flutter doctor
+
+```
+[✓] Flutter (Channel stable, 3.29.3, on Microsoft Windows [Version 10.0.19045.5796], locale uk-UA) [651ms]
+    • Flutter version 3.29.3 on channel stable at G:\Apps\flutter\flutter
+    • Upstream repository https://github.com/flutter/flutter.git
+    • Framework revision ea121f8859 (3 weeks ago), 2025-04-11 19:10:07 +0000
+    • Engine revision cf56914b32
+    • Dart version 3.7.2
+    • DevTools version 2.42.3
+
+[✓] Windows Version (Њ ©Єа®б®дв Windows 10 Pro 64-bit, 22H2, 2009) [2,2s]
+
+[✓] Android toolchain - develop for Android devices (Android SDK version 35.0.1) [2,9s]
+    • Android SDK at G:\Apps\AndroidSDK
+    • Platform android-35, build-tools 35.0.1
+    • Java binary at: G:\Apps\AndroidStudio\jbr\bin\java
+      This is the JDK bundled with the latest Android Studio installation on this machine.
+      To manually set the JDK path, use: `flutter config --jdk-dir="path/to/jdk"`.
+    • Java version OpenJDK Runtime Environment (build 21.0.5+-13047016-b750.29)
+    • All Android licenses accepted.
+
+[✓] Chrome - develop for the web [348ms]
+    • Chrome at C:\Program Files\Google\Chrome\Application\chrome.exe
+
+[!] Visual Studio - develop Windows apps (Visual Studio Community 2022 17.13.6) [348ms]
+    • Visual Studio at G:\Apps\VisualStudio\IDE
+    • Visual Studio Community 2022 version 17.13.35931.197
+    • Windows 10 SDK version 10.0.22621.0
+    ✗ Visual Studio is missing necessary components. Please re-run the Visual Studio installer for the "Desktop development with C++" workload, and include these components:
+        MSVC v142 - VS 2019 C++ x64/x86 build tools
+         - If there are multiple build tool versions available, install the latest
+        C++ CMake tools for Windows
+        Windows 10 SDK
+
+[✓] Android Studio (version 2024.2) [5ms]
+    • Android Studio at G:\Apps\AndroidStudio
+    • Flutter plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/9212-flutter
+    • Dart plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/6351-dart
+    • Java version OpenJDK Runtime Environment (build 21.0.5+-13047016-b750.29)
+
+[✓] Connected device (4 available) [165ms]
+    • sdk gphone64 x86 64 (mobile) • emulator-5554 • android-x64    • Android 15 (API 35) (emulator)
+    • Windows (desktop)            • windows       • windows-x64    • Microsoft Windows [Version 10.0.19045.5796]
+    • Chrome (web)                 • chrome        • web-javascript • Google Chrome 135.0.7049.115
+    • Edge (web)                   • edge          • web-javascript • Microsoft Edge 134.0.3124.93
+
+[✓] Network resources [266ms]
+    • All expected network resources are available.
+
+! Doctor found issues in 1 category.
+```

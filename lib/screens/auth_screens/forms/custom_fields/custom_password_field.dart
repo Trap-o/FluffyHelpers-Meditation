@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_duo_practice/constants/app_form_styles.dart';
 
+import '../../../../constants/app_form_styles.dart';
 import '../../../../constants/app_text_styles.dart';
 
 class CustomPasswordField extends StatelessWidget {
