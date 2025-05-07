@@ -13,8 +13,8 @@ class SubCategoryDetails extends StatelessWidget {
   final SubCategory subCategory;
 
   List<PlaylistSong> filterMusic() => playlistSongs
-      .where((song) => song.relatedSubCategory == subCategory.name)
-      .toList();
+    .where((song) => song.relatedSubCategory == subCategory.name)
+    .toList();
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class _MusicListViewState extends State<MusicListView> {
   }
 
   IconData changeLikedIcon(bool isLiked) {
-      return isLiked ? Icons.favorite : Icons.favorite_border;
+    return isLiked ? Icons.favorite : Icons.favorite_border;
   }
 
   @override
@@ -83,7 +83,6 @@ class _MusicListViewState extends State<MusicListView> {
       itemCount: widget.filteredMusic.length,
       itemBuilder: (context, index) {
         final song = widget.filteredMusic[index];
-
         return GestureDetector(
           onTap: () {
             Navigator.pushNamed(context, AppRoutes.player);

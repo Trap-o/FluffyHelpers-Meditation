@@ -121,24 +121,24 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(Icons.my_library_music_rounded, size: 40),
-              label: ""
+            icon: Icon(Icons.my_library_music_rounded, size: 40),
+            label: ""
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.rss_feed_rounded, size: 40),
-              label: ""
+            icon: Icon(Icons.rss_feed_rounded, size: 40),
+            label: ""
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.play_circle_rounded, size: 70),
-            label: "",
+          icon: Icon(Icons.play_circle_rounded, size: 70),
+          label: "",
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.music_note_rounded, size: 40),
-              label: ""
+            icon: Icon(Icons.music_note_rounded, size: 40),
+            label: ""
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_rounded, size: 40),
-              label: ""
+            icon: Icon(Icons.account_circle_rounded, size: 40),
+            label: ""
           ),
         ],
         currentIndex: _selectedIndex,

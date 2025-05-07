@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_text_styles.dart';
 
-const String _titleText = "Feed";
+const String _titleText = "Стрічка";
 
 class Feed extends StatefulWidget {
   const Feed({super.key});

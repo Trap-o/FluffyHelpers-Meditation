@@ -16,7 +16,7 @@ class Library extends StatefulWidget {
 }
 
 class _LibraryState extends State<Library> {
-  final String _defaultCategory = "All";
+  final String _defaultCategory = "Все";
   final String _titleText = "Бібліотека";
   late String _selectedCategory;
   late List<SubCategory> filteredSubCategories;
@@ -31,11 +31,11 @@ class _LibraryState extends State<Library> {
   void selectCategory(category) => setState(() {
     _selectedCategory = category;
     filteredSubCategories = _selectedCategory == _defaultCategory
-        ? subCategories
-        : subCategories
-        .where((subCategory) =>
-    subCategory.mainCategory.name == _selectedCategory)
-        .toList();
+      ? subCategories
+      : subCategories
+      .where((subCategory) =>
+        subCategory.mainCategory.name == _selectedCategory)
+          .toList();
   });
 
   @override
@@ -56,10 +56,12 @@ class _LibraryState extends State<Library> {
               MainCategoriesChips(
                 selectedCategory: _selectedCategory,
                 mainCategories: mainCategories,
-                onCategorySelected: selectCategory),
+                onCategorySelected: selectCategory
+              ),
               Expanded(
                 child: SubCategoriesGridView(
-                  filteredSubCategories: filteredSubCategories)
+                  filteredSubCategories: filteredSubCategories
+                )
               )
             ],
           ),
@@ -74,10 +76,11 @@ class MainCategoriesChips extends StatelessWidget {
   final ValueChanged<String> onCategorySelected;
 
   const MainCategoriesChips(
-      {super.key,
-      required this.selectedCategory,
-      required this.mainCategories,
-      required this.onCategorySelected});
+    {super.key,
+    required this.selectedCategory,
+    required this.mainCategories,
+    required this.onCategorySelected}
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +128,7 @@ class SubCategoriesGridView extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             Navigator.pushNamed(context, AppRoutes.subCategoryDetails,
-                arguments: filteredSubCategories[index]);
+              arguments: filteredSubCategories[index]);
           },
           child: Card(
             elevation: 6,
@@ -139,7 +142,7 @@ class SubCategoriesGridView extends StatelessWidget {
                     flex: 3,
                     child: ClipRRect(
                       borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(12)),
+                        top: Radius.circular(12)),
                       child: Image.asset(
                         filteredSubCategories[index].pathToImage,
                         fit: BoxFit.cover,

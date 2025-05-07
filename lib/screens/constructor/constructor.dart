@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_text_styles.dart';
 
-const String _titleText = "Constructor";
+const String _titleText = "Конструктор";
 
 class Constructor extends StatefulWidget {
   const Constructor({super.key});
