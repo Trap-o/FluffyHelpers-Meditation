@@ -1,10 +1,11 @@
 import '../models/main_category.dart';
 
 final List<MainCategory> mainCategories = [
-  MainCategory(name: "All"),
-  MainCategory(name: "Relaxation"),
-  MainCategory(name: "Focus"),
-  MainCategory(name: "Sleep")
+  MainCategory(name: "Все"),
+  MainCategory(name: "Моє"),
+  MainCategory(name: "Релаксація"),
+  MainCategory(name: "Фокус"),
+  MainCategory(name: "Сон")
 ];
 
 final Map<String, MainCategory> mainCategoriesMap = {

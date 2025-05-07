@@ -1,4 +1,4 @@
-enum ProfileButtons {
-  profileDetails,
-  about
-}
+// enum ProfileButtons {
+//   profileDetails,
+//   about
+// }

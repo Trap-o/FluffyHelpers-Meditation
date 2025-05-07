@@ -7,7 +7,6 @@ import '../screens/feed/feed.dart';
 import '../screens/library/library.dart';
 import '../screens/library/models/sub_category.dart';
 import '../screens/player/player.dart';
-import '../screens/profile/inner_browser.dart';
 import '../screens/profile/profile.dart';
 import '../screens/settings/settings.dart';
 import '../screens/sub_category_details/sub_category_details.dart';
@@ -22,7 +21,7 @@ class AppRoutes {
   static const String settingsScreen = "/settings";
   static const String subCategoryDetails = "/subCategoryDetails";
   static const String auth = "/auth";
-  static const String webBrowser = "/innerBrowser";
+  //static const String webBrowser = "/innerBrowser";
 
   static MaterialPageRoute? onGenerateRoute(RouteSettings settings) {
     return MaterialPageRoute(
@@ -47,8 +46,8 @@ class AppRoutes {
             return SubCategoryDetails(subCategory: subCategory);
           case auth:
             return const Auth();
-          case webBrowser:
-            return const InnerBrowser();
+          // case webBrowser:
+          //   return const InnerBrowser();
           default:
             return const Auth();
         }

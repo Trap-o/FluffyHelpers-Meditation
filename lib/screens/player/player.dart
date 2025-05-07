@@ -7,7 +7,7 @@ import '../../constants/app_music_paths.dart';
 import '../../constants/app_text_styles.dart';
 import '../sub_category_details/mocks/playlist_song.mocks.dart';
 
-const String _titleText = "Player";
+//const String _titleText = "Player";
 
 class Player extends StatefulWidget {
   const Player({super.key});
@@ -70,7 +70,7 @@ class _PlayerState extends State<Player> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(_titleText),
+        //title: const Text(_titleText),
         titleTextStyle: AppTextStyles.title,
         backgroundColor: AppColors.secondaryBackground,
         centerTitle: true,
@@ -102,7 +102,6 @@ class _PlayerState extends State<Player> {
                 builder: (context, snapshot) {
                   final position = snapshot.data ?? Duration.zero;
                   final duration = _audioPlayer.duration ?? Duration.zero;
-          
                   return Column(
                     children: [
                       Slider(
@@ -128,7 +127,6 @@ class _PlayerState extends State<Player> {
                   final playerState = snapshot.data;
                   final processingState = playerState?.processingState;
                   final playing = playerState?.playing;
-          
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -147,11 +145,11 @@ class _PlayerState extends State<Player> {
                           color: AppColors.accent,
                         )
                       else if (processingState != ProcessingState.completed)
-                          IconButton(
-                            icon: const Icon(Icons.pause, size: 100),
-                            onPressed: _audioPlayer.pause,
-                            color: AppColors.accent,
-                          )
+                        IconButton(
+                          icon: const Icon(Icons.pause, size: 100),
+                          onPressed: _audioPlayer.pause,
+                          color: AppColors.accent,
+                        )
                         else
                           IconButton(
                             icon: const Icon(Icons.replay, size: 50),
