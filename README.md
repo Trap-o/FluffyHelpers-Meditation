@@ -15,6 +15,56 @@
 - Dart
 - Flutter
 - Firebase
+
+## Платформа
+- **Android**
   
 ## Опублікований продукт
 Інсталяційний пакет створеного додатку можна завантажити з розділу **[Releases](https://github.com/Trap-o/FluffyHelpers-Meditation/releases)**.
+## Встановлення релізної версії
+
+### Android
+
+1. Перейдіть до розділу [Releases](https://github.com/Trap-o/FluffyHelpers-Meditation/releases).
+2. Завантажте останній `.apk` файл.
+3. Скопіюйте файл на свій пристрій та встановіть його (дозвольте встановлення з невідомих джерел).
+
+## Складання проєкту вручну
+
+### Вимоги
+
+- [Flutter](https://flutter.dev/docs/get-started/install)
+- Dart SDK
+- Android Studio / Visual Studio Code (для мобільних платформ)
+- Git
+
+### Інструкція
+
+1. **Клонування репозиторію:**
+   ```bash
+   git clone https://github.com/Trap-o/FluffyHelpers-Meditation.git
+   cd FluffyHelpers-Meditation
+   ```
+
+2. **Установка залежностей для Flutter:**
+   ```bash
+   flutter pub get
+   ```
+
+3. **Запуск/збірка Flutter-застосунку:**
+   - **Android:**
+     ```bash
+     flutter run -d android
+     ```
+
+## Архітектура проєкту
+
+- `lib/` — основний код Flutter (Dart)
+- `native/` — C/C++ модулі, які компілюються через CMake
+- `android/`, `ios/` — платформи для Flutter
+- `cmake/` — CMake-сценарії для складання нативних частин
+
+
+## Ліцензія
+
+Ліцензія проєкту міститься у файлі `LICENSE`.
