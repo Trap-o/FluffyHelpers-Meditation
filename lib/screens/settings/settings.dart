@@ -77,17 +77,6 @@ class _SettingsState extends State<Settings> {
                       ),
                     ),
                     SettingsTile.navigation(
-                      leading: const Icon(Icons.contrast_rounded),
-                      title: Text(
-                        'Тема',
-                        style: AppTextStyles.setting,
-                      ),
-                      trailing: Text(
-                        'Темна',
-                        style: AppTextStyles.setting,
-                      ),
-                    ),
-                    SettingsTile.navigation(
                       leading: const Icon(Icons.pets_rounded),
                       title: Text(
                         'Тваринка',

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_routes.dart';
 import '../../constants/app_text_styles.dart';
+import 'dialogs/new_playlist_dialog.dart';
 import 'mocks/main_category.mocks.dart';
 import 'mocks/sub_category.mocks.dart';
 import 'models/main_category.dart';
@@ -38,6 +39,16 @@ class _LibraryState extends State<Library> {
           .toList();
   });
 
+  void showNewPlaylistDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return const NewPlaylistDialog();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +57,23 @@ class _LibraryState extends State<Library> {
         backgroundColor: AppColors.primaryBackground,
         titleTextStyle: AppTextStyles.title,
         centerTitle: true,
+      ),
+      floatingActionButton: SizedBox(
+        width: 65,
+        height: 65,
+        child: FittedBox(
+          child: FloatingActionButton(
+            backgroundColor: AppColors.highlight, //TODO спитати за норм дизайн кнопки
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+              side: const BorderSide(color: AppColors.secondaryText),
+            ),
+            onPressed: () {
+              showNewPlaylistDialog(context);
+            },
+            child: const Icon(Icons.add_rounded, color: AppColors.text, size: 45,),
+          ),
+        ),
       ),
       backgroundColor: AppColors.primaryBackground,
       body: SafeArea(
@@ -62,7 +90,7 @@ class _LibraryState extends State<Library> {
                 child: SubCategoriesGridView(
                   filteredSubCategories: filteredSubCategories
                 )
-              )
+              ),
             ],
           ),
       )
@@ -115,68 +143,70 @@ class SubCategoriesGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: (MediaQuery.of(context).size.width / 150).floor(),
-        crossAxisSpacing: 5,
-        mainAxisSpacing: 5,
-        mainAxisExtent: 600
-      ),
-      itemCount: filteredSubCategories.length,
-      scrollDirection: Axis.vertical,
-      itemBuilder: (context, index) {
-        return GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, AppRoutes.subCategoryDetails,
-              arguments: filteredSubCategories[index]);
-          },
-          child: Card(
-            elevation: 6,
-            color: AppColors.secondaryBackground,
-            child: Padding(
-              padding: const EdgeInsets.all(0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(12)),
-                      child: Image.asset(
-                        filteredSubCategories[index].pathToImage,
-                        fit: BoxFit.cover,
-                      ),
-                    )
-                  ),
-                  const SizedBox(height: 20),
-                  Flexible(
-                    flex: 1,
-                    child: Text(
-                      filteredSubCategories[index].name,
-                      style: AppTextStyles.title,
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.fade,
-                      softWrap: true,
-                    )
-                  ),
-                  const SizedBox(height: 10),
-                  Flexible(
-                    flex: 2,
-                    child: Text(
-                      filteredSubCategories[index].description,
-                      style: AppTextStyles.body,
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.fade,
-                      softWrap: true,
-                    )
-                  ),
-                ]
+    return Scaffold(
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: (MediaQuery.of(context).size.width / 150).floor(),
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 5,
+            mainAxisExtent: 600
+        ),
+        itemCount: filteredSubCategories.length,
+        scrollDirection: Axis.vertical,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.subCategoryDetails,
+                arguments: filteredSubCategories[index]);
+            },
+            child: Card(
+              elevation: 6,
+              color: AppColors.secondaryBackground,
+              child: Padding(
+                padding: const EdgeInsets.all(0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(12)),
+                        child: Image.asset(
+                          filteredSubCategories[index].pathToImage,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    ),
+                    const SizedBox(height: 20),
+                    Flexible(
+                      flex: 1,
+                      child: Text(
+                        filteredSubCategories[index].name,
+                        style: AppTextStyles.title,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.fade,
+                        softWrap: true,
+                      )
+                    ),
+                    const SizedBox(height: 10),
+                    Flexible(
+                      flex: 2,
+                      child: Text(
+                        filteredSubCategories[index].description,
+                        style: AppTextStyles.body,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.fade,
+                        softWrap: true,
+                      )
+                    ),
+                  ]
+                ),
               ),
             ),
-          ),
-        );
-      }
+          );
+        }
+      ),
     );
   }
 }
