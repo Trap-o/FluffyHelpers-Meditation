@@ -4,8 +4,10 @@ import '../main.dart';
 import '../screens/auth_screens/auth.dart';
 import '../screens/constructor/constructor.dart';
 import '../screens/feed/feed.dart';
+import '../screens/library/dialogs/new_playlist_dialog.dart';
 import '../screens/library/library.dart';
 import '../screens/library/models/sub_category.dart';
+import '../screens/library/playlist_creator.dart';
 import '../screens/player/player.dart';
 import '../screens/profile/profile.dart';
 import '../screens/settings/settings.dart';
@@ -21,6 +23,8 @@ class AppRoutes {
   static const String settingsScreen = "/settings";
   static const String subCategoryDetails = "/subCategoryDetails";
   static const String auth = "/auth";
+  static const String newPlaylistDialog = "/newPlaylist";
+  static const String playlistCreator = "/playlistCreator";
   //static const String webBrowser = "/innerBrowser";
 
   static MaterialPageRoute? onGenerateRoute(RouteSettings settings) {
@@ -46,6 +50,10 @@ class AppRoutes {
             return SubCategoryDetails(subCategory: subCategory);
           case auth:
             return const Auth();
+          case newPlaylistDialog:
+            return const NewPlaylistDialog();
+          case playlistCreator:
+            return const PlaylistCreator();
           // case webBrowser:
           //   return const InnerBrowser();
           default:
