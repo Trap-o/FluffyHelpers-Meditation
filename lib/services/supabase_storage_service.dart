@@ -9,12 +9,12 @@ class SupabaseStorageService {
     required File file,
     required String fileName,
   }) async {
-    final bucket = Supabase.instance.client.storage.from('musics');
-    final String path = fileName; // без userId
+    final bucket = _client.storage.from('musics');
+    final String path = fileName;
 
     try {
       await bucket.upload(path, file);
-      return bucket.getPublicUrl(path); // Працює без авторизації
+      return bucket.getPublicUrl(path);
     } catch (e) {
       throw Exception('Помилка при завантаженні: $e');
     }

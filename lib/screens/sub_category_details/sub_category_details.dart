@@ -21,7 +21,7 @@ class SubCategoryDetails extends StatelessWidget {
     final filteredMusic = filterMusic();
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar( // TODO переробити аппбар
         title: Text(subCategory.name),
         backgroundColor: AppColors.primaryBackground,
         titleTextStyle: AppTextStyles.title,

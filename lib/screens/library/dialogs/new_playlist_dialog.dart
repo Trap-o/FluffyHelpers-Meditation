@@ -28,7 +28,7 @@ class NewPlaylistDialog extends StatelessWidget {
           children: [
             Text("Введіть назву плейлиста", style: AppTextStyles.title,),
             const SizedBox(height: AppSpacing.small,),
-            TextFormField(), //TODO придумати нормальний стиль
+            TextFormField(),
             const SizedBox(height: AppSpacing.small,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

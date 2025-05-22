@@ -5,9 +5,7 @@ import 'app_font_sizes.dart';
 import 'app_fonts.dart';
 
 class AppTextStyles {
-  static const TextStyle _base = TextStyle(
-    fontFamily: AppFonts.fontFamily,
-  );
+  static const TextStyle _base = TextStyle(fontFamily: AppFonts.fontFamily);
 
   static final TextStyle title = _base.copyWith(
     color: AppColors.text,
@@ -23,7 +21,7 @@ class AppTextStyles {
 
   static final TextStyle form = _base.copyWith(
     color: AppColors.text,
-    fontSize: AppFontSizes.medium,
+    fontSize: AppFontSizes.body,
     fontWeight: FontWeight.bold,
   );
 
@@ -59,7 +57,31 @@ class AppTextStyles {
 
   static final TextStyle buttonAuth = _base.copyWith(
     color: AppColors.secondaryText,
-    fontSize: 16,
+    fontSize: AppFontSizes.body,
     fontWeight: FontWeight.normal,
+  );
+
+  static final TextStyle orderCategory = _base.copyWith(
+    color: AppColors.secondaryText,
+    fontSize: AppFontSizes.orderCategory,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final TextStyle orderCategoryWhite = _base.copyWith(
+    color: AppColors.text,
+    fontSize: AppFontSizes.orderCategory,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final TextStyle orderDescription = _base.copyWith(
+    color: AppColors.secondaryText,
+    fontSize: AppFontSizes.orderDescription,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final TextStyle orderTitle = _base.copyWith(
+    color: AppColors.text,
+    fontSize: AppFontSizes.body,
+    fontWeight: FontWeight.bold,
   );
 }

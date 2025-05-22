@@ -5,6 +5,7 @@ import '../../constants/app_colors.dart';
 import '../../constants/app_images_paths.dart';
 import '../../constants/app_music_paths.dart';
 import '../../constants/app_text_styles.dart';
+import '../../global_widgets/custom_app_bar.dart';
 import '../sub_category_details/mocks/playlist_song.mocks.dart';
 
 //const String _titleText = "Player";
@@ -69,19 +70,7 @@ class _PlayerState extends State<Player> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        //title: const Text(_titleText),
-        titleTextStyle: AppTextStyles.title,
-        backgroundColor: AppColors.secondaryBackground,
-        centerTitle: true,
-        // leading: IconButton(
-        //   color: AppColors.accent,
-        //   onPressed: () {
-        //     Navigator.pushNamedAndRemoveUntil(context, AppRoutes.main, (route) => false);
-        //   },
-        //   icon: const Icon(Icons.arrow_back),
-        // ),
-      ),
+      appBar: const CustomAppBar(title: "Плеєр", leading: null,), // TODO Спитати чи треба тут тітле
       backgroundColor: AppColors.secondaryBackground,
       body: Center(
         child: SingleChildScrollView(

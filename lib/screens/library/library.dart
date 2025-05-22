@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_routes.dart';
 import '../../constants/app_text_styles.dart';
+import '../../global_widgets/custom_app_bar.dart';
 import 'dialogs/new_playlist_dialog.dart';
 import 'mocks/main_category.mocks.dart';
 import 'mocks/sub_category.mocks.dart';
@@ -52,18 +53,13 @@ class _LibraryState extends State<Library> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_titleText),
-        backgroundColor: AppColors.primaryBackground,
-        titleTextStyle: AppTextStyles.title,
-        centerTitle: true,
-      ),
+      appBar: CustomAppBar(title: _titleText, leading: null,),
       floatingActionButton: SizedBox(
         width: 65,
         height: 65,
         child: FittedBox(
           child: FloatingActionButton(
-            backgroundColor: AppColors.highlight, //TODO спитати за норм дизайн кнопки
+            backgroundColor: AppColors.highlight,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
               side: const BorderSide(color: AppColors.secondaryText),
