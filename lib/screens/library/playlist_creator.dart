@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 
 import '../../constants/app_colors.dart';
-import '../../constants/app_routes.dart';
 import '../../constants/app_text_styles.dart';
+import '../../global_widgets/return_to_main_icon_button.dart';
 import '../../services/supabase_storage_service.dart';
 
 const String _titleText = "Створення";
@@ -54,13 +54,7 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
         titleTextStyle: AppTextStyles.title,
         backgroundColor: AppColors.secondaryBackground,
         centerTitle: true,
-        leading: IconButton(
-          color: AppColors.accent,
-          onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(context, AppRoutes.main, (route) => false);
-          },
-          icon: const Icon(Icons.arrow_back),
-        ),
+        leading: const ReturnToMainIconButton(),
       ),
       body: Column(
         children: [

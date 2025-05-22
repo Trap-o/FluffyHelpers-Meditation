@@ -25,7 +25,6 @@ class AppRoutes {
   static const String auth = "/auth";
   static const String newPlaylistDialog = "/newPlaylist";
   static const String playlistCreator = "/playlistCreator";
-  //static const String webBrowser = "/innerBrowser";
 
   static MaterialPageRoute? onGenerateRoute(RouteSettings settings) {
     return MaterialPageRoute(
@@ -54,8 +53,6 @@ class AppRoutes {
             return const NewPlaylistDialog();
           case playlistCreator:
             return const PlaylistCreator();
-          // case webBrowser:
-          //   return const InnerBrowser();
           default:
             return const Auth();
         }

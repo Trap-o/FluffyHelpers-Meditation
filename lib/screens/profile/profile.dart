@@ -45,22 +45,19 @@ class Profile extends StatelessWidget{
                       const EditableUserDisplayName(),
                       ElevatedButton.icon(
                         style: AppButtonStyles.primary,
-                        onPressed: () async {
-                          await FirebaseAuth.instance.signOut();
-                          Navigator.of(context).pushReplacementNamed('/auth');
-                        },
                         label: const Text('Вийти'),
                         icon: const Icon(Icons.logout_rounded),
+                        onPressed: () async {
+                          await signOutUser(context);
+                        },
                       ),
                       ElevatedButton.icon(
                         style: AppButtonStyles.delete,
-                        onPressed: () async {
-                          await user.delete();
-                          await FirebaseAuth.instance.signOut();
-                          Navigator.of(context).pushReplacementNamed('/auth');
-                        },
                         label: const Text('Видалити акаунт'),
                         icon: const Icon(Icons.delete_rounded),
+                        onPressed: () async {
+                          await deleteUser(user, context);
+                        },
                       ),
                     ],
                   ),
@@ -69,5 +66,18 @@ class Profile extends StatelessWidget{
             ),
       ),
     );
+  }
+
+  Future<void> signOutUser(BuildContext context) async {
+    final navigator = Navigator.of(context);
+    await FirebaseAuth.instance.signOut();
+    navigator.pushReplacementNamed('/auth');
+  }
+
+  Future<void> deleteUser(User user, BuildContext context) async {
+    final navigator = Navigator.of(context);
+    await user.delete();
+    await FirebaseAuth.instance.signOut();
+    navigator.pushReplacementNamed('/auth');
   }
 }
