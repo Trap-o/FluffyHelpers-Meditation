@@ -5,6 +5,7 @@ import 'package:fluffyhelpers_meditation/constants/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/app_routes.dart';
+import '../../../l10n/app_localizations.dart';
 
 class NewPlaylistDialog extends StatelessWidget {
 
@@ -14,6 +15,8 @@ class NewPlaylistDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return Dialog(
       insetPadding: const EdgeInsets.all(10),
       alignment: Alignment.center,
@@ -26,7 +29,7 @@ class NewPlaylistDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("Введіть назву плейлиста", style: AppTextStyles.title,),
+            Text(localizations.playlistNameText, style: AppTextStyles.title,),
             const SizedBox(height: AppSpacing.small,),
             TextFormField(),
             const SizedBox(height: AppSpacing.small,),
@@ -38,7 +41,7 @@ class NewPlaylistDialog extends StatelessWidget {
                     Navigator.pushNamed(context, AppRoutes.playlistCreator);
                   },
                   style: AppButtonStyles.primary,
-                  child: Text("Зберегти", style: AppTextStyles.buttonPrimary,),
+                  child: Text(localizations.okButton, style: AppTextStyles.buttonPrimary,),
                 ),
                 const SizedBox(width: AppSpacing.large,),
                 TextButton(
@@ -46,7 +49,7 @@ class NewPlaylistDialog extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   style: AppButtonStyles.delete,
-                  child: Text("Скасувати", style: AppTextStyles.buttonSecondary,),
+                  child: Text(localizations.cancelButton, style: AppTextStyles.buttonSecondary,),
                 ),
               ],
             )

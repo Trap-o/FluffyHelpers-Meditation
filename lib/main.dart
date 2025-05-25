@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../constants/app_colors.dart';
@@ -14,6 +15,7 @@ import '../screens/library/library.dart';
 import '../screens/profile/profile.dart';
 import 'constants/main_text_theme.dart';
 import 'firebase_config.dart';
+import 'l10n/app_localizations.dart';
 import 'screens/constructor/constructor.dart';
 import 'screens/feed/feed.dart';
 import 'screens/player/player.dart';
@@ -30,11 +32,57 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  runApp(const MyApp());
+
+  final prefs = await SharedPreferences.getInstance();
+  final language = prefs.getString('language') ?? "en";
+  final pet = prefs.getString('pet') ?? "cat";
+
+  runApp(MyApp(locale: Locale(language), pet: pet));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+void Function(String)? changeLanguageCallback;
+void Function(String)? changePetCallback;
+
+class MyApp extends StatefulWidget {
+  final Locale locale;
+  final String pet;
+
+  const MyApp({super.key, required this.locale, required this.pet});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late Locale _locale;
+  String? _pet;
+
+  void _changeLanguage(String languageCode) async {
+    setState(() {
+      _locale = Locale(languageCode);
+    });
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('language', languageCode);
+  }
+
+  void _changePet(String petCode) async {
+    setState(() {
+      _pet = petCode;
+    });
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('pet', petCode);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _locale = widget.locale;
+    _pet = widget.pet;
+    changeLanguageCallback = _changeLanguage;
+    changePetCallback = _changePet;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +92,9 @@ class MyApp extends StatelessWidget {
       initialRoute: '/auth',
       onGenerateRoute: AppRoutes.onGenerateRoute,
       localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
+        AppLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         FirebaseUILocalizations.delegate,
       ],
@@ -53,7 +102,7 @@ class MyApp extends StatelessWidget {
         Locale('en'),
         Locale('uk')
       ],
-      locale: const Locale('uk'),
+      locale: _locale,
     );
   }
 }
@@ -84,6 +133,9 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    final String navBarItemText = localizations.bottomNavBarItem;
+
     FlutterNativeSplash.remove();
     return Scaffold(
       backgroundColor: AppColors.primaryBackground,
@@ -100,26 +152,26 @@ class _MainPageState extends State<MainPage> {
         unselectedItemColor: AppColors.highlight,
         type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped,
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.my_library_music_rounded, size: 40),
-            label: ""
+            icon: const Icon(Icons.my_library_music_rounded, size: 40),
+            label: navBarItemText
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.rss_feed_rounded, size: 40),
-            label: ""
+            icon: const Icon(Icons.rss_feed_rounded, size: 40),
+            label: navBarItemText
           ),
           BottomNavigationBarItem(
-          icon: Icon(Icons.play_circle_rounded, size: 70),
-          label: "",
+          icon: const Icon(Icons.play_circle_rounded, size: 70),
+          label: navBarItemText,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.music_note_rounded, size: 40),
-            label: ""
+            icon: const Icon(Icons.music_note_rounded, size: 40),
+            label: navBarItemText
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_rounded, size: 40),
-            label: ""
+            icon: const Icon(Icons.account_circle_rounded, size: 40),
+            label: navBarItemText
           ),
         ],
       ),

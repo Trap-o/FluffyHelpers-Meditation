@@ -43,7 +43,7 @@ class AppRoutes {
           case profile:
             return const Profile();
           case settingsScreen:
-            return const Settings();
+            return Settings(onLocaleToggle: changeLanguageCallback!, onPetToggle: changePetCallback!);
           case subCategoryDetails:
             final subCategory = settings.arguments as SubCategory;
             return SubCategoryDetails(subCategory: subCategory);

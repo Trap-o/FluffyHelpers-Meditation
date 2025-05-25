@@ -1,0 +1,130 @@
+{
+    "@@locale": "uk",
+    "@_NAV_BAR": {
+        },
+        "bottomNavBarItem": "",
+
+    "@_PAGE_TITLES": {
+        },
+        "constructorTitle": "Конструктор",
+        "feedTitle": "Стрічка",
+        "libraryTitle": "Бібліотека",
+        "playlistCreatorTitle": "Створення",
+        "playerTitle": "Плеєр",
+        "settingsTitle": "Налаштування",
+
+    "@_LOGIN_PAGE": {
+        },
+        "welcome": "Почнімо медитувати вже сьогодні!",
+
+    "@_CONSTRUCTOR_PAGE": {
+        },
+        "@_": {
+            },
+
+        "@_": {
+            },
+
+        "@_": {
+            },
+
+    "@_FEED_PAGE": {
+        },
+        "@_": {
+            },
+
+        "@_": {
+            },
+
+        "@_": {
+            },
+
+    "@_LIBRARY_PAGE": {
+        },
+        "@_MAIN_CHIPS": {
+            },
+            "mainCategory": "{key, select, all{Все} my{Моє} relaxation{Релаксація} focus{Фокус} sleep{Сон} other{}}",
+
+        "@_": {
+            },
+
+        "@_": {
+            },
+
+    "@_PLAYER_PAGE": {
+        },
+        "@_": {
+            },
+
+        "@_": {
+            },
+
+        "@_": {
+            },
+
+    "@_PROFILE_PAGE": {
+        },
+        "@_ERROR_MESSAGE": {
+            },
+            "notEnterToAccount": "Не увійшли в акаунт",
+
+
+        "@_BUTTONS": {
+            },
+            "exitButton": "Вийти",
+            "deleteButton": "Видалити акаунт",
+
+        "@_": {
+            },
+
+    "@_SETTINGS_PAGE": {
+        },
+        "@_SECTIONS": {
+            },
+            "settingsSectionCommon": "Загальні",
+            "settingsSectionAbout": "Про програму",
+
+        "@_SUPPORT_EMAIL": {
+            },
+            "supportSubject": "[FluffyHelpers Підтримка] *Текст запитання*",
+            "supportMessage": "Вітаю! Маю питання щодо застосунку: ",
+
+        "@_TILES": {
+            },
+            "languageTitle": "Мова",
+            "languageOption": "Українська",
+            "petTitle": "Тваринка",
+            "petOption": "{key, select, cat{Кіт} dog{Пес} fox{Лис} other{}}",
+            "notifications": "Сповіщення",
+            "githubText": "GitHub-репозиторій проєкту",
+            "supportTitle": "Підтримка",
+            "supportText": "Пишіть якщо виникають запитання",
+            "feedbackText": "Пишіть якщо маєте скарги чи пропозиції",
+            "copyright": " Розроблено Яценко Віталієм\nта Киричок Софією",
+
+    "@_SUB_CATEGORY_DETAILS_PAGE": {
+        },
+        "@_": {
+            },
+
+        "@_": {
+            },
+
+        "@_": {
+            },
+
+    "@_DIALOGS": {
+        },
+        "@_BUTTONS": {
+            },
+            "okButton": "Підтвердити",
+            "cancelButton": "Відміна",
+
+        "@_CONFIRM_DELETING_ACCOUNT_DIALOG": {
+            },
+            "confirmationText": "Видалення акаунту призведе до видалення профілю, всіх ваших плейлистів, створеної музики тощо. Ви впевнені?",
+
+        "@_NEW_PLAYLIST_DIALOG": {
+            },
+            "playlistNameText": "Введіть назву плейлиста:"
+}

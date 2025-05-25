@@ -1,0 +1,208 @@
+{
+    "@@locale": "en",
+    "@_NAV_BAR": {
+        },
+        "bottomNavBarItem": "",
+
+    "@_PAGE_TITLES": {
+        },
+        "constructorTitle": "Constructor",
+        "feedTitle": "Feed",
+        "libraryTitle": "Library",
+        "playlistCreatorTitle": "Creating",
+        "playerTitle": "Player",
+        "settingsTitle": "Settings",
+
+    "@_LOGIN_PAGE": {
+        },
+        "welcome": "Let's start meditating today!",
+
+    "@_CONSTRUCTOR_PAGE": {
+        },
+        "@_": {
+            },
+            "": "",
+            "": "",
+
+        "@_": {
+            },
+            "": "",
+            "": "",
+
+        "@_": {
+            },
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+
+    "@_FEED_PAGE": {
+        },
+        "@_": {
+            },
+            "": "",
+            "": "",
+
+        "@_": {
+            },
+            "": "",
+            "": "",
+
+        "@_": {
+            },
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+
+    "@_LIBRARY_PAGE": {
+        },
+        "@_MAIN_CHIPS": {
+            },
+            "mainCategory": "{key, select, all{All} my{My} relaxation{Relaxation} focus{Focus} sleep{Sleep} other{}}",
+
+        "@_": {
+            },
+            "": "",
+            "": "",
+
+        "@_": {
+            },
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+
+    "@_PLAYER_PAGE": {
+        },
+        "@_": {
+            },
+            "": "",
+            "": "",
+
+        "@_": {
+            },
+            "": "",
+            "": "",
+
+        "@_": {
+            },
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+
+    "@_PROFILE_PAGE": {
+        },
+        "@_ERROR_MESSAGE": {
+            },
+            "notEnterToAccount": "Not logged into account",
+
+
+        "@_BUTTONS": {
+            },
+            "exitButton": "Exit",
+            "deleteButton": "Delete account",
+
+        "@_": {
+            },
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+
+    "@_SETTINGS_PAGE": {
+        },
+        "@_SECTIONS": {
+            },
+            "settingsSectionCommon": "Common",
+            "settingsSectionAbout": "About",
+
+        "@_SUPPORT_EMAIL": {
+            },
+            "supportSubject": "[FluffyHelpers Support] *Topic of question*",
+            "supportMessage": "Hello! I have question about the app: ",
+
+        "@_TILES": {
+            },
+            "languageTitle": "Language",
+            "languageOption": "English",
+            "petTitle": "Pet",
+            "petOption": "{key, select, cat{Cat} dog{Dog} fox{Fox} other{}}",
+            "notifications": "Notifications",
+            "githubText": "GitHub repository for a project",
+            "supportTitle": "Support",
+            "supportText": "Write us if you have any questions",
+            "feedbackText": "Write if you have any suggestions or complaints",
+            "copyright": " Developed by Yatsenko Vitalii\nand Kyrychok Sofiia",
+
+    "@_SUB_CATEGORY_DETAILS_PAGE": {
+        },
+        "@_": {
+            },
+            "": "",
+            "": "",
+
+        "@_": {
+            },
+            "": "",
+            "": "",
+
+        "@_": {
+            },
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+            "": "",
+
+    "@_DIALOGS": {
+        },
+        "@_BUTTONS": {
+            },
+            "okButton": "Confirm",
+            "cancelButton": "Cancel",
+
+        "@_CONFIRM_DELETING_ACCOUNT_DIALOG": {
+            },
+            "confirmationText": "Deleting your account will delete your profile, all your playlists, music you've created, and more. Are you sure?",
+
+        "@_NEW_PLAYLIST_DIALOG": {
+            },
+            "playlistNameText": "Enter a playlist name:"
+}

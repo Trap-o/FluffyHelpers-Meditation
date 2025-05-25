@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 import '../../constants/app_colors.dart';
 import '../../constants/app_spacing.dart';
+import '../../l10n/app_localizations.dart';
+import 'dialogs/confirm_deleting_account_dialog.dart';
 
 class Profile extends StatelessWidget{
   const Profile({super.key});
@@ -12,12 +14,23 @@ class Profile extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
+    final localizations = AppLocalizations.of(context)!;
     final photoURL = user?.photoURL;
+
+    void showConfirmDeletingDialog(BuildContext context) {
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return const ConfirmDeletingAccountDialog();
+        },
+      );
+    }
 
     return SafeArea(
       child: Scaffold(
         body: user == null
-            ? const Center(child: Text('Не увійшли в акаунт'))
+            ? Center(child: Text(localizations.notEnterToAccount))
             : Stack(
               children: [
                 Positioned(
@@ -45,7 +58,7 @@ class Profile extends StatelessWidget{
                       const EditableUserDisplayName(),
                       ElevatedButton.icon(
                         style: AppButtonStyles.primary,
-                        label: const Text('Вийти'),
+                        label: Text(localizations.exitButton),
                         icon: const Icon(Icons.logout_rounded),
                         onPressed: () async {
                           await signOutUser(context);
@@ -53,10 +66,10 @@ class Profile extends StatelessWidget{
                       ),
                       ElevatedButton.icon(
                         style: AppButtonStyles.delete,
-                        label: const Text('Видалити акаунт'),
+                        label: Text(localizations.deleteButton),
                         icon: const Icon(Icons.delete_rounded),
-                        onPressed: () async {
-                          await deleteUser(user, context);
+                        onPressed: () {
+                          showConfirmDeletingDialog(context);
                         },
                       ),
                     ],
@@ -70,13 +83,6 @@ class Profile extends StatelessWidget{
 
   Future<void> signOutUser(BuildContext context) async {
     final navigator = Navigator.of(context);
-    await FirebaseAuth.instance.signOut();
-    navigator.pushReplacementNamed('/auth');
-  }
-
-  Future<void> deleteUser(User user, BuildContext context) async {
-    final navigator = Navigator.of(context);
-    await user.delete();
     await FirebaseAuth.instance.signOut();
     navigator.pushReplacementNamed('/auth');
   }

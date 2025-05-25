@@ -6,6 +6,7 @@ import '../../constants/app_images_paths.dart';
 import '../../constants/app_music_paths.dart';
 import '../../constants/app_text_styles.dart';
 import '../../global_widgets/custom_app_bar.dart';
+import '../../l10n/app_localizations.dart';
 import '../sub_category_details/mocks/playlist_song.mocks.dart';
 
 //const String _titleText = "Player";
@@ -69,8 +70,11 @@ class _PlayerState extends State<Player> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    final String titleText = localizations.playerTitle;
+
     return Scaffold(
-      appBar: const CustomAppBar(title: "Плеєр", leading: null,), // TODO Спитати чи треба тут тітле
+      appBar: CustomAppBar(title: titleText, leading: null,), // TODO Спитати чи треба тут тітле
       backgroundColor: AppColors.secondaryBackground,
       body: Center(
         child: SingleChildScrollView(

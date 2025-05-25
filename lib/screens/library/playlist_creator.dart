@@ -5,12 +5,11 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 
-import '../../constants/app_colors.dart';
 import '../../constants/app_text_styles.dart';
+import '../../global_widgets/custom_app_bar.dart';
 import '../../global_widgets/return_to_main_icon_button.dart';
+import '../../l10n/app_localizations.dart';
 import '../../services/supabase_storage_service.dart';
-
-const String _titleText = "Створення";
 
 class PlaylistCreator extends StatefulWidget {
   const PlaylistCreator({super.key});
@@ -48,14 +47,11 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    final String titleText = localizations.playlistCreatorTitle;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(_titleText),
-        titleTextStyle: AppTextStyles.title,
-        backgroundColor: AppColors.secondaryBackground,
-        centerTitle: true,
-        leading: const ReturnToMainIconButton(),
-      ),
+      appBar: CustomAppBar(title: titleText, leading: const ReturnToMainIconButton(),),
       body: Column(
         children: [
           Text(

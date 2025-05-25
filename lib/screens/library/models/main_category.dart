@@ -1,5 +1,5 @@
 class MainCategory{
-  final String name;
+  final String key;
 
-  MainCategory({required this.name});
+  MainCategory({required this.key});
 }
