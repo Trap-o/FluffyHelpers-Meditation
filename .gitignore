@@ -34,3 +34,4 @@ lib/firebase_options.dart
 dotenv
 *.keystore
 lib/constants/private_data.dart
+android/app/google-services.json
