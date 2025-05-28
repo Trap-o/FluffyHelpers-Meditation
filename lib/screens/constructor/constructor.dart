@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:just_audio/just_audio.dart';
 import '../../constants/app_form_styles.dart';
 import '../../constants/app_colors.dart';
 import '../../global_widgets/custom_app_bar.dart';
@@ -14,6 +15,7 @@ class Constructor extends StatefulWidget {
 
 class _ConstructorState extends State<Constructor> {
   List<bool> buttonStates = List.generate(20, (_) => false);
+  List<AudioPlayer> players = List.generate(20, (_) => AudioPlayer());
 
   final List<IconData> icons = [
     FontAwesomeIcons.dove,
@@ -30,22 +32,13 @@ class _ConstructorState extends State<Constructor> {
     Icons.record_voice_over,
     Icons.train,
     Icons.library_music,
-    Icons.audiotrack,
+    FontAwesomeIcons.drum,
     FontAwesomeIcons.music,
     Icons.mic,
     FontAwesomeIcons.feather,
     FontAwesomeIcons.sun,
     FontAwesomeIcons.om
   ];
-
-  void _onGridButtonPressed(int index) {
-    setState(() {
-      buttonStates[index] = !buttonStates[index];
-    });
-
-    String soundId = 'sound_$index';
-    print('Pressed $soundId');
-  }
 
   void _showInputDialog(BuildContext context) {
     final TextEditingController _controller = TextEditingController();
@@ -84,6 +77,43 @@ class _ConstructorState extends State<Constructor> {
     );
   }
 
+  void _toggleTrack(int index) async {
+    final player = players[index];
+    final isPlaying = buttonStates[index];
+    final trackPath = 'assets/music/constructor_music_$index.mp3';
+    setState(() {
+      buttonStates[index] = !buttonStates[index];
+    });
+
+    if (isPlaying) {
+      try {
+        for (double vol = 1.0; vol >= 0.0; vol -= 0.1) {
+          await player.setVolume(vol);
+          await Future.delayed(const Duration(milliseconds: 50));
+        }
+        await player.stop();
+      } catch (e) {
+        print('Помилка зупинки: $e');
+      } finally {
+        setState(() {
+          buttonStates[index] = false;
+        });
+      }
+    } else {
+      try {
+        await player.setAsset(trackPath);
+        await player.setLoopMode(LoopMode.one);
+        await player.setVolume(1.0);
+        await player.play();
+        setState(() {
+          buttonStates[index] = true;
+        });
+      } catch (e) {
+        print('Помилка програвання: $e');
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -112,9 +142,7 @@ class _ConstructorState extends State<Constructor> {
                       child: IconButton(
                         iconSize: 50,
                         icon: Icon(icon, color: AppColors.accent),
-                        onPressed: () {
-                          _onGridButtonPressed(index);
-                        },
+                        onPressed: () => _toggleTrack(index),
                       ),
                     ),
                   );
@@ -124,7 +152,7 @@ class _ConstructorState extends State<Constructor> {
           ),
 
           Container(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
             color: AppColors.secondaryBackground,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
