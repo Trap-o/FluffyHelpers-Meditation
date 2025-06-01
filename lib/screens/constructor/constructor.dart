@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:path_provider/path_provider.dart';
 import '../../constants/app_form_styles.dart';
 import '../../constants/app_colors.dart';
 import '../../global_widgets/custom_app_bar.dart';
 import '../../l10n/app_localizations.dart';
+import 'mix_compiler.dart';
 
 class Constructor extends StatefulWidget {
   const Constructor({super.key});
@@ -14,8 +18,12 @@ class Constructor extends StatefulWidget {
 }
 
 class _ConstructorState extends State<Constructor> {
-  List<bool> buttonStates = List.generate(20, (_) => false);
-  List<AudioPlayer> players = List.generate(20, (_) => AudioPlayer());
+  static const int soundsAmount = 20;
+  List<bool> buttonStates = List.generate(soundsAmount, (_) => false);
+  List<AudioPlayer> players = List.generate(soundsAmount, (_) => AudioPlayer());
+  Duration mixLength = const Duration(minutes: 2);
+  List<int?> activeIndices = List.filled(soundsAmount, null);
+
 
   final List<IconData> icons = [
     FontAwesomeIcons.dove,
@@ -77,6 +85,15 @@ class _ConstructorState extends State<Constructor> {
     );
   }
 
+  void _updateActiveIndices(){
+    activeIndices = buttonStates
+        .asMap()
+        .entries
+        .where((entry) => entry.value)
+        .map((entry) => entry.key)
+        .toList();
+  }
+
   void _toggleTrack(int index) async {
     final player = players[index];
     final isPlaying = buttonStates[index];
@@ -127,7 +144,7 @@ class _ConstructorState extends State<Constructor> {
                 crossAxisCount: 3,
                 mainAxisSpacing: 12,
                 crossAxisSpacing: 12,
-                children: List.generate(20, (index) {
+                children: List.generate(soundsAmount, (index) {
                   final icon = icons[index % icons.length];
                   final isActive = buttonStates[index];
                   return Center(
@@ -162,11 +179,51 @@ class _ConstructorState extends State<Constructor> {
                   child: const Icon(Icons.settings, size: 36),
                 ),
                 ElevatedButton(
-                  onPressed: () => _showInputDialog(context),
+                  onPressed: () async {
+                    _updateActiveIndices();
+                    createMixedTrack(activeIndices, mixLength);
+
+                    for (final player in players) {
+                      if (player.playing) {
+                        await player.stop();
+                      }
+                    }
+
+                    for (final player in players) {
+                      await player.dispose();
+                    }
+
+                    players = List.generate(soundsAmount, (_) => AudioPlayer());
+
+                    for (int i = 0; i < buttonStates.length; i++) {
+                      buttonStates[i] = false;
+                    }
+
+                    setState(() {});
+                    },
+                  //_showInputDialog(context)
                   child: const Icon(Icons.add, size: 36),
                 ),
                 ElevatedButton(
-                  onPressed: () => print('Action 3'),
+                  onPressed: () async {
+                    final file = File('/data/user/0/com.example.flutter_duo_practice/app_flutter/output_mix.mp3');
+                    final exists = await file.exists();
+                    print('Файл існує? $exists');
+
+
+                    final dir = await getApplicationDocumentsDirectory();
+                    final filePath = '${dir.path}/output_mix.mp3';
+
+                    final mixPlayer = AudioPlayer();
+                    await mixPlayer.setFilePath(filePath);
+                    await mixPlayer.setVolume(2.5);
+                    await mixPlayer.play();
+                    print('Запуск програвання');
+
+                    await Future.delayed(const Duration(seconds: 10));
+
+                    await mixPlayer.pause();
+                  },
                   child: const Icon(Icons.favorite, size: 36),
                 ),
               ],
