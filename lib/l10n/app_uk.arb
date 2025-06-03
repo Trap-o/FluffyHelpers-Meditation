@@ -118,7 +118,7 @@
         "@_BUTTONS": {
             },
             "okButton": "Підтвердити",
-            "cancelButton": "Відміна",
+            "cancelButton": "Скасувати",
 
         "@_CONFIRM_DELETING_ACCOUNT_DIALOG": {
             },
@@ -126,5 +126,9 @@
 
         "@_NEW_PLAYLIST_DIALOG": {
             },
-            "playlistNameText": "Введіть назву плейлиста:"
+            "playlistNameText": "Введіть назву плейлиста:",
+
+        "@_NEW_MIX_DIALOG": {
+             },
+             "mixNameText": "Введіть назву композиції:"
 }

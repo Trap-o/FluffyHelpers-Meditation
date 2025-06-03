@@ -121,4 +121,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get playlistNameText => 'Enter a playlist name:';
+
+  @override
+  String get mixNameText => 'Enter a composition name:';
 }

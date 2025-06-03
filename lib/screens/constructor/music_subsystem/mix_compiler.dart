@@ -6,50 +6,39 @@ import 'dart:io';
 
 Future<void> createMixedTrack(List<int?> activeIndices, Duration length) async {
   print('✅ Виклик createMixedTrack');
+  print('Active indices: $activeIndices');
 
   final dir = await getApplicationDocumentsDirectory();
   final outputPath = '${dir.path}/output_mix.mp3';
 
+  final validIndices = activeIndices.whereType<int>().toList();
   final loopCount = (length.inSeconds / 30).ceil(); // приблизно, налаштовується далі
   final inputs = <String>[];
   final filters = <String>[];
 
-  for (int i = 0; i < activeIndices.length; i++) {
-    if(activeIndices[i] == null){
-      break;
-    }
-    final index = activeIndices[i];
+  for (int i = 0; i < validIndices.length; i++) {
+    final index = validIndices[i];
     final trackPath = 'assets/music/constructor_music_$index.mp3';
     final inputAlias = 'a$i';
 
-    // Зберігаємо трек у тимчасовій директорії
     final tempFile = File('${dir.path}/track_$i.mp3');
     final data = await rootBundle.load(trackPath);
     await tempFile.writeAsBytes(data.buffer.asUint8List());
 
-    for (int i = 0; i < activeIndices.length; i++) {
-      final tempFile = File('${dir.path}/track_$i.mp3');
-      print('Track $i exists: ${await tempFile.exists()}');
-    }
+    // Перевірка існування
+    print('✅ Temp file exists: ${await tempFile.exists()}');
+    print('✅ Temp file path: ${tempFile.path}');
 
-    // Додаємо input до команди FFmpeg
     inputs.add('-i "${tempFile.path}"');
-
-    // Додаємо фільтр повтору чи обрізання
     filters.add('[$i]aloop=loop=${loopCount - 1}:size=0:start=0,atrim=duration=${length.inSeconds}[$inputAlias]');
   }
 
-  final filterComplex = '${filters.join(';')};${activeIndices
-          .asMap()
-          .entries
-          .map((e) => '[a${e.key}]')
-          .join()}amix=inputs=${activeIndices.length}:duration=shortest[out]';
+  final filterComplex =
+      '${filters.join(';')};${List.generate(validIndices.length, (i) => '[a$i]').join()}amix=inputs=${validIndices.length}:duration=shortest[out]';
 
   final command = '${inputs.join(' ')} -filter_complex "$filterComplex" -map "[out]" -y "$outputPath"';
 
   print('🧪 FFmpeg команда:\n$command');
-
-  await FFmpegKit.execute(command);
 
   final session = await FFmpegKit.execute(command);
   final returnCode = await session.getReturnCode();

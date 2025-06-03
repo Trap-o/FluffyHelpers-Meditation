@@ -260,7 +260,7 @@ abstract class AppLocalizations {
   /// No description provided for @cancelButton.
   ///
   /// In uk, this message translates to:
-  /// **'Відміна'**
+  /// **'Скасувати'**
   String get cancelButton;
 
   /// No description provided for @confirmationText.
@@ -274,6 +274,12 @@ abstract class AppLocalizations {
   /// In uk, this message translates to:
   /// **'Введіть назву плейлиста:'**
   String get playlistNameText;
+
+  /// No description provided for @mixNameText.
+  ///
+  /// In uk, this message translates to:
+  /// **'Введіть назву композиції:'**
+  String get mixNameText;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

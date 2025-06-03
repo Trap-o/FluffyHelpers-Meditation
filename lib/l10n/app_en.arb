@@ -204,5 +204,9 @@
 
         "@_NEW_PLAYLIST_DIALOG": {
             },
-            "playlistNameText": "Enter a playlist name:"
+            "playlistNameText": "Enter a playlist name:",
+
+        "@_NEW_MIX_DIALOG": {
+            },
+            "mixNameText": "Enter a composition name:"
 }
