@@ -117,7 +117,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancelButton => 'Cancel';
 
   @override
-  String get confirmationText => 'Deleting your account will delete your profile, all your playlists, music you\'ve created, and more. Are you sure?';
+  String get confirmationText => 'Deleting your account will delete your profile, all your playlists, music you\'ve created, and more.\nAre you sure?';
 
   @override
   String get playlistNameText => 'Enter a playlist name:';

@@ -117,7 +117,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get cancelButton => 'Відміна';
 
   @override
-  String get confirmationText => 'Видалення акаунту призведе до видалення профілю, всіх ваших плейлистів, створеної музики тощо. Ви впевнені?';
+  String get confirmationText => 'Видалення акаунту призведе до видалення профілю, всіх ваших плейлистів, створеної музики тощо.\nВи впевнені?';
 
   @override
   String get playlistNameText => 'Введіть назву плейлиста:';

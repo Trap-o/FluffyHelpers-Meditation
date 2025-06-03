@@ -200,7 +200,7 @@
 
         "@_CONFIRM_DELETING_ACCOUNT_DIALOG": {
             },
-            "confirmationText": "Deleting your account will delete your profile, all your playlists, music you've created, and more. Are you sure?",
+            "confirmationText": "Deleting your account will delete your profile, all your playlists, music you've created, and more.\nAre you sure?",
 
         "@_NEW_PLAYLIST_DIALOG": {
             },

@@ -16,6 +16,7 @@ class NewPlaylistDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
+    final TextEditingController nameController = TextEditingController();
 
     return Dialog(
       insetPadding: const EdgeInsets.all(10),
@@ -31,14 +32,14 @@ class NewPlaylistDialog extends StatelessWidget {
           children: [
             Text(localizations.playlistNameText, style: AppTextStyles.title,),
             const SizedBox(height: AppSpacing.small,),
-            TextFormField(),
+            TextFormField(controller: nameController,),
             const SizedBox(height: AppSpacing.small,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, AppRoutes.playlistCreator);
+                    Navigator.pushNamed(context, AppRoutes.playlistCreator, arguments: nameController.text);
                   },
                   style: AppButtonStyles.primary,
                   child: Text(localizations.okButton, style: AppTextStyles.buttonPrimary,),

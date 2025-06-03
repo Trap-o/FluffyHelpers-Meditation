@@ -8,53 +8,40 @@ import '../../constants/app_spacing.dart';
 import '../../l10n/app_localizations.dart';
 import 'dialogs/confirm_deleting_account_dialog.dart';
 
-class Profile extends StatelessWidget{
+class Profile extends StatelessWidget {
   const Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
     final localizations = AppLocalizations.of(context)!;
-    final photoURL = user?.photoURL;
-
-    void showConfirmDeletingDialog(BuildContext context) {
-      showDialog(
-        context: context,
-        barrierDismissible: true,
-        builder: (BuildContext context) {
-          return const ConfirmDeletingAccountDialog();
-        },
-      );
-    }
 
     return SafeArea(
       child: Scaffold(
         body: user == null
-            ? Center(child: Text(localizations.notEnterToAccount))
-            : Stack(
-              children: [
+            ? const Scaffold(
+                body: Center(child: Text('User not logged in')),
+              )
+            : Stack(children: [
                 Positioned(
                   top: -10,
                   right: 10,
                   child: IconButton(
-                    icon: const Icon(Icons.settings_rounded),
-                    color: AppColors.highlight,
-                    iconSize: 40,
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/settings');
-                    }
-                  ),
+                      icon: const Icon(Icons.settings_rounded),
+                      color: AppColors.highlight,
+                      iconSize: 40,
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/settings');
+                      }),
                 ),
                 Center(
                   child: Column(
                     spacing: AppSpacing.small,
                     children: [
-                      const SizedBox(height: AppSpacing.small,),
-                      CircleAvatar(
-                        radius: 100,
-                        backgroundImage: photoURL != null ? NetworkImage(photoURL) : null,
-                        child: photoURL == null ? const Icon(Icons.account_circle_rounded) : null,
+                      const SizedBox(
+                        height: AppSpacing.small,
                       ),
+                      _buildUserAvatar(user),
                       const EditableUserDisplayName(),
                       ElevatedButton.icon(
                         style: AppButtonStyles.primary,
@@ -75,15 +62,48 @@ class Profile extends StatelessWidget{
                     ],
                   ),
                 ),
-              ]
-            ),
+              ]),
       ),
     );
+  }
+
+  Widget _buildUserAvatar(User user) {
+    final photoUrl = user.photoURL;
+    if (photoUrl == null) {
+      return const CircleAvatar(
+        radius: 100,
+        child: Icon(Icons.account_circle_rounded, size: 100),
+      );
+    }
+
+    final highResUrl = _getHighResUserImage(photoUrl);
+
+    return CircleAvatar(
+      radius: 100,
+      backgroundImage: NetworkImage(highResUrl),
+    );
+  }
+
+  String _getHighResUserImage(String photoUrl) {
+    String lowResProfileImage = "s96-c";
+    String highResProfileImage = "s400-c";
+
+    return photoUrl.replaceFirst(lowResProfileImage, highResProfileImage);
   }
 
   Future<void> signOutUser(BuildContext context) async {
     final navigator = Navigator.of(context);
     await FirebaseAuth.instance.signOut();
     navigator.pushReplacementNamed('/auth');
+  }
+
+  void showConfirmDeletingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return const ConfirmDeletingAccountDialog();
+      },
+    );
   }
 }

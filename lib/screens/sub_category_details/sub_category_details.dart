@@ -8,9 +8,9 @@ import 'mocks/playlist_song.mocks.dart';
 import 'models/playlist_song.dart';
 
 class SubCategoryDetails extends StatelessWidget {
-  const SubCategoryDetails({super.key, required this.subCategory});
-
   final SubCategory subCategory;
+
+  const SubCategoryDetails({super.key, required this.subCategory});
 
   List<PlaylistSong> filterMusic() => playlistSongs
     .where((song) => song.relatedSubCategory == subCategory.name)

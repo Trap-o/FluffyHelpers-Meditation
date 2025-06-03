@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -28,7 +29,7 @@ class ConfirmDeletingAccountDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(localizations.confirmationText, style: AppTextStyles.title,),
+            Text(localizations.confirmationText, style: AppTextStyles.title, textAlign: TextAlign.center,),
             const SizedBox(height: AppSpacing.small,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -57,13 +58,24 @@ class ConfirmDeletingAccountDialog extends StatelessWidget {
   }
 
   Future<void> deleteUser(User user, BuildContext context) async {
+    final navigator = Navigator.of(context);
+
+    await reauthenticateUser(user);
+    await FirebaseFirestore.instance.collection('users').doc(user.uid).delete();
+    await user.delete();
+    //await FirebaseAuth.instance.signOut();
+
+    navigator.pushReplacementNamed('/auth');
+  }
+
+  Future<void> reauthenticateUser(User user) async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     if (googleUser == null) {
       return;
     }
 
     final GoogleSignInAuthentication googleAuth =
-      await googleUser.authentication;
+        await googleUser.authentication;
 
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
@@ -71,16 +83,5 @@ class ConfirmDeletingAccountDialog extends StatelessWidget {
     );
 
     await user.reauthenticateWithCredential(credential);
-    // await FirebaseFirestore.instance.collection('users').doc(user.uid).delete();
-    // final snapshots = await FirebaseFirestore.instance
-    //     .collection('ads')
-    //     .where('ownerId', isEqualTo: user.uid)
-    //     .get();
-    // for(var doc in snapshots.docs){
-    //   await doc.reference.delete();
-    // }
-    await user.delete();
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacementNamed('/auth');
   }
 }

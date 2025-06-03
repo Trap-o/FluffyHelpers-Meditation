@@ -266,7 +266,7 @@ abstract class AppLocalizations {
   /// No description provided for @confirmationText.
   ///
   /// In uk, this message translates to:
-  /// **'Видалення акаунту призведе до видалення профілю, всіх ваших плейлистів, створеної музики тощо. Ви впевнені?'**
+  /// **'Видалення акаунту призведе до видалення профілю, всіх ваших плейлистів, створеної музики тощо.\nВи впевнені?'**
   String get confirmationText;
 
   /// No description provided for @playlistNameText.

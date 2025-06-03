@@ -1,6 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
+import 'package:fluffyhelpers_meditation/constants/app_routes.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_images_paths.dart';
@@ -15,8 +17,8 @@ class Auth extends StatelessWidget {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
 
-    return StreamBuilder<fb_auth.User?>(
-      stream: fb_auth.FirebaseAuth.instance.authStateChanges(),
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return PopScope(
@@ -55,17 +57,55 @@ class Auth extends StatelessWidget {
             ),
           );
         }
-
         WidgetsBinding.instance.addPostFrameCallback((_) async {
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            '/', (Route<dynamic> route) => false,
-          );
+          await navigateToMain(context);
         });
-
         return const Scaffold(
           body: Center(child: CircularProgressIndicator()),
         );
       },
     );
+  }
+
+  Future<void> navigateToMain(BuildContext context) async {
+    var user = FirebaseAuth.instance.currentUser;
+    final navigator = Navigator.of(context);
+    bool isDuplicateName = await checkUniqueName(user?.uid);
+    if (!isDuplicateName) {
+      await addUser(user!);
+    }
+    navigator.pushNamedAndRemoveUntil(AppRoutes.main, (Route<dynamic> route) => false);
+  }
+
+  Future<bool> checkUniqueName(String? userId) async {
+    QuerySnapshot query =
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where('userId', isEqualTo: userId)
+        .get();
+    return query.docs.isNotEmpty;
+  }
+
+  String _getHighResUserImage(String photoUrl) {
+    String lowResProfileImage = "s96-c";
+    String highResProfileImage = "s400-c";
+
+    return photoUrl.replaceFirst(lowResProfileImage, highResProfileImage);
+  }
+
+  Future<void> addUser(User user) async {
+    String highResAvatar = _getHighResUserImage(user.photoURL!);
+
+    FirebaseFirestore.instance
+      .collection('users')
+      .doc(user.uid)
+      .set(
+        <String, dynamic>{
+          'name': user.displayName,
+          'avatar': highResAvatar,
+          'email': user.email,
+          'userId': user.uid,
+        }
+      );
   }
 }

@@ -7,8 +7,8 @@ import '../screens/feed/feed.dart';
 import '../screens/library/dialogs/new_playlist_dialog.dart';
 import '../screens/library/library.dart';
 import '../screens/library/models/sub_category.dart';
-import '../screens/library/playlist_creator.dart';
 import '../screens/player/player.dart';
+import '../screens/playlist_creator/playlist_creator.dart';
 import '../screens/profile/profile.dart';
 import '../screens/settings/settings.dart';
 import '../screens/sub_category_details/sub_category_details.dart';
@@ -52,7 +52,8 @@ class AppRoutes {
           case newPlaylistDialog:
             return const NewPlaylistDialog();
           case playlistCreator:
-            return const PlaylistCreator();
+            final playlistName = settings.arguments as String;
+            return PlaylistCreator(playlistName: playlistName);
           default:
             return const Auth();
         }
