@@ -37,7 +37,7 @@ class AppRoutes {
           case feed:
             return const Feed();
           case player:
-            return const Player();
+            return const Player(mixes: [],);
           case constructor:
             return const Constructor();
           case profile:

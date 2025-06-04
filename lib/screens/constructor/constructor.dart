@@ -2,7 +2,6 @@ import 'package:fluffyhelpers_meditation/screens/constructor/variables/sound_man
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:path_provider/path_provider.dart';
 import '../../constants/app_colors.dart';
 import '../../global_widgets/custom_app_bar.dart';
 import '../../l10n/app_localizations.dart';
@@ -163,7 +162,6 @@ class _ConstructorState extends State<Constructor> {
                           duration: Duration(seconds: 2),
                         ),
                       );
-
                     }else{
                       _showInputDialog(context);
                     }

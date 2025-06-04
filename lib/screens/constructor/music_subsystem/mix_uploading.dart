@@ -33,16 +33,18 @@ class MixUploading{
   Future<void> loadMixToFirebase(String mixName, String publicUrl) async {
     var user = FirebaseAuth.instance.currentUser;
     const uuid = Uuid();
+    var musicId = uuid.v4();
 
     FirebaseFirestore.instance
         .collection('music')
-        .doc(uuid.v4())
+        .doc(musicId)
         .set(
         <String, dynamic>{
+          'musicId' : musicId,
           'name': mixName,
           'url': publicUrl,
           'creatorId': user?.uid,
-          'creatorName' : user?.displayName
+          'creatorName' : user?.displayName,
         }
     );
   }

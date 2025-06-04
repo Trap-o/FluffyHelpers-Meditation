@@ -45,7 +45,17 @@ class NewMixDialog extends StatelessWidget {
 
             print('Введено: $value');
 
-            await Future.delayed(const Duration(seconds: 10));
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            );
+
+            await Future.delayed(const Duration(seconds: 5));
 
             try {
               mixUploading.loadMixToFirebase(
@@ -56,6 +66,7 @@ class NewMixDialog extends StatelessWidget {
               print('❌ Uploading error: $e\n$stack');
             }
 
+            Navigator.of(context).pop();
             Navigator.of(context).pop();
           },
           child: Text(localizations.okButton),

@@ -3,6 +3,8 @@ import 'package:just_audio/just_audio.dart';
 
 class AudioController extends ChangeNotifier {
   final AudioPlayer _player = AudioPlayer();
+  AudioPlayer get player => _player;
+
   String? _currentUrl;
   bool _isPlaying = false;
 

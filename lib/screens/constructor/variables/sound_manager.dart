@@ -12,7 +12,7 @@ class SoundManager {
 
   final List<bool> _buttonStates = List.generate(_soundsAmount, (_) => false);
   final List<AudioPlayer> _players = List.generate(_soundsAmount, (_) => AudioPlayer());
-  final Duration _mixLength = const Duration(minutes: 1);
+  final Duration _mixLength = const Duration(minutes: 2);
   final List<int?> _activeIndices = List.filled(_soundsAmount, null);
   final List<IconData> _icons = getIcons();
 

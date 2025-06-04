@@ -1,8 +1,18 @@
 import 'package:ffmpeg_kit_flutter_new/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter_new/ffprobe_kit.dart';
 import 'package:ffmpeg_kit_flutter_new/return_code.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
+
+Future<double> getAudioDuration(String filePath) async {
+  final session = await FFprobeKit.getMediaInformation(filePath);
+  final info = session.getMediaInformation();
+  if (info == null) {
+    throw Exception('File info error: $filePath');
+  }
+  return double.parse(info.getDuration() ?? '0');
+}
 
 Future<void> createMixedTrack(List<int?> activeIndices, Duration length) async {
   print('✅ Виклик createMixedTrack');
@@ -12,9 +22,10 @@ Future<void> createMixedTrack(List<int?> activeIndices, Duration length) async {
   final outputPath = '${dir.path}/output_mix.mp3';
 
   final validIndices = activeIndices.whereType<int>().toList();
-  final loopCount = (length.inSeconds / 30).ceil(); // приблизно, налаштовується далі
   final inputs = <String>[];
   final filters = <String>[];
+
+  const sampleRate = 44100;
 
   for (int i = 0; i < validIndices.length; i++) {
     final index = validIndices[i];
@@ -25,16 +36,30 @@ Future<void> createMixedTrack(List<int?> activeIndices, Duration length) async {
     final data = await rootBundle.load(trackPath);
     await tempFile.writeAsBytes(data.buffer.asUint8List());
 
-    // Перевірка існування
-    print('✅ Temp file exists: ${await tempFile.exists()}');
-    print('✅ Temp file path: ${tempFile.path}');
+    final duration = await getAudioDuration(tempFile.path);
+    print('🎵 Трек $i довжина: $duration сек');
+
+    final loopCount = (length.inSeconds / duration).ceil();
+    final size = (duration * sampleRate).toInt();
 
     inputs.add('-i "${tempFile.path}"');
-    filters.add('[$i]aloop=loop=${loopCount - 1}:size=0:start=0,atrim=duration=${length.inSeconds}[$inputAlias]');
+
+    filters.add(
+        '[$i]aloop=loop=${loopCount - 1}:size=$size:start=0,'
+            'atrim=duration=${length.inSeconds},'
+            'volume=0.1,'
+            'asetpts=N/SR/TB[$inputAlias]'
+    );
   }
 
-  final filterComplex =
-      '${filters.join(';')};${List.generate(validIndices.length, (i) => '[a$i]').join()}amix=inputs=${validIndices.length}:duration=shortest[out]';
+  final joinedInputs = List.generate(validIndices.length, (i) => '[a$i]').join();
+  final filterComplex = '''
+    ${filters.join(';')};
+    $joinedInputs
+    amix=inputs=${validIndices.length}:duration=longest,
+    atrim=duration=${length.inSeconds}
+    [out]
+  ''';
 
   final command = '${inputs.join(' ')} -filter_complex "$filterComplex" -map "[out]" -y "$outputPath"';
 
@@ -57,3 +82,5 @@ Future<void> createMixedTrack(List<int?> activeIndices, Duration length) async {
 
   print('✅ Шлях: $outputPath');
 }
+
+
