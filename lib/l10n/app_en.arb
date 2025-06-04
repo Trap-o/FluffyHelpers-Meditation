@@ -12,6 +12,7 @@
         "playlistCreatorTitle": "Creating",
         "playerTitle": "Player",
         "settingsTitle": "Settings",
+        "mixesListTitle": "My compositions",
 
     "@_LOGIN_PAGE": {
         },
@@ -19,10 +20,7 @@
 
     "@_CONSTRUCTOR_PAGE": {
         },
-        "@_": {
-            },
-            "": "",
-            "": "",
+        "snakeBarText": "No sounds selected",
 
         "@_": {
             },

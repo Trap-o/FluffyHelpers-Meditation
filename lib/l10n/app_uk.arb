@@ -12,6 +12,7 @@
         "playlistCreatorTitle": "Створення",
         "playerTitle": "Плеєр",
         "settingsTitle": "Налаштування",
+        "mixesListTitle": "Мої композиції",
 
     "@_LOGIN_PAGE": {
         },
@@ -19,14 +20,14 @@
 
     "@_CONSTRUCTOR_PAGE": {
         },
-        "@_": {
-            },
+        "snakeBarText": "Не обрано жодного звуку",
 
         "@_": {
             },
 
         "@_": {
             },
+
 
     "@_FEED_PAGE": {
         },

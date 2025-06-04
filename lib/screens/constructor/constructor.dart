@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import '../../constants/app_colors.dart';
 import '../../global_widgets/custom_app_bar.dart';
 import '../../l10n/app_localizations.dart';
+import '../user_mixes_list/mixes_list.dart';
 import 'dialogs/new_mix_dialog.dart';
 
 class Constructor extends StatefulWidget {
@@ -153,20 +154,29 @@ class _ConstructorState extends State<Constructor> {
                 ElevatedButton(
                   onPressed: () async {
                     updateActiveIndices();
-                    _showInputDialog(context);
+                    bool allFalse = !manager.buttonStates.contains(true);
+
+                    if(allFalse){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(localizations.snakeBarText),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+
+                    }else{
+                      _showInputDialog(context);
+                    }
                   },
                   child: const Icon(Icons.add, size: 36),
                 ),
 
                 ElevatedButton(
-                  onPressed: () async {
-                    final dir = await getApplicationDocumentsDirectory();
-                    final filePath = '${dir.path}/output_mix.mp3';
-
-                    final mixPlayer = AudioPlayer();
-                    await mixPlayer.setFilePath(filePath);
-                    await mixPlayer.setVolume(2.5);
-                    await mixPlayer.play();
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MixedList()),
+                    );
                   },
                   child: const Icon(FontAwesomeIcons.bookmark, size: 36),
                 ),

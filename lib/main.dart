@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:fluffyhelpers_meditation/constants/private_data.dart';
+import 'package:fluffyhelpers_meditation/screens/user_mixes_list/list_audio_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -8,7 +9,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
+import 'package:provider/provider.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_routes.dart';
 import '../screens/library/library.dart';
@@ -37,7 +38,12 @@ void main() async {
   final language = prefs.getString('language') ?? "en";
   final pet = prefs.getString('pet') ?? "cat";
 
-  runApp(MyApp(locale: Locale(language), pet: pet));
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => AudioController(),
+      child: MyApp(locale: Locale(language), pet: pet),
+    ),
+  );
 }
 
 void Function(String)? changeLanguageCallback;

@@ -30,7 +30,13 @@ class AppLocalizationsUk extends AppLocalizations {
   String get settingsTitle => 'Налаштування';
 
   @override
+  String get mixesListTitle => 'Мої композиції';
+
+  @override
   String get welcome => 'Почнімо медитувати вже сьогодні!';
+
+  @override
+  String get snakeBarText => 'Не обрано жодного звуку';
 
   @override
   String mainCategory(String key) {

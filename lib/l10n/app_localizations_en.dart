@@ -30,7 +30,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsTitle => 'Settings';
 
   @override
+  String get mixesListTitle => 'My compositions';
+
+  @override
   String get welcome => 'Let\'s start meditating today!';
+
+  @override
+  String get snakeBarText => 'No sounds selected';
 
   @override
   String mainCategory(String key) {

@@ -137,11 +137,23 @@ abstract class AppLocalizations {
   /// **'Налаштування'**
   String get settingsTitle;
 
+  /// No description provided for @mixesListTitle.
+  ///
+  /// In uk, this message translates to:
+  /// **'Мої композиції'**
+  String get mixesListTitle;
+
   /// No description provided for @welcome.
   ///
   /// In uk, this message translates to:
   /// **'Почнімо медитувати вже сьогодні!'**
   String get welcome;
+
+  /// No description provided for @snakeBarText.
+  ///
+  /// In uk, this message translates to:
+  /// **'Не обрано жодного звуку'**
+  String get snakeBarText;
 
   /// No description provided for @mainCategory.
   ///
