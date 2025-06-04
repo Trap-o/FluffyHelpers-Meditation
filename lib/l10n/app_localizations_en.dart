@@ -49,6 +49,45 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get chooseImageLabel => 'Choose an image for playlist:';
+
+  @override
+  String get addPhotoLabel => 'Add photo';
+
+  @override
+  String get addAnotherPhotoLabel => 'Add another photo';
+
+  @override
+  String get chooseCategoryLabel => 'Category:';
+
+  @override
+  String get chooseDescriptionLabel => 'Description:';
+
+  @override
+  String get hintDescriptionLabel => 'Describe what your playlist looks like';
+
+  @override
+  String get compositionsSelectorLabel => 'Select compositions:';
+
+  @override
+  String get yourCompositionsLabel => 'Your compositions:';
+
+  @override
+  String get saveButton => 'Save';
+
+  @override
+  String get noImageError => 'Error: image not selected';
+
+  @override
+  String get noMusicError => 'Error: music not selected';
+
+  @override
+  String get noDescriptionError => 'Error: description not given';
+
+  @override
+  String get playlistCreated => 'Playlist created';
+
+  @override
   String get notEnterToAccount => 'Not logged into account';
 
   @override
@@ -121,4 +160,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get playlistNameText => 'Enter a playlist name:';
+
+  @override
+  String get noNameError => 'Error: name not given';
 }

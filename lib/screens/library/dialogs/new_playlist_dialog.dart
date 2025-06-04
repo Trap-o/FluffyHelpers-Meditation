@@ -2,6 +2,7 @@ import 'package:fluffyhelpers_meditation/constants/app_button_styles.dart';
 import 'package:fluffyhelpers_meditation/constants/app_colors.dart';
 import 'package:fluffyhelpers_meditation/constants/app_spacing.dart';
 import 'package:fluffyhelpers_meditation/constants/app_text_styles.dart';
+import 'package:fluffyhelpers_meditation/global_widgets/custom_exception.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/app_routes.dart';
@@ -30,7 +31,7 @@ class NewPlaylistDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(localizations.playlistNameText, style: AppTextStyles.title,),
+            Text(localizations.playlistNameText, style: AppTextStyles.title, textAlign: TextAlign.center,),
             const SizedBox(height: AppSpacing.small,),
             TextFormField(controller: nameController,),
             const SizedBox(height: AppSpacing.small,),
@@ -39,7 +40,7 @@ class NewPlaylistDialog extends StatelessWidget {
               children: [
                 TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, AppRoutes.playlistCreator, arguments: nameController.text);
+                    navigateToPlaylistCreator(nameController, context, localizations);
                   },
                   style: AppButtonStyles.primary,
                   child: Text(localizations.okButton, style: AppTextStyles.buttonPrimary,),
@@ -58,5 +59,24 @@ class NewPlaylistDialog extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void navigateToPlaylistCreator(TextEditingController nameController, BuildContext context, AppLocalizations localizations) {
+    try {
+      if(nameController.text.isNotEmpty){
+        Navigator.pushNamed(context, AppRoutes.playlistCreator, arguments: nameController.text);
+      }
+      else{
+        throw CustomException(localizations.noNameError);
+      }
+    } on Exception catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: AppColors.error,
+          duration: const Duration(seconds: 2),
+          content: Text("$e", style: AppTextStyles.form),
+        ),
+      );
+    }
   }
 }

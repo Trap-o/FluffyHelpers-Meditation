@@ -116,12 +116,44 @@
             "": "",
             "": "",
 
+    "@_PLAYLIST_CREATOR_PAGE": {
+        },
+        "@_IMAGE_LABELS": {
+            },
+            "chooseImageLabel": "Choose an image for playlist:",
+            "addPhotoLabel": "Add photo",
+            "addAnotherPhotoLabel": "Add another photo",
+
+        "@_CATEGORY_LABELS": {
+            },
+            "chooseCategoryLabel": "Category:",
+
+        "@_DESCRIPTION_LABELS": {
+            },
+            "chooseDescriptionLabel": "Description:",
+            "hintDescriptionLabel": "Describe what your playlist looks like",
+
+        "@_MUSIC_SELECTOR_LABELS": {
+            },
+            "compositionsSelectorLabel": "Select compositions:",
+            "yourCompositionsLabel": "Your compositions:",
+
+        "@_BUTTONS": {
+            },
+            "saveButton": "Save",
+
+        "@_SCAFFOLD_MESSAGES": {
+            },
+            "noImageError": "Error: image not selected",
+            "noMusicError": "Error: music not selected",
+            "noDescriptionError": "Error: description not given",
+            "playlistCreated": "Playlist created",
+
     "@_PROFILE_PAGE": {
         },
         "@_ERROR_MESSAGE": {
             },
             "notEnterToAccount": "Not logged into account",
-
 
         "@_BUTTONS": {
             },
@@ -204,5 +236,6 @@
 
         "@_NEW_PLAYLIST_DIALOG": {
             },
-            "playlistNameText": "Enter a playlist name:"
+            "playlistNameText": "Enter a playlist name:",
+            "noNameError": "Error: name not given"
 }

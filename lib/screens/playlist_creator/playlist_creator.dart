@@ -1,8 +1,10 @@
+import 'dart:collection';
 import 'dart:core';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluffyhelpers_meditation/constants/app_font_sizes.dart';
 import 'package:fluffyhelpers_meditation/screens/playlist_creator/models/music.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,13 +12,19 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:path/path.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../constants/app_button_styles.dart';
 import '../../constants/app_colors.dart';
+import '../../constants/app_routes.dart';
 import '../../constants/app_spacing.dart';
 import '../../constants/app_text_styles.dart';
 import '../../global_widgets/custom_app_bar.dart';
+import '../../global_widgets/custom_exception.dart';
 import '../../global_widgets/return_to_main_icon_button.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/supabase_storage_service.dart';
+import '../library/mocks/main_category.mocks.dart';
+
+typedef DropdownEntry = DropdownMenuEntry<String>;
 
 class PlaylistCreator extends StatefulWidget {
   final String playlistName;
@@ -61,23 +69,104 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
   var user = FirebaseAuth.instance.currentUser!;
 
   Future<List<Music>> getMusic() async {
-    QuerySnapshot querySnapshot =
-    await firestoreInstance
+    QuerySnapshot querySnapshot = await firestoreInstance
         .collection('music')
         .orderBy('name', descending: true)
-    //.where("userId", isEqualTo: user.uid)
+        //.where("userId", isEqualTo: user.uid) // TODO зробити це
         .get();
 
     return querySnapshot.docs.map((doc) {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-      return Music(name: data['name'], creatorName: data['creatorName'], creatorId: data['creatorId'], url: data['url']);
+      return Music(
+          id: data['musicId'],
+          name: data['name'],
+          creatorName: data['creatorName'],
+          creatorId: data['creatorId'],
+          url: data['url']);
     }).toList();
+  }
+
+  Future<void> createAd(
+      String name,
+      String category,
+      String description,
+      List<String> musicIdList,
+      String ownerId,
+      String ownerName,
+      BuildContext context,
+      AppLocalizations localizations) async {
+    try {
+      if (_image == null) {
+        throw CustomException(localizations.noImageError);
+      }
+      if (musicIdList.isEmpty) {
+        throw CustomException(localizations.noMusicError);
+      }
+      final imageUrl = await uploadImageToStorage(_image!);
+      const uuid = Uuid();
+
+      final adData = {
+        'id': uuid.v4(),
+        'name': name,
+        'category': category,
+        'description': description,
+        'musicList': musicIdList,
+        'imageUrl': imageUrl,
+        'ownerId': ownerId,
+        'ownerName': ownerName,
+      };
+
+      await FirebaseFirestore.instance.collection('playlists').add(adData);
+    } on Exception catch (e) {
+      rethrow;
+    }
+  }
+
+  final TextEditingController descriptionController = TextEditingController();
+  late String dropdownCategoriesValue;
+
+  Future<void> savePlaylist(BuildContext context, AppLocalizations localizations) async {
+    try {
+      String name = widget.playlistName;
+      String description = descriptionController.text;
+      String category = dropdownCategoriesValue;
+      if (description.isEmpty) {
+        throw CustomException(localizations.noDescriptionError);
+      }
+      List<String> musicIdList =
+          _selectedMusic.whereType<Music>().map((music) => music.id).toList();
+
+      await createAd(name, category, description, musicIdList, user.uid,
+          user.displayName!, context, localizations);
+
+      descriptionController.clear();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: AppColors.success,
+          duration: const Duration(seconds: 2),
+          content: Text(localizations.playlistCreated, style: AppTextStyles.form),
+        ),
+      );
+
+      Future.delayed(const Duration(seconds: 2));
+      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.main, (route) => false);
+    } on Exception catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: AppColors.error,
+          duration: const Duration(seconds: 2),
+          content: Text("$e", style: AppTextStyles.form),
+        ),
+      );
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    getMusic().then((musics){
+    dropdownCategoriesValue = mainCategories[2].key;
+    getMusic().then((musics) {
       setState(() {
         _allMusic = musics;
       });
@@ -87,8 +176,21 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
-    final TextEditingController descriptionController = TextEditingController();
     final String titleText = widget.playlistName;
+    final List<String> hiddenCategories = [
+      mainCategories.first.key,
+      mainCategories[1].key
+    ];
+    final List<DropdownEntry> categoriesEntries =
+        UnmodifiableListView<DropdownEntry>(
+      mainCategories
+          .where((category) => !hiddenCategories.contains(category.key))
+          .map<DropdownEntry>(
+            (category) => DropdownEntry(
+                value: category.key,
+                label: localizations.mainCategory(category.key)),
+          ),
+    );
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -96,6 +198,7 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
         leading: const ReturnToMainIconButton(),
       ),
       body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.small),
         child: Wrap(children: [
           Center(
             child: Column(
@@ -103,13 +206,14 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
               children: [
                 const SizedBox(height: AppSpacing.small),
                 Text(
-                  "Choose an image for playlist:",
+                  localizations.chooseImageLabel,
                   style: AppTextStyles.title,
+                  textAlign: TextAlign.center,
                   softWrap: true,
                 ),
                 _image == null
                     ? Container(
-                        width: 260,
+                        width: MediaQuery.sizeOf(context).width - 40,
                         height: 260,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
@@ -119,7 +223,7 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Add photo", style: AppTextStyles.body),
+                            Text(localizations.addPhotoLabel, style: AppTextStyles.body),
                             const SizedBox(height: AppSpacing.small),
                             FloatingActionButton(
                               onPressed: getImageFromGallery,
@@ -130,7 +234,7 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
                         ),
                       )
                     : Container(
-                        width: 260,
+                        width: MediaQuery.sizeOf(context).width - 40,
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: AppColors.highlight,
@@ -145,7 +249,7 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "Add another photo",
+                                  localizations.addAnotherPhotoLabel,
                                   style: AppTextStyles.body,
                                 ),
                                 FloatingActionButton(
@@ -159,47 +263,110 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
                           ],
                         ),
                       ),
-                Text("Description:", style: AppTextStyles.title),
+                Column(
+                  spacing: AppSpacing.small,
+                  children: [
+                    Text(localizations.chooseCategoryLabel, style: AppTextStyles.title),
+                    SizedBox(
+                      child: DropdownMenu<String>(
+                        expandedInsets: null,
+                        textStyle: AppTextStyles.body,
+                        initialSelection: mainCategories[2].key,
+                        dropdownMenuEntries: categoriesEntries,
+                        onSelected: (String? value) {
+                          setState(() {
+                            dropdownCategoriesValue = value!;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                Text(localizations.chooseDescriptionLabel, style: AppTextStyles.title),
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width - 40,
                   child: TextField(
                     maxLength: 100,
                     maxLines: 5,
                     style: AppTextStyles.form,
-                    decoration: const InputDecoration(
-                      hintText:
-                      "Describe what your playlist looks like",
+                    decoration: InputDecoration(
+                      hintText: localizations.hintDescriptionLabel,
                     ),
                     controller: descriptionController,
                   ),
                 ),
-                MultiSelectBottomSheetField<Music?>(
-                  items: _allMusic
-                      .map((e) => MultiSelectItem<Music?>(e, e!.name))
-                      .toList(),
-                  title: Text("Категорії"),
-                  selectedColor: Colors.blue,
-                  buttonText: Text("Select compositions"),
-                  onConfirm: (values) {
-                    setState(() {
-                      _selectedMusic = values.whereType<Music>().toList();
-                    });
-                  },
-                  chipDisplay: MultiSelectChipDisplay.none()
-                ),
                 SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                    itemCount: _selectedMusic.length,
-                    itemBuilder: (context, index) {
-                      final music = _selectedMusic[index];
-                      return ListTile(
-                        title: Text(music!.name, style: AppTextStyles.body,),
-                        tileColor: AppColors.highlight,
-                      );
+                  width: MediaQuery.sizeOf(context).width - 40,
+                  child: MultiSelectBottomSheetField<Music?>(
+                    items: _allMusic
+                        .map((e) => MultiSelectItem<Music?>(e, e!.name))
+                        .toList(),
+                    chipDisplay: MultiSelectChipDisplay(
+                      chipColor: AppColors.highlight,
+                      textStyle: AppTextStyles.form,
+                      decoration: const BoxDecoration(
+                          color: AppColors.secondaryBackground,
+                          borderRadius:
+                              BorderRadius.vertical(bottom: Radius.circular(10))),
+                      onTap: (value) {
+                        _selectedMusic.remove(value);
+                        return _selectedMusic;
+                      },
+                    ),
+                    title: Text(
+                      localizations.yourCompositionsLabel,
+                      style: AppTextStyles.title,
+                    ),
+                    buttonText: Text(
+                      localizations.compositionsSelectorLabel,
+                      style: AppTextStyles.buttonPrimary,
+                    ),
+                    initialChildSize: 0.5,
+                    maxChildSize: 0.5,
+                    decoration: const BoxDecoration(
+                        color: AppColors.highlight,
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(10))),
+                    buttonIcon: const Icon(
+                      Icons.arrow_drop_down_rounded,
+                      color: AppColors.text,
+                    ),
+                    selectedColor: AppColors.accent,
+                    backgroundColor: AppColors.secondaryBackground,
+                    separateSelectedItems: false,
+                    checkColor: AppColors.text,
+                    selectedItemsTextStyle: AppTextStyles.body,
+                    itemsTextStyle: AppTextStyles.body,
+                    confirmText: Text(
+                      localizations.okButton,
+                      style: AppTextStyles.buttonPrimary,
+                    ),
+                    cancelText: Text(
+                      localizations.cancelButton,
+                      style: AppTextStyles.buttonSecondary,
+                    ),
+                    onConfirm: (values) {
+                      setState(() {
+                        _selectedMusic = values.whereType<Music>().toList();
+                      });
                     },
+                    listType: MultiSelectListType.LIST,
                   ),
                 ),
+                const SizedBox(height: AppSpacing.large),
+                TextButton.icon(
+                  label: Text(
+                    localizations.saveButton,
+                    style: AppTextStyles.title,
+                  ),
+                  icon: const Icon(Icons.save_rounded,
+                      color: AppColors.text, size: AppFontSizes.title),
+                  style: AppButtonStyles.primary,
+                  onPressed: () {
+                    savePlaylist(context, localizations);
+                  },
+                ),
+                const SizedBox(height: AppSpacing.medium),
               ],
             ),
           ),

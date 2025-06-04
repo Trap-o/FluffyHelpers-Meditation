@@ -49,6 +49,45 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
+  String get chooseImageLabel => 'Оберіть обкладинку для плейлиста:';
+
+  @override
+  String get addPhotoLabel => 'Додати фото';
+
+  @override
+  String get addAnotherPhotoLabel => 'Додати інше фото';
+
+  @override
+  String get chooseCategoryLabel => 'Категорія:';
+
+  @override
+  String get chooseDescriptionLabel => 'Опис:';
+
+  @override
+  String get hintDescriptionLabel => 'Опишіть що відображено у вашому плейлисті';
+
+  @override
+  String get compositionsSelectorLabel => 'Оберіть композиції:';
+
+  @override
+  String get yourCompositionsLabel => 'Ваші композиції:';
+
+  @override
+  String get saveButton => 'Зберегти';
+
+  @override
+  String get noImageError => 'Помилка: зображення не вибрано';
+
+  @override
+  String get noMusicError => 'Помилка: композиції не обрано';
+
+  @override
+  String get noDescriptionError => 'Помилка: опис не введено';
+
+  @override
+  String get playlistCreated => 'Плейлист створено';
+
+  @override
   String get notEnterToAccount => 'Не увійшли в акаунт';
 
   @override
@@ -111,14 +150,17 @@ class AppLocalizationsUk extends AppLocalizations {
   String get copyright => ' Розроблено Яценко Віталієм\nта Киричок Софією';
 
   @override
-  String get okButton => 'Підтвердити';
+  String get okButton => 'ОК';
 
   @override
-  String get cancelButton => 'Відміна';
+  String get cancelButton => 'Скасувати';
 
   @override
   String get confirmationText => 'Видалення акаунту призведе до видалення профілю, всіх ваших плейлистів, створеної музики тощо.\nВи впевнені?';
 
   @override
   String get playlistNameText => 'Введіть назву плейлиста:';
+
+  @override
+  String get noNameError => 'Помилка: назву не введено';
 }

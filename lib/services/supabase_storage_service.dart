@@ -10,7 +10,7 @@ class SupabaseStorageService {
     required String fileName,
     required String bucketName
   }) async {
-    final bucket = _client.storage.from('bucketName');
+    final bucket = _client.storage.from(bucketName);
     final String path = fileName;
 
     try {

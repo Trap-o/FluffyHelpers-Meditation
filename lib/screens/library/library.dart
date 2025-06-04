@@ -87,20 +87,25 @@ class _LibraryState extends State<Library> {
       backgroundColor: AppColors.primaryBackground,
       body: SafeArea(
         child:
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              MainCategoriesChips(
-                selectedCategory: _selectedCategory,
-                mainCategories: mainCategories,
-                onCategorySelected: selectCategory
-              ),
-              Expanded(
-                child: SubCategoriesGridView(
-                  filteredSubCategories: filteredSubCategories
-                )
-              ),
-            ],
+        RefreshIndicator(
+          onRefresh: () async {
+            setState(() {});
+          },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                MainCategoriesChips(
+                  selectedCategory: _selectedCategory,
+                  mainCategories: mainCategories,
+                  onCategorySelected: selectCategory
+                ),
+                Expanded(
+                  child: SubCategoriesGridView(
+                    filteredSubCategories: filteredSubCategories
+                  )
+                ),
+              ],
+            ),
           ),
       )
     );

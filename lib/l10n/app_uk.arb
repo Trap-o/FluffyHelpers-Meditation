@@ -62,6 +62,39 @@
         "@_": {
             },
 
+    "@_PLAYLIST_CREATOR_PAGE": {
+        },
+        "@_IMAGE_LABELS": {
+            },
+            "chooseImageLabel": "Оберіть обкладинку для плейлиста:",
+            "addPhotoLabel": "Додати фото",
+            "addAnotherPhotoLabel": "Додати інше фото",
+
+        "@_CATEGORY_LABELS": {
+            },
+            "chooseCategoryLabel": "Категорія:",
+
+        "@_DESCRIPTION_LABELS": {
+            },
+            "chooseDescriptionLabel": "Опис:",
+            "hintDescriptionLabel": "Опишіть що відображено у вашому плейлисті",
+
+        "@_MUSIC_SELECTOR_LABELS": {
+            },
+            "compositionsSelectorLabel": "Оберіть композиції:",
+            "yourCompositionsLabel": "Ваші композиції:",
+
+        "@_BUTTONS": {
+            },
+            "saveButton": "Зберегти",
+
+        "@_SCAFFOLD_MESSAGES": {
+            },
+            "noImageError": "Помилка: зображення не вибрано",
+            "noMusicError": "Помилка: композиції не обрано",
+            "noDescriptionError": "Помилка: опис не введено",
+            "playlistCreated": "Плейлист створено",
+
     "@_PROFILE_PAGE": {
         },
         "@_ERROR_MESSAGE": {
@@ -117,8 +150,8 @@
         },
         "@_BUTTONS": {
             },
-            "okButton": "Підтвердити",
-            "cancelButton": "Відміна",
+            "okButton": "ОК",
+            "cancelButton": "Скасувати",
 
         "@_CONFIRM_DELETING_ACCOUNT_DIALOG": {
             },
@@ -126,5 +159,6 @@
 
         "@_NEW_PLAYLIST_DIALOG": {
             },
-            "playlistNameText": "Введіть назву плейлиста:"
+            "playlistNameText": "Введіть назву плейлиста:",
+            "noNameError": "Помилка: назву не введено"
 }

@@ -149,6 +149,84 @@ abstract class AppLocalizations {
   /// **'{key, select, all{Все} my{Моє} relaxation{Релаксація} focus{Фокус} sleep{Сон} other{}}'**
   String mainCategory(String key);
 
+  /// No description provided for @chooseImageLabel.
+  ///
+  /// In uk, this message translates to:
+  /// **'Оберіть обкладинку для плейлиста:'**
+  String get chooseImageLabel;
+
+  /// No description provided for @addPhotoLabel.
+  ///
+  /// In uk, this message translates to:
+  /// **'Додати фото'**
+  String get addPhotoLabel;
+
+  /// No description provided for @addAnotherPhotoLabel.
+  ///
+  /// In uk, this message translates to:
+  /// **'Додати інше фото'**
+  String get addAnotherPhotoLabel;
+
+  /// No description provided for @chooseCategoryLabel.
+  ///
+  /// In uk, this message translates to:
+  /// **'Категорія:'**
+  String get chooseCategoryLabel;
+
+  /// No description provided for @chooseDescriptionLabel.
+  ///
+  /// In uk, this message translates to:
+  /// **'Опис:'**
+  String get chooseDescriptionLabel;
+
+  /// No description provided for @hintDescriptionLabel.
+  ///
+  /// In uk, this message translates to:
+  /// **'Опишіть що відображено у вашому плейлисті'**
+  String get hintDescriptionLabel;
+
+  /// No description provided for @compositionsSelectorLabel.
+  ///
+  /// In uk, this message translates to:
+  /// **'Оберіть композиції:'**
+  String get compositionsSelectorLabel;
+
+  /// No description provided for @yourCompositionsLabel.
+  ///
+  /// In uk, this message translates to:
+  /// **'Ваші композиції:'**
+  String get yourCompositionsLabel;
+
+  /// No description provided for @saveButton.
+  ///
+  /// In uk, this message translates to:
+  /// **'Зберегти'**
+  String get saveButton;
+
+  /// No description provided for @noImageError.
+  ///
+  /// In uk, this message translates to:
+  /// **'Помилка: зображення не вибрано'**
+  String get noImageError;
+
+  /// No description provided for @noMusicError.
+  ///
+  /// In uk, this message translates to:
+  /// **'Помилка: композиції не обрано'**
+  String get noMusicError;
+
+  /// No description provided for @noDescriptionError.
+  ///
+  /// In uk, this message translates to:
+  /// **'Помилка: опис не введено'**
+  String get noDescriptionError;
+
+  /// No description provided for @playlistCreated.
+  ///
+  /// In uk, this message translates to:
+  /// **'Плейлист створено'**
+  String get playlistCreated;
+
   /// No description provided for @notEnterToAccount.
   ///
   /// In uk, this message translates to:
@@ -254,13 +332,13 @@ abstract class AppLocalizations {
   /// No description provided for @okButton.
   ///
   /// In uk, this message translates to:
-  /// **'Підтвердити'**
+  /// **'ОК'**
   String get okButton;
 
   /// No description provided for @cancelButton.
   ///
   /// In uk, this message translates to:
-  /// **'Відміна'**
+  /// **'Скасувати'**
   String get cancelButton;
 
   /// No description provided for @confirmationText.
@@ -274,6 +352,12 @@ abstract class AppLocalizations {
   /// In uk, this message translates to:
   /// **'Введіть назву плейлиста:'**
   String get playlistNameText;
+
+  /// No description provided for @noNameError.
+  ///
+  /// In uk, this message translates to:
+  /// **'Помилка: назву не введено'**
+  String get noNameError;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
