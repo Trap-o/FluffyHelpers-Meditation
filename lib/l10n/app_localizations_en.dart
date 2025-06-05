@@ -168,8 +168,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get playlistNameText => 'Enter a playlist name:';
 
   @override
-  String get mixNameText => 'Enter a composition name:';
+  String get noNameError => 'Error: name not given';
 
   @override
-  String get noNameError => 'Error: name not given';
+  String get mixNameText => 'Enter a composition name:';
 }

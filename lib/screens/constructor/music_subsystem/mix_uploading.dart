@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 import '../../../services/supabase_storage_service.dart';
 
+
 class MixUploading{
   Future<String> loadMixToSupabase() async{
     final dir = await getApplicationDocumentsDirectory();
@@ -19,9 +20,10 @@ class MixUploading{
 
       const uuid = Uuid();
 
-      publicUrl = await supabaseStorageService.uploadAudioFile(
+      publicUrl = await supabaseStorageService.uploadFile(
         file: file,
         fileName: basename("${uuid.v4()}_file.path"),
+        bucketName: 'musics'
       );
     } catch (e) {
       print('❌ Помилка при завантаженні: $e');
