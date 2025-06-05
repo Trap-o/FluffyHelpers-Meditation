@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:fluffyhelpers_meditation/constants/private_data.dart';
+import 'package:fluffyhelpers_meditation/screens/player/embedded_music.dart';
 import 'package:fluffyhelpers_meditation/screens/user_mixes_list/list_audio_controller.dart';
 import 'package:fluffyhelpers_meditation/screens/user_mixes_list/mixes_fetching.dart';
 import 'package:flutter/material.dart';
@@ -135,10 +136,17 @@ class _MainPageState extends State<MainPage> {
   Future<void> _loadMixes() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      final fetchedMixes = await MixesFetching().fetchMixesByUser(user.uid);
-      setState(() {
-        mixes = fetchedMixes;
-      });
+      var fetchedMixes = await MixesFetching().fetchMixesByUser(user.uid);
+      if (fetchedMixes.isNotEmpty) {
+        setState(() {
+          mixes = fetchedMixes;
+        });
+      }else{
+        fetchedMixes = await EmbeddedMusic().fetchEmbeddedMixes();
+        setState(() {
+          mixes = fetchedMixes;
+        });
+      }
     }
   }
 
@@ -166,7 +174,7 @@ class _MainPageState extends State<MainPage> {
       const Library(),
       const Feed(),
       Player(mixes: mixes!),
-      const Constructor(),
+      Constructor(onCreated: _loadMixes),
       const Profile(),
     ];
 

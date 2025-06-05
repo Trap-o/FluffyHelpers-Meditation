@@ -9,7 +9,9 @@ import '../user_mixes_list/mixes_list.dart';
 import 'dialogs/new_mix_dialog.dart';
 
 class Constructor extends StatefulWidget {
-  const Constructor({super.key});
+  final VoidCallback onCreated;
+
+  const Constructor({super.key, required this.onCreated});
 
   @override
   State<Constructor> createState() => _ConstructorState();
@@ -40,6 +42,7 @@ class _ConstructorState extends State<Constructor> {
       },
     ).then((_) {
       setState(() {});
+      widget.onCreated();
     });
   }
 

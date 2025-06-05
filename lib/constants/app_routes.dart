@@ -39,7 +39,7 @@ class AppRoutes {
           case player:
             return const Player(mixes: [],);
           case constructor:
-            return const Constructor();
+            return Constructor(onCreated: () {});
           case profile:
             return const Profile();
           case settingsScreen:

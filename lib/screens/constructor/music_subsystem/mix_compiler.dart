@@ -47,7 +47,7 @@ Future<void> createMixedTrack(List<int?> activeIndices, Duration length) async {
     filters.add(
         '[$i]aloop=loop=${loopCount - 1}:size=$size:start=0,'
             'atrim=duration=${length.inSeconds},'
-            'volume=0.1,'
+            'volume=1.0,'
             'asetpts=N/SR/TB[$inputAlias]'
     );
   }
