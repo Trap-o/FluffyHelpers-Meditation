@@ -12,6 +12,7 @@
         "playlistCreatorTitle": "Створення",
         "playerTitle": "Плеєр",
         "settingsTitle": "Налаштування",
+        "mixesListTitle": "Мої композиції",
 
     "@_LOGIN_PAGE": {
         },
@@ -19,6 +20,8 @@
 
     "@_CONSTRUCTOR_PAGE": {
         },
+        "snakeBarText": "Не обрано жодного звуку",
+
         "@_": {
             },
 
@@ -160,5 +163,9 @@
         "@_NEW_PLAYLIST_DIALOG": {
             },
             "playlistNameText": "Введіть назву плейлиста:",
-            "noNameError": "Помилка: назву не введено"
+            "noNameError": "Помилка: назву не введено",
+
+        "@_NEW_MIX_DIALOG": {
+             },
+             "mixNameText": "Введіть назву композиції:"
 }

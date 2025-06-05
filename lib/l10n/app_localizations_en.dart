@@ -30,7 +30,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsTitle => 'Settings';
 
   @override
+  String get mixesListTitle => 'My compositions';
+
+  @override
   String get welcome => 'Let\'s start meditating today!';
+
+  @override
+  String get snakeBarText => 'No sounds selected';
 
   @override
   String mainCategory(String key) {
@@ -160,6 +166,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get playlistNameText => 'Enter a playlist name:';
+
+  @override
+  String get mixNameText => 'Enter a composition name:';
 
   @override
   String get noNameError => 'Error: name not given';

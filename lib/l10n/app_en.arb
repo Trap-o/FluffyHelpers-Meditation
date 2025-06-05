@@ -12,6 +12,7 @@
         "playlistCreatorTitle": "Creating",
         "playerTitle": "Player",
         "settingsTitle": "Settings",
+        "mixesListTitle": "My compositions",
 
     "@_LOGIN_PAGE": {
         },
@@ -19,10 +20,7 @@
 
     "@_CONSTRUCTOR_PAGE": {
         },
-        "@_": {
-            },
-            "": "",
-            "": "",
+        "snakeBarText": "No sounds selected",
 
         "@_": {
             },
@@ -155,6 +153,7 @@
             },
             "notEnterToAccount": "Not logged into account",
 
+
         "@_BUTTONS": {
             },
             "exitButton": "Exit",
@@ -237,5 +236,9 @@
         "@_NEW_PLAYLIST_DIALOG": {
             },
             "playlistNameText": "Enter a playlist name:",
-            "noNameError": "Error: name not given"
+            "noNameError": "Error: name not given",
+
+        "@_NEW_MIX_DIALOG": {
+            },
+            "mixNameText": "Enter a composition name:"
 }
