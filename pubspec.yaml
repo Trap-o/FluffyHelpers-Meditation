@@ -73,6 +73,7 @@ flutter:
     - assets/music/
     - assets/users/users.json
     - dotenv
+    - assets/animals/
 
 flutter_icons:
   android: true

@@ -7,6 +7,7 @@ import '../../constants/app_music_paths.dart';
 import '../../constants/app_text_styles.dart';
 import '../../global_widgets/custom_app_bar.dart';
 import '../../l10n/app_localizations.dart';
+import '../../services/animal_service/floating_animal.dart';
 import '../sub_category_details/mocks/playlist_song.mocks.dart';
 
 import 'package:flutter/material.dart';
@@ -146,88 +147,103 @@ class _PlayerState extends State<Player> {
 
     return Scaffold(
       appBar: AppBar(title: const Text("Now Playing")),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: Stack(
         children: [
-          Text(name, style: Theme.of(context).textTheme.headlineSmall),
-          Text("by $creator", style: Theme.of(context).textTheme.bodyLarge),
-          const SizedBox(height: 20),
-          StreamBuilder<Duration>(
-            stream: _player.positionStream,
-            builder: (context, snapshot) {
-              final position = snapshot.data ?? Duration.zero;
-              final duration = _player.duration;
+          // Плеєр — в центрі екрана
+          Center(
+            child: _isLoading
+                ? const CircularProgressIndicator()
+                : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(name, style: Theme.of(context).textTheme.headlineSmall),
+                Text("by $creator", style: Theme.of(context).textTheme.bodyLarge),
+                const SizedBox(height: 20),
 
-              if (duration == null || duration.inMilliseconds == 0) {
-                return const SizedBox.shrink();
-              }
+                // Слайдер позиції
+                StreamBuilder<Duration>(
+                  stream: _player.positionStream,
+                  builder: (context, snapshot) {
+                    final position = snapshot.data ?? Duration.zero;
+                    final duration = _player.duration;
 
-              final posSeconds = position.inSeconds.clamp(0, duration.inSeconds);
-              final durSeconds = duration.inSeconds.toDouble();
+                    if (duration == null || duration.inMilliseconds == 0) {
+                      return const SizedBox.shrink();
+                    }
 
-              return Column(
-                children: [
-                  Slider(
-                    value: posSeconds.toDouble(),
-                    max: durSeconds,
-                    onChanged: (val) =>
-                        _player.seek(Duration(seconds: val.toInt())),
-                  ),
-                  Text(
-                    "${position.toString().split('.').first} / ${duration.toString().split('.').first}",
-                  ),
-                ],
-              );
-            },
-          ),
+                    final posSeconds = position.inSeconds.clamp(0, duration.inSeconds);
+                    final durSeconds = duration.inSeconds.toDouble();
 
-          StreamBuilder<PlayerState>(
-            stream: _player.playerStateStream,
-            builder: (context, snapshot) {
-              final state = snapshot.data;
-              final playing = state?.playing ?? false;
-              final processing = state?.processingState;
+                    return Column(
+                      children: [
+                        Slider(
+                          value: posSeconds.toDouble(),
+                          max: durSeconds,
+                          onChanged: (val) => _player.seek(Duration(seconds: val.toInt())),
+                        ),
+                        Text(
+                          "${position.toString().split('.').first} / ${duration.toString().split('.').first}",
+                        ),
+                      ],
+                    );
+                  },
+                ),
 
-              final isBuffering = processing == ProcessingState.loading ||
-                  processing == ProcessingState.buffering;
+                // Кнопка play/pause
+                StreamBuilder<PlayerState>(
+                  stream: _player.playerStateStream,
+                  builder: (context, snapshot) {
+                    final state = snapshot.data;
+                    final playing = state?.playing ?? false;
+                    final processing = state?.processingState;
 
-              return IconButton(
-                iconSize: 70,
-                onPressed: isBuffering
-                    ? null
-                    : () => playing ? _player.pause() : _player.play(),
-                icon: Stack(
-                  alignment: Alignment.center,
+                    final isBuffering = processing == ProcessingState.loading ||
+                        processing == ProcessingState.buffering;
+
+                    return IconButton(
+                      iconSize: 70,
+                      onPressed: isBuffering
+                          ? null
+                          : () => playing ? _player.pause() : _player.play(),
+                      icon: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Icon(
+                            playing ? Icons.pause : Icons.play_arrow,
+                            size: 70,
+                            color: AppColors.text,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+
+                // Кнопки керування
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      playing ? Icons.pause : Icons.play_arrow,
-                      size: 70,
-                      color: AppColors.text,
+                    IconButton(onPressed: _prev, icon: const Icon(Icons.skip_previous, size: 40)),
+                    const SizedBox(width: 25),
+                    IconButton(
+                      onPressed: _toggleRepeatMode,
+                      icon: Icon(_repeatIcon(), color: _repeatColor(), size: 40),
+                      tooltip: "Repeat mode",
                     ),
+                    const SizedBox(width: 25),
+                    IconButton(onPressed: _next, icon: const Icon(Icons.skip_next, size: 40)),
                   ],
                 ),
-              );
-            },
+              ],
+            ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(onPressed: _prev, icon: const Icon(Icons.skip_previous, size: 40)),
-              const SizedBox(width: 25),
-              IconButton(
-                onPressed: _toggleRepeatMode,
-                icon: Icon(_repeatIcon(), color: _repeatColor(), size: 40),
-                tooltip: "Repeat mode",
-              ),
-              const SizedBox(width: 25),
-              IconButton(onPressed: _next, icon: const Icon(Icons.skip_next, size: 40)),
-            ],
-          ),
+
+          // 🐾 Тваринка поверх усього
+          FloatingAnimal(),
         ],
       ),
     );
+
   }
 }
 

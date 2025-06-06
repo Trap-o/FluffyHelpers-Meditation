@@ -1,5 +1,6 @@
 import 'package:fluffyhelpers_meditation/constants/app_spacing.dart';
 import 'package:fluffyhelpers_meditation/screens/settings/mocks/pet_options.mocks.dart';
+import 'package:fluffyhelpers_meditation/services/animal_service/animal_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -61,6 +62,7 @@ class _SettingsState extends State<Settings> {
   }
 
   void _loadSelectedPet() async {
+    AnimalManager manager = AnimalManager();
     final prefs = await SharedPreferences.getInstance();
     final savedPet = prefs.getString('pet') ?? 'cat';
     setState(() {
@@ -88,6 +90,8 @@ class _SettingsState extends State<Settings> {
     final String titleText = localizations.settingsTitle;
     final subject = localizations.supportSubject;
     final message = localizations.supportMessage;
+
+    AnimalManager manager = AnimalManager();
 
     return Scaffold(
       appBar: CustomAppBar(title: titleText, leading: null,),
@@ -166,6 +170,7 @@ class _SettingsState extends State<Settings> {
                                 widget.onPetToggle(value);
                                 setState(() {
                                   selectedPet = value;
+                                  AnimalManager().selectedPet.value = value;
                                 });
                               }
                             },
