@@ -1,28 +1,87 @@
+import 'package:uuid/uuid.dart';
+
 import '../../../constants/app_images_paths.dart';
 import '../models/sub_category.dart';
 import 'main_category.mocks.dart';
 
-final List<SubCategory> subCategories = [ // перейменування через key як в мейнкатегорі
-  SubCategory(name: "Звуки природи", mainCategory: mainCategoriesMap["relaxation"]!,
-    description: "Спокійні звуки природи для глибокого розслаблення та відновлення балансу", pathToImage: AppImagesPaths.backgroundNatureSounds),
+const uuid = Uuid();
+List<SubCategory> subCategories = [
+  SubCategory(
+    name: "nature_sounds",
+    categories: [mainCategoriesMap["relaxation"]!],
+    description: "nature_sounds_desc",
+    pathToImage: AppImagesPaths.backgroundNatureSounds,
+    id: uuid.v4(),
+    musicList: [],
+    ownerId: uuid.v4(),
+    ownerName: "FluffyHelpers",
+  ),
 
-  SubCategory(name: "Глибоке дихання", mainCategory: mainCategoriesMap["relaxation"]!,
-    description: "Вправи з дихання для заспокоєння розуму та зняття напруги", pathToImage: AppImagesPaths.backgroundDeepBreathing),
+  SubCategory(
+    name: "deep_breathing",
+    categories: [mainCategoriesMap["relaxation"]!],
+    description: "deep_breathing_desc",
+    pathToImage: AppImagesPaths.backgroundDeepBreathing,
+    id: uuid.v4(),
+    musicList: [],
+    ownerId: uuid.v4(),
+    ownerName: "FluffyHelpers",
+  ),
 
-  SubCategory(name: "Спокійна музика", mainCategory: mainCategoriesMap["relaxation"]!,
-    description: "Мелодії, що сприяють релаксації та створюють атмосферу гармонії", pathToImage: AppImagesPaths.backgroundCalmMusic),
+  SubCategory(
+    name: "calm_music",
+    categories: [mainCategoriesMap["relaxation"]!],
+    description: "calm_music_desc",
+    pathToImage: AppImagesPaths.backgroundCalmMusic,
+    id: uuid.v4(),
+    musicList: [],
+    ownerId: uuid.v4(),
+    ownerName: "FluffyHelpers",
+  ),
 
-  SubCategory(name: "Lo-Fi", mainCategory: mainCategoriesMap["focus"]!,
-    description: "Легка Lo-Fi музика для підвищення концентрації та продуктивності", pathToImage: AppImagesPaths.backgroundLoFi),
+  SubCategory(
+    name: "lofi",
+    categories: [mainCategoriesMap["focus"]!],
+    description: "lofi_desc",
+    pathToImage: AppImagesPaths.backgroundLoFi,
+    id: uuid.v4(),
+    musicList: [],
+    ownerId: uuid.v4(),
+    ownerName: "FluffyHelpers",
+  ),
 
-  SubCategory(name: "Зосередження", mainCategory: mainCategoriesMap["focus"]!,
-    description: "Звукові практики усвідомленості для зосередженості на теперішньому моменті", pathToImage: AppImagesPaths.backgroundMindfulness),
+  SubCategory(
+    name: "mindfulness",
+    categories: [mainCategoriesMap["focus"]!],
+    description: "mindfulness_desc",
+    pathToImage: AppImagesPaths.backgroundMindfulness,
+    id: uuid.v4(),
+    musicList: [],
+    ownerId: uuid.v4(),
+    ownerName: "FluffyHelpers",
+  ),
 
-  SubCategory(name: "Білий шум", mainCategory: mainCategoriesMap["sleep"]!,
-    description: "Білий шум для швидкого засинання та відпочинку без перешкод", pathToImage: AppImagesPaths.backgroundWhiteNoise),
+  SubCategory(
+    name: "white_noise",
+    categories: [mainCategoriesMap["sleep"]!],
+    description: "white_noise_desc",
+    pathToImage: AppImagesPaths.backgroundWhiteNoise,
+    id: uuid.v4(),
+    musicList: [],
+    ownerId: uuid.v4(),
+    ownerName: "FluffyHelpers",
+  ),
 
-  SubCategory(name: "ASMR", mainCategory: mainCategoriesMap["sleep"]!,
-    description: "Тихі звуки та шепіт для глибокої релаксації та полегшення стресу", pathToImage: AppImagesPaths.backgroundASMR),
+  SubCategory(
+    name: "asmr",
+    categories: [mainCategoriesMap["sleep"]!],
+    description: "asmr_desc",
+    pathToImage: AppImagesPaths.backgroundASMR,
+    id: uuid.v4(),
+    musicList: [],
+    ownerId: uuid.v4(),
+    ownerName: "FluffyHelpers",
+  ),
 ];
 
 final Map<String, SubCategory> subCategoriesMap = {

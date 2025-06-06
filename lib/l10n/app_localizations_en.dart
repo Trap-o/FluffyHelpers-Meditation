@@ -49,6 +49,42 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String subCategoryName(String key) {
+    String _temp0 = intl.Intl.selectLogic(
+      key,
+      {
+        'nature_sounds': 'Nature sounds',
+        'deep_breathing': 'Deep breathing',
+        'calm_music': 'Calm music',
+        'lofi': 'Lo-Fi',
+        'mindfulness': 'Mindfulness',
+        'white_noise': 'White noise',
+        'asmr': 'ASMR',
+        'other': '',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String subCategoryDesciption(String key) {
+    String _temp0 = intl.Intl.selectLogic(
+      key,
+      {
+        'nature_sounds_desc': 'Calm sounds of nature for deep relaxation and restoration of balance',
+        'deep_breathing_desc': 'Breathing exercises to calm the mind and relieve tension',
+        'calm_music_desc': 'Melodies that promote relaxation and create an atmosphere of harmony',
+        'lofi_desc': 'Light Lo-Fi music to increase concentration and productivity',
+        'mindfulness_desc': 'Sound mindfulness practices to focus on the present moment',
+        'white_noise_desc': 'White noise for falling asleep quickly and resting without disturbances',
+        'asmr_desc': 'Soft sounds and whispers for deep relaxation and stress relief',
+        'other': '',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get chooseImageLabel => 'Choose an image for playlist:';
 
   @override
