@@ -48,8 +48,10 @@
             },
             "mainCategory": "{key, select, all{Все} my{Моє} relaxation{Релаксація} focus{Фокус} sleep{Сон} other{}}",
 
-        "@_": {
+        "@_SUB_CATEGORIES": {
             },
+            "subCategoryName": "{key, select, nature_sounds{Звуки природи} deep_breathing{Глибоке дихання} calm_music{Спокійна музика} lofi{Lo-Fi} mindfulness{Уважність} white_noise{Білий шум} asmr{ASMR} other{}}",
+            "subCategoryDesciption": "{key, select, nature_sounds_desc{Спокійні звуки природи для глибокого розслаблення та відновлення балансу} deep_breathing_desc{Вправи з дихання для заспокоєння розуму та зняття напруги} calm_music_desc{Мелодії, що сприяють релаксації та створюють атмосферу гармонії} lofi_desc{Легка Lo-Fi музика для підвищення концентрації та продуктивності} mindfulness_desc{Звукові практики усвідомленості для зосередженості на теперішньому моменті} white_noise_desc{Білий шум для швидкого засинання та відпочинку без перешкод} asmr_desc{Тихі звуки та шепіт для глибокої релаксації та полегшення стресу} other{}}",
 
         "@_": {
             },
