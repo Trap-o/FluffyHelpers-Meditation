@@ -39,7 +39,7 @@ class Auth extends StatelessWidget {
                       AspectRatio(
                         aspectRatio: 1.1,
                         child: Image.asset(
-                          AppImagesPaths.plantPicture,
+                          AppImagesPaths.welcomePicture,
                           height: 300,
                           width: 300,
                         ),

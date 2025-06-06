@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_routes.dart';
 import '../../constants/app_text_styles.dart';
+import '../../global_widgets/custom_app_bar.dart';
+import '../../l10n/app_localizations.dart';
 import '../library/models/sub_category.dart';
 import 'mocks/playlist_song.mocks.dart';
 import 'models/playlist_song.dart';
@@ -13,39 +15,76 @@ class SubCategoryDetails extends StatelessWidget {
   const SubCategoryDetails({super.key, required this.subCategory});
 
   List<PlaylistSong> filterMusic() => playlistSongs
-    .where((song) => song.relatedSubCategory == subCategory.name)
-    .toList();
+      .where((song) => song.relatedSubCategory == subCategory.name)
+      .toList();
+
+  String translateSubCategoryName(BuildContext context, String key) {
+    final localizations = AppLocalizations.of(context)!;
+    final knownKeys = {
+      'nature_sounds',
+      'deep_breathing',
+      'calm_music',
+      'lofi',
+      'mindfulness',
+      'white_noise',
+      'asmr',
+    };
+
+    return knownKeys.contains(key) ? localizations.subCategoryName(key) : key;
+  }
 
   @override
   Widget build(BuildContext context) {
     final filteredMusic = filterMusic();
+    final titleText = translateSubCategoryName(context, subCategory.name);
 
     return Scaffold(
-      appBar: AppBar( // TODO переробити аппбар
-        title: Text(subCategory.name),
-        backgroundColor: AppColors.primaryBackground,
-        titleTextStyle: AppTextStyles.title,
-        centerTitle: true,
-        leading: IconButton(
-          color: AppColors.accent,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back),
-        ),
+      appBar: CustomAppBar(
+        title: titleText,
+        leading: null,
       ),
+      // AppBar( // TODO переробити аппбар
+      //   title: Text(translateSubCategoryName(context, subCategory.name)),
+      //   backgroundColor: AppColors.primaryBackground,
+      //   titleTextStyle: AppTextStyles.title,
+      //   centerTitle: true,
+      //   leading: IconButton(
+      //     color: AppColors.accent,
+      //     onPressed: () {
+      //       Navigator.pop(context);
+      //     },
+      //     icon: const Icon(Icons.arrow_back),
+      //   ),
+      // ),
       body: Column(
         children: [
           Expanded(
-            child: Container(
-              alignment: Alignment.center,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(30)),
-                child:
-                  Image.asset(subCategory.pathToImage, fit: BoxFit.cover),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(30)),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.width - 20,
+                width: MediaQuery.of(context).size.width - 20,
+                child: subCategory.pathToImage.contains("supabase")
+                    ? Image.network(
+                        subCategory.pathToImage,
+                        fit: BoxFit.fitWidth,
+                      )
+                    : Image.asset(
+                        subCategory.pathToImage,
+                        fit: BoxFit.fitHeight,
+                      ),
               ),
-            ),
+            )
           ),
+          //   Container(
+          //     alignment: Alignment.center,
+          //     child: ClipRRect(
+          //       borderRadius: const BorderRadius.all(Radius.circular(30)),
+          //       child:
+          //         Image.asset(subCategory.pathToImage, fit: BoxFit.cover),
+          //     ),
+          //   ),
+          // ),
           const SizedBox(height: 20),
           Expanded(
             child: MusicListView(filteredMusic: filteredMusic),
@@ -69,7 +108,7 @@ class _MusicListViewState extends State<MusicListView> {
   void toggleLikedState(int index) {
     return setState(() {
       widget.filteredMusic[index].isLiked =
-      !widget.filteredMusic[index].isLiked;
+          !widget.filteredMusic[index].isLiked;
     });
   }
 

@@ -86,9 +86,9 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
     }).toList();
   }
 
-  Future<void> createAd(
+  Future<void> createPlaylist(
       String name,
-      String category,
+      List<String> categories,
       String description,
       List<String> musicIdList,
       String ownerId,
@@ -104,11 +104,12 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
       }
       final imageUrl = await uploadImageToStorage(_image!);
       const uuid = Uuid();
+      categories.add("my");
 
       final adData = {
         'id': uuid.v4(),
         'name': name,
-        'category': category,
+        'category': categories,
         'description': description,
         'musicList': musicIdList,
         'imageUrl': imageUrl,
@@ -129,14 +130,14 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
     try {
       String name = widget.playlistName;
       String description = descriptionController.text;
-      String category = dropdownCategoriesValue;
+      List<String> categories = [dropdownCategoriesValue];
       if (description.isEmpty) {
         throw CustomException(localizations.noDescriptionError);
       }
       List<String> musicIdList =
           _selectedMusic.whereType<Music>().map((music) => music.id).toList();
 
-      await createAd(name, category, description, musicIdList, user.uid,
+      await createPlaylist(name, categories, description, musicIdList, user.uid,
           user.displayName!, context, localizations);
 
       descriptionController.clear();
