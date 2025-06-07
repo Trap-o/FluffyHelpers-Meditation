@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_spacing.dart';
 import '../../l10n/app_localizations.dart';
+import '../../services/animal_service/floating_animal.dart';
+import 'level_progress_bar.dart';
 import 'dialogs/confirm_deleting_account_dialog.dart';
 
 class Profile extends StatelessWidget {
@@ -43,6 +45,21 @@ class Profile extends StatelessWidget {
                       ),
                       _buildUserAvatar(user),
                       const EditableUserDisplayName(),
+
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          minWidth: 200,
+                          maxWidth: 350,
+                        ),
+                        child: const LevelProgressBar(
+                          level: 3,
+                          currentExp: 256,
+                          maxExp: 1000,
+                        ),
+                      ),
+
+                      const SizedBox(height: 20),
+
                       ElevatedButton.icon(
                         style: AppButtonStyles.primary,
                         label: Text(localizations.exitButton),

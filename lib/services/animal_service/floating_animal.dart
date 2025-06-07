@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math'; // Для pi
 import 'package:fluffyhelpers_meditation/services/animal_service/animal_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,8 @@ class _FloatingAnimalState extends State<FloatingAnimal> {
 
   late VoidCallback _listener;
 
+  final double _animalWidth = 150;
+
   @override
   void initState() {
     super.initState();
@@ -32,9 +35,11 @@ class _FloatingAnimalState extends State<FloatingAnimal> {
 
     _timer = Timer.periodic(const Duration(milliseconds: 25), (_) {
       setState(() {
+        double screenWidth = MediaQuery.of(context).size.width;
+
         if (_movingRight) {
           _left += 2;
-          if (_left >= MediaQuery.of(context).size.width - 80) {
+          if (_left + _animalWidth >= screenWidth) {
             _movingRight = false;
           }
         } else {
@@ -59,15 +64,22 @@ class _FloatingAnimalState extends State<FloatingAnimal> {
     String petName = manager.selectedPet.value;
 
     return Positioned(
-      top: 600,
+      top: MediaQuery.of(context).size.height * 0.65,
       left: _left,
       child: SizedBox(
-        width: 150,
+        width: _animalWidth,
         height: 150,
-        child: Image.asset('assets/animals/$petName.png'),
+        child: _movingRight
+            ? Image.asset('assets/animals/$petName.png')
+            : Transform(
+          alignment: Alignment.center,
+          transform: Matrix4.rotationY(pi),
+          child: Image.asset('assets/animals/$petName.png'),
+        ),
       ),
     );
   }
 }
+
 
 
