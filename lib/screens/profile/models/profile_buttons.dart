@@ -1,4 +1,0 @@
-// enum ProfileButtons {
-//   profileDetails,
-//   about
-// }

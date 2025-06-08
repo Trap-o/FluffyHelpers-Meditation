@@ -43,19 +43,6 @@ class SubCategoryDetails extends StatelessWidget {
         title: titleText,
         leading: null,
       ),
-      // AppBar( // TODO переробити аппбар
-      //   title: Text(translateSubCategoryName(context, subCategory.name)),
-      //   backgroundColor: AppColors.primaryBackground,
-      //   titleTextStyle: AppTextStyles.title,
-      //   centerTitle: true,
-      //   leading: IconButton(
-      //     color: AppColors.accent,
-      //     onPressed: () {
-      //       Navigator.pop(context);
-      //     },
-      //     icon: const Icon(Icons.arrow_back),
-      //   ),
-      // ),
       body: Column(
         children: [
           Expanded(
@@ -76,15 +63,6 @@ class SubCategoryDetails extends StatelessWidget {
               ),
             )
           ),
-          //   Container(
-          //     alignment: Alignment.center,
-          //     child: ClipRRect(
-          //       borderRadius: const BorderRadius.all(Radius.circular(30)),
-          //       child:
-          //         Image.asset(subCategory.pathToImage, fit: BoxFit.cover),
-          //     ),
-          //   ),
-          // ),
           const SizedBox(height: 20),
           Expanded(
             child: MusicListView(filteredMusic: filteredMusic),
@@ -154,8 +132,9 @@ class _MusicListViewState extends State<MusicListView> {
                   ),
                   IconButton(
                     icon: Icon(
-                      changeLikedIcon(song.isLiked),
-                      size: 30,
+                      Icons.play_circle_fill_rounded,
+                      //changeLikedIcon(song.isLiked),
+                      size: 50,
                     ),
                     color: AppColors.highlight,
                     onPressed: () {

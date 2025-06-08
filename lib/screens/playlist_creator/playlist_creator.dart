@@ -21,7 +21,7 @@ import '../../global_widgets/custom_app_bar.dart';
 import '../../global_widgets/custom_exception.dart';
 import '../../global_widgets/return_to_main_icon_button.dart';
 import '../../l10n/app_localizations.dart';
-import '../../services/supabase_storage_service.dart';
+import '../../services/supabase/supabase_storage_service.dart';
 import '../library/mocks/main_category.mocks.dart';
 
 typedef DropdownEntry = DropdownMenuEntry<String>;
@@ -72,8 +72,10 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
     QuerySnapshot querySnapshot = await firestoreInstance
         .collection('music')
         .orderBy('name', descending: true)
-        //.where("userId", isEqualTo: user.uid) // TODO зробити це
+        .where("creatorId", isEqualTo: user.uid)
         .get();
+
+    print('Playlists from Firebase: ${querySnapshot.docs.length}');
 
     return querySnapshot.docs.map((doc) {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;

@@ -65,6 +65,28 @@
             "": "",
             "": "",
 
+    "@_POST_CREATOR_PAGE": {
+        },
+        "@_TITLE_LABELS": {
+            },
+            "titleLabel": "Title:",
+            "hintTitleLabel": "Example: Look at my new playlist!",
+
+        "@_DESCRIPTION_LABELS": {
+            },
+            "choosePostDescriptionLabel": "Description:",
+            "hintPostDescriptionLabel": "Add some text about your post",
+
+        "@_MUSIC_SELECTOR_LABELS": {
+            },
+            "playlistsSelectorLabel": "Select playlists:",
+            "yourPlaylistsLabel": "Your playlists:",
+
+        "@_SCAFFOLD_MESSAGES": {
+            },
+            "noContentError": "Error: add description or playlists",
+            "postCreated": "Post created",
+
     "@_LIBRARY_PAGE": {
         },
         "@_MAIN_CHIPS": {
@@ -189,11 +211,12 @@
             "languageTitle": "Language",
             "languageOption": "English",
             "petTitle": "Pet",
-            "petOption": "{key, select, cat{Cat} dog{Dog} fox{Fox} other{}}",
+            "petOption": "{key, select, cat{Cat} dog{Dog} fox{Fox} bunny{Bunny} mouse{Mouse} tiger{Tiger} red_panda{Red panda} raccoon{Raccoon} other{}}",
             "notifications": "Notifications",
             "githubText": "GitHub repository for a project",
             "supportTitle": "Support",
             "supportText": "Write us if you have any questions",
+            "feedbackTitle": "Feedback",
             "feedbackText": "Write if you have any suggestions or complaints",
             "copyright": " Developed by Yatsenko Vitalii\nand Kyrychok Sofiia",
 

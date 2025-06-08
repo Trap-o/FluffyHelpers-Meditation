@@ -63,7 +63,7 @@ class ConfirmDeletingAccountDialog extends StatelessWidget {
     await reauthenticateUser(user);
     await FirebaseFirestore.instance.collection('users').doc(user.uid).delete();
     await user.delete();
-    //await FirebaseAuth.instance.signOut();
+    //await FirebaseAuth.instance.signOut(); // TODO перевірити?
 
     navigator.pushReplacementNamed('/auth');
   }

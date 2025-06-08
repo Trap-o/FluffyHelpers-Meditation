@@ -39,6 +39,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get snakeBarText => 'No sounds selected';
 
   @override
+  String get titleLabel => 'Title:';
+
+  @override
+  String get hintTitleLabel => 'Example: Look at my new playlist!';
+
+  @override
+  String get choosePostDescriptionLabel => 'Description:';
+
+  @override
+  String get hintPostDescriptionLabel => 'Add some text about your post';
+
+  @override
+  String get playlistsSelectorLabel => 'Select playlists:';
+
+  @override
+  String get yourPlaylistsLabel => 'Your playlists:';
+
+  @override
+  String get noContentError => 'Error: add description or playlists';
+
+  @override
+  String get postCreated => 'Post created';
+
+  @override
   String mainCategory(String key) {
     String _temp0 = intl.Intl.selectLogic(
       key,
@@ -167,6 +191,11 @@ class AppLocalizationsEn extends AppLocalizations {
         'cat': 'Cat',
         'dog': 'Dog',
         'fox': 'Fox',
+        'bunny': 'Bunny',
+        'mouse': 'Mouse',
+        'tiger': 'Tiger',
+        'red_panda': 'Red panda',
+        'raccoon': 'Raccoon',
         'other': '',
       },
     );
@@ -184,6 +213,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get supportText => 'Write us if you have any questions';
+
+  @override
+  String get feedbackTitle => 'Feedback';
 
   @override
   String get feedbackText => 'Write if you have any suggestions or complaints';

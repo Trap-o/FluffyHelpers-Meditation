@@ -39,6 +39,30 @@ class AppLocalizationsUk extends AppLocalizations {
   String get snakeBarText => 'Не обрано жодного звуку';
 
   @override
+  String get titleLabel => 'Заголовок:';
+
+  @override
+  String get hintTitleLabel => 'Наприклад: Перегляньте мій новий плейлист!';
+
+  @override
+  String get choosePostDescriptionLabel => 'Опис:';
+
+  @override
+  String get hintPostDescriptionLabel => 'Додайте текст до вашого плейлиста';
+
+  @override
+  String get playlistsSelectorLabel => 'Оберіть плейлисти:';
+
+  @override
+  String get yourPlaylistsLabel => 'Ваші плейлисти:';
+
+  @override
+  String get noContentError => 'Помилка: додайте опис чи плейлисти';
+
+  @override
+  String get postCreated => 'Допис створено';
+
+  @override
   String mainCategory(String key) {
     String _temp0 = intl.Intl.selectLogic(
       key,
@@ -167,6 +191,11 @@ class AppLocalizationsUk extends AppLocalizations {
         'cat': 'Кіт',
         'dog': 'Пес',
         'fox': 'Лис',
+        'bunny': 'Кролик',
+        'mouse': 'Мишка',
+        'tiger': 'Тигр',
+        'red_panda': 'Червона панда',
+        'raccoon': 'Єнот',
         'other': '',
       },
     );
@@ -184,6 +213,9 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get supportText => 'Пишіть якщо виникають запитання';
+
+  @override
+  String get feedbackTitle => 'Зворотний зв\'язок';
 
   @override
   String get feedbackText => 'Пишіть якщо маєте скарги чи пропозиції';

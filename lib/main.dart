@@ -10,9 +10,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:provider/provider.dart';
+
 import '../constants/app_colors.dart';
 import '../constants/app_routes.dart';
 import '../screens/library/library.dart';
@@ -112,6 +113,7 @@ class _MyAppState extends State<MyApp> {
         Locale('uk')
       ],
       locale: _locale,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

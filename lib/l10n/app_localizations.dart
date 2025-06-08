@@ -155,6 +155,54 @@ abstract class AppLocalizations {
   /// **'Не обрано жодного звуку'**
   String get snakeBarText;
 
+  /// No description provided for @titleLabel.
+  ///
+  /// In uk, this message translates to:
+  /// **'Заголовок:'**
+  String get titleLabel;
+
+  /// No description provided for @hintTitleLabel.
+  ///
+  /// In uk, this message translates to:
+  /// **'Наприклад: Перегляньте мій новий плейлист!'**
+  String get hintTitleLabel;
+
+  /// No description provided for @choosePostDescriptionLabel.
+  ///
+  /// In uk, this message translates to:
+  /// **'Опис:'**
+  String get choosePostDescriptionLabel;
+
+  /// No description provided for @hintPostDescriptionLabel.
+  ///
+  /// In uk, this message translates to:
+  /// **'Додайте текст до вашого плейлиста'**
+  String get hintPostDescriptionLabel;
+
+  /// No description provided for @playlistsSelectorLabel.
+  ///
+  /// In uk, this message translates to:
+  /// **'Оберіть плейлисти:'**
+  String get playlistsSelectorLabel;
+
+  /// No description provided for @yourPlaylistsLabel.
+  ///
+  /// In uk, this message translates to:
+  /// **'Ваші плейлисти:'**
+  String get yourPlaylistsLabel;
+
+  /// No description provided for @noContentError.
+  ///
+  /// In uk, this message translates to:
+  /// **'Помилка: додайте опис чи плейлисти'**
+  String get noContentError;
+
+  /// No description provided for @postCreated.
+  ///
+  /// In uk, this message translates to:
+  /// **'Допис створено'**
+  String get postCreated;
+
   /// No description provided for @mainCategory.
   ///
   /// In uk, this message translates to:
@@ -314,7 +362,7 @@ abstract class AppLocalizations {
   /// No description provided for @petOption.
   ///
   /// In uk, this message translates to:
-  /// **'{key, select, cat{Кіт} dog{Пес} fox{Лис} other{}}'**
+  /// **'{key, select, cat{Кіт} dog{Пес} fox{Лис} bunny{Кролик} mouse{Мишка} tiger{Тигр} red_panda{Червона панда} raccoon{Єнот} other{}}'**
   String petOption(String key);
 
   /// No description provided for @notifications.
@@ -340,6 +388,12 @@ abstract class AppLocalizations {
   /// In uk, this message translates to:
   /// **'Пишіть якщо виникають запитання'**
   String get supportText;
+
+  /// No description provided for @feedbackTitle.
+  ///
+  /// In uk, this message translates to:
+  /// **'Зворотний зв\'язок'**
+  String get feedbackTitle;
 
   /// No description provided for @feedbackText.
   ///

@@ -71,10 +71,8 @@ class _LibraryState extends State<Library> {
     QuerySnapshot querySnapshot = await firestoreInstance
         .collection('playlists')
         .orderBy('name', descending: true)
-        //.where("userId", isEqualTo: user.uid)
+        .where("ownerId", isEqualTo: user.uid)
         .get();
-
-    print('Playlists from Firebase: ${querySnapshot.docs.length}');
 
     return querySnapshot.docs.map((doc) {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
@@ -126,6 +124,7 @@ class _LibraryState extends State<Library> {
         height: 65,
         child: FittedBox(
           child: FloatingActionButton(
+            heroTag: 'library',
             backgroundColor: AppColors.highlight,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),

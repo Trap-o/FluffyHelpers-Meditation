@@ -6,5 +6,4 @@ class Music {
   final String url;
 
   Music({required this.id, required this.name, required this.creatorName, required this.creatorId, required this.url, });
-
 }

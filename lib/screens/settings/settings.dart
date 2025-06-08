@@ -55,7 +55,7 @@ class _SettingsState extends State<Settings> {
 
   void _loadSelectedLanguage() async {
     final prefs = await SharedPreferences.getInstance();
-    final savedLang = prefs.getString('language') ?? WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+    final savedLang = prefs.getString('language') ?? 'en';
     setState(() {
       selectedLanguage = savedLang;
     });
@@ -113,6 +113,7 @@ class _SettingsState extends State<Settings> {
               settingsTileTextColor: AppColors.text,
               settingsSectionBackground: AppColors.secondaryBackground,
             ),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 5),
             sections: [
               SettingsSection(
                 title: Text(
@@ -124,14 +125,16 @@ class _SettingsState extends State<Settings> {
                     leading: const Icon(Icons.language),
                     title: Text(
                       localizations.languageTitle,
-                      style: AppTextStyles.setting,
+                      style: AppTextStyles.form,
+                      softWrap: false,
+                      overflow: TextOverflow.visible,
                     ),
                     trailing: DropdownButtonHideUnderline(
                       child: ButtonTheme(
                         alignedDropdown: true, // щоб меню не виходило за рамки кнопки
                         child: DropdownButton<String>(
                           value: selectedLanguage,
-                          style: AppTextStyles.setting,
+                          style: AppTextStyles.form,
                           icon: const Icon(Icons.keyboard_arrow_down_rounded, color: AppColors.secondaryText,),
                           dropdownColor: AppColors.highlight,
                           alignment: Alignment.center,
@@ -153,14 +156,16 @@ class _SettingsState extends State<Settings> {
                     leading: const Icon(Icons.pets_rounded),
                     title: Text(
                       localizations.petTitle,
-                      style: AppTextStyles.setting,
+                      style: AppTextStyles.form,
+                      softWrap: false,
+                      overflow: TextOverflow.visible,
                     ),
                     trailing: DropdownButtonHideUnderline(
                       child: ButtonTheme(
                         alignedDropdown: true, // щоб меню не виходило за рамки кнопки
-                        child: DropdownButton<String>(
+                          child: DropdownButton<String>(
                             value: selectedPet,
-                            style: AppTextStyles.setting,
+                            style: AppTextStyles.form,
                             icon: const Icon(Icons.keyboard_arrow_down_rounded, color: AppColors.secondaryText,),
                             dropdownColor: AppColors.highlight,
                             alignment: Alignment.center,
@@ -170,29 +175,15 @@ class _SettingsState extends State<Settings> {
                                 widget.onPetToggle(value);
                                 setState(() {
                                   selectedPet = value;
-                                  AnimalManager().selectedPet.value = value;
+                                  manager.selectedPet.value = value; // тут було AnimalManager()
                                 });
                               }
                             },
                             items: petsItems
-                        ),
+                          ),
                       ),
                     ),
                   ),
-                  // SettingsTile.switchTile(
-                  //   leading: const Icon(Icons.notifications_rounded),
-                  //   title: Text(
-                  //     localizations.notifications,
-                  //     style: AppTextStyles.setting,
-                  //   ),
-                  //   activeSwitchColor: AppColors.accent,
-                  //   initialValue: areNotificationsEnabled,
-                  //   onToggle: (bool isEnabled) {
-                  //     setState(() {
-                  //       areNotificationsEnabled = isEnabled;
-                  //     });
-                  //   },
-                  // ),
                 ],
               ),
               SettingsSection(
@@ -231,7 +222,7 @@ class _SettingsState extends State<Settings> {
                     trailing: const Icon(Icons.arrow_forward_ios_rounded, color: AppColors.text),
                     leading: const Icon(Icons.feedback_rounded),
                     title: Text(
-                      'Feedback',
+                      localizations.feedbackTitle,
                       style: AppTextStyles.setting,
                     ),
                     description: Text(
@@ -248,7 +239,7 @@ class _SettingsState extends State<Settings> {
       ),
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primaryBackground,
-        height: AppFontSizes.title * 2,
+        height: AppFontSizes.title * 2.2,
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.medium),
         child: Text.rich(
           style: AppTextStyles.body,

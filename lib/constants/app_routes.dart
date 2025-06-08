@@ -9,16 +9,18 @@ import '../screens/library/library.dart';
 import '../screens/library/models/sub_category.dart';
 import '../screens/player/player.dart';
 import '../screens/playlist_creator/playlist_creator.dart';
+import '../screens/post_creator/post_creator.dart';
 import '../screens/profile/profile.dart';
 import '../screens/settings/settings.dart';
 import '../screens/sub_category_details/sub_category_details.dart';
 
 class AppRoutes {
-  static const String main = "/";
-  static const String library = "/library";
-  static const String feed = "/feed";
-  static const String player = "/player";
-  static const String constructor = "/constructor";
+  static const String main = "/"; //
+  static const String library = "/library"; //
+  static const String feed = "/feed"; //
+  static const String player = "/player"; //
+  static const String constructor = "/constructor"; //
+  static const String postCreator = "/postCreator";
   static const String profile = "/profile";
   static const String settingsScreen = "/settings";
   static const String subCategoryDetails = "/subCategoryDetails";
@@ -40,6 +42,8 @@ class AppRoutes {
             return const Player(mixes: [],);
           case constructor:
             return Constructor(onCreated: () {});
+          case postCreator:
+            return const PostCreator();
           case profile:
             return const Profile();
           case settingsScreen:

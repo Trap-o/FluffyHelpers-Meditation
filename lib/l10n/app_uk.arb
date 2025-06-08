@@ -42,6 +42,28 @@
         "@_": {
             },
 
+    "@_POST_CREATOR_PAGE": {
+        },
+        "@_TITLE_LABELS": {
+            },
+            "titleLabel": "Заголовок:",
+            "hintTitleLabel": "Наприклад: Перегляньте мій новий плейлист!",
+
+        "@_DESCRIPTION_LABELS": {
+            },
+            "choosePostDescriptionLabel": "Опис:",
+            "hintPostDescriptionLabel": "Додайте текст до вашого плейлиста",
+
+        "@_MUSIC_SELECTOR_LABELS": {
+            },
+            "playlistsSelectorLabel": "Оберіть плейлисти:",
+            "yourPlaylistsLabel": "Ваші плейлисти:",
+
+        "@_SCAFFOLD_MESSAGES": {
+            },
+            "noContentError": "Помилка: додайте опис чи плейлисти",
+            "postCreated": "Допис створено",
+
     "@_LIBRARY_PAGE": {
         },
         "@_MAIN_CHIPS": {
@@ -132,11 +154,12 @@
             "languageTitle": "Мова",
             "languageOption": "Українська",
             "petTitle": "Тваринка",
-            "petOption": "{key, select, cat{Кіт} dog{Пес} fox{Лис} other{}}",
+            "petOption": "{key, select, cat{Кіт} dog{Пес} fox{Лис} bunny{Кролик} mouse{Мишка} tiger{Тигр} red_panda{Червона панда} raccoon{Єнот} other{}}",
             "notifications": "Сповіщення",
             "githubText": "GitHub-репозиторій проєкту",
             "supportTitle": "Підтримка",
             "supportText": "Пишіть якщо виникають запитання",
+            "feedbackTitle": "Зворотний зв'язок",
             "feedbackText": "Пишіть якщо маєте скарги чи пропозиції",
             "copyright": " Розроблено Яценко Віталієм\nта Киричок Софією",
 

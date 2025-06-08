@@ -49,10 +49,11 @@ class SubCategoriesGridView extends StatelessWidget {
     return Scaffold(
       body: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: (MediaQuery.of(context).size.width / 150).floor(),
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5,
-              mainAxisExtent: 600),
+            crossAxisCount: (MediaQuery.of(context).size.width / 150).floor(),
+            crossAxisSpacing: 5,
+            mainAxisSpacing: 5,
+            mainAxisExtent: 600
+          ),
           itemCount: filteredSubCategories.length,
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
