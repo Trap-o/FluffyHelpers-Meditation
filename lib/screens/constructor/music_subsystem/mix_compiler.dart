@@ -15,8 +15,6 @@ Future<double> getAudioDuration(String filePath) async {
 }
 
 Future<void> createMixedTrack(List<int?> activeIndices, Duration length) async {
-  print('✅ Виклик createMixedTrack');
-  print('Active indices: $activeIndices');
 
   final dir = await getApplicationDocumentsDirectory();
   final outputPath = '${dir.path}/output_mix.mp3';
@@ -37,7 +35,6 @@ Future<void> createMixedTrack(List<int?> activeIndices, Duration length) async {
     await tempFile.writeAsBytes(data.buffer.asUint8List());
 
     final duration = await getAudioDuration(tempFile.path);
-    print('🎵 Трек $i довжина: $duration сек');
 
     final loopCount = (length.inSeconds / duration).ceil();
     final size = (duration * sampleRate).toInt();
@@ -63,24 +60,18 @@ Future<void> createMixedTrack(List<int?> activeIndices, Duration length) async {
 
   final command = '${inputs.join(' ')} -filter_complex "$filterComplex" -map "[out]" -y "$outputPath"';
 
-  print('🧪 FFmpeg команда:\n$command');
-
   final session = await FFmpegKit.execute(command);
   final returnCode = await session.getReturnCode();
 
   if (ReturnCode.isSuccess(returnCode)) {
-    print('✅ FFmpeg команда виконана успішно');
+    print('FFmpeg команда виконана успішно');
   } else {
-    print('❌ Помилка FFmpeg, код: $returnCode');
+    print('Помилка FFmpeg, код: $returnCode');
     final failStackTrace = await session.getFailStackTrace();
     if (failStackTrace != null) {
       print('StackTrace: $failStackTrace');
     }
-    final output = await session.getOutput();
-    print('FFmpeg output: $output');
   }
-
-  print('✅ Шлях: $outputPath');
 }
 
 

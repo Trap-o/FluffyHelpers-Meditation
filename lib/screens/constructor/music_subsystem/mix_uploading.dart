@@ -28,7 +28,7 @@ class MixUploading{
         bucketName: 'musics'
       );
     } catch (e) {
-      print('❌ Помилка при завантаженні: $e');
+      print('Помилка при завантаженні: $e');
     }
 
     return publicUrl;
