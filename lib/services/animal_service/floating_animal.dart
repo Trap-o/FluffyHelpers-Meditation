@@ -64,7 +64,7 @@ class _FloatingAnimalState extends State<FloatingAnimal> {
     String petName = manager.selectedPet.value;
 
     return Positioned(
-      top: MediaQuery.of(context).size.height * 0.65,
+      top: MediaQuery.of(context).size.height * 0.75,
       left: _left,
       child: SizedBox(
         width: _animalWidth,

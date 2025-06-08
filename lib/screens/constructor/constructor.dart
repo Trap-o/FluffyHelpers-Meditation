@@ -162,7 +162,7 @@ class _ConstructorState extends State<Constructor> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(localizations.snakeBarText),
-                          duration: Duration(seconds: 2),
+                          duration: const Duration(seconds: 2),
                         ),
                       );
                     }else{

@@ -1,19 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-
 import '../../constants/app_colors.dart';
-import '../../constants/app_images_paths.dart';
-import '../../constants/app_music_paths.dart';
-import '../../constants/app_text_styles.dart';
-import '../../global_widgets/custom_app_bar.dart';
-import '../../l10n/app_localizations.dart';
 import '../../services/animal_service/floating_animal.dart';
-import '../sub_category_details/mocks/playlist_song.mocks.dart';
-
-import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:provider/provider.dart';
-
 import '../user_mixes_list/list_audio_controller.dart';
 
 class Player extends StatefulWidget {
@@ -32,7 +20,8 @@ enum RepeatMode {
 }
 
 class _PlayerState extends State<Player> {
-  late AudioPlayer _player;
+  late final AudioController audioController;
+  late final AudioPlayer _player;
   int _index = 0;
   bool _isLoading = true;
   RepeatMode _repeatMode = RepeatMode.none;
@@ -40,16 +29,17 @@ class _PlayerState extends State<Player> {
   @override
   void initState() {
     super.initState();
-    _player = AudioPlayer();
-
-    _player.playerStateStream.listen((state) {
-      if (state.processingState == ProcessingState.completed) {
-        _handleCompletion();
-      }
-    });
+    audioController = AudioController();
+    _player = audioController.player;
 
     if (widget.mixes != null && widget.mixes!.isNotEmpty) {
-      _loadCurrent();
+      _loadCurrent().then((_) {
+        _player.playerStateStream.listen((state) {
+          if (state.processingState == ProcessingState.completed) {
+            _handleCompletion();
+          }
+        });
+      });
     } else {
       _isLoading = false;
     }
@@ -62,7 +52,7 @@ class _PlayerState extends State<Player> {
     try {
       await _player.setUrl(url);
     } catch (e) {
-      print("❌ Audio load error: $e");
+      print("Audio load error: $e");
     }
 
     setState(() {
@@ -129,9 +119,9 @@ class _PlayerState extends State<Player> {
 
   @override
   void dispose() {
-    _player.dispose();
     super.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -146,10 +136,8 @@ class _PlayerState extends State<Player> {
     final creator = currentMix['creatorName'] ?? currentMix['creatorId'] ?? 'Unknown Creator';
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Now Playing")),
       body: Stack(
         children: [
-          // Плеєр — в центрі екрана
           Center(
             child: _isLoading
                 ? const CircularProgressIndicator()
@@ -160,7 +148,6 @@ class _PlayerState extends State<Player> {
                 Text("by $creator", style: Theme.of(context).textTheme.bodyLarge),
                 const SizedBox(height: 20),
 
-                // Слайдер позиції
                 StreamBuilder<Duration>(
                   stream: _player.positionStream,
                   builder: (context, snapshot) {
@@ -189,7 +176,6 @@ class _PlayerState extends State<Player> {
                   },
                 ),
 
-                // Кнопка play/pause
                 StreamBuilder<PlayerState>(
                   stream: _player.playerStateStream,
                   builder: (context, snapshot) {
@@ -219,7 +205,6 @@ class _PlayerState extends State<Player> {
                   },
                 ),
 
-                // Кнопки керування
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -237,8 +222,6 @@ class _PlayerState extends State<Player> {
               ],
             ),
           ),
-
-          // 🐾 Тваринка поверх усього
           FloatingAnimal(),
         ],
       ),

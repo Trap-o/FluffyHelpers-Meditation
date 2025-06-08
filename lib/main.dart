@@ -112,6 +112,8 @@ class _MyAppState extends State<MyApp> {
         Locale('uk')
       ],
       locale: _locale,
+
+      debugShowCheckedModeBanner: false,
     );
   }
 }

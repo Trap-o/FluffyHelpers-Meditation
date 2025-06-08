@@ -2,7 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
 class AudioController extends ChangeNotifier {
+
+  AudioController._internal() {
+    _player.playerStateStream.listen((state) {
+      final playing = state.playing && state.processingState == ProcessingState.ready;
+      if (playing != _isPlaying) {
+        _isPlaying = playing;
+        notifyListeners();
+      }
+    });
+  }
+
+  static final AudioController _instance = AudioController._internal();
+
+  factory AudioController() => _instance;
+
   final AudioPlayer _player = AudioPlayer();
+
   AudioPlayer get player => _player;
 
   String? _currentUrl;
@@ -11,14 +27,12 @@ class AudioController extends ChangeNotifier {
   String? get currentUrl => _currentUrl;
   bool get isPlaying => _isPlaying;
 
-  AudioController() {
-    _player.playerStateStream.listen((state) {
-      final playing = state.playing && state.processingState == ProcessingState.ready;
-      if (playing != _isPlaying) {
-        _isPlaying = playing;
-        notifyListeners();
-      }
-    });
+  void play() {
+    _isPlaying = true;
+  }
+
+  void stop() {
+    _isPlaying = false;
   }
 
   Future<void> handleTap(String url) async {
@@ -38,9 +52,12 @@ class AudioController extends ChangeNotifier {
     } catch (e) {
       print('Audio error: $e');
     }
+
+    notifyListeners();
   }
 
   void disposePlayer() {
     _player.dispose();
   }
 }
+
