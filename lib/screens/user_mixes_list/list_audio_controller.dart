@@ -1,63 +1,37 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
 
 class AudioController extends ChangeNotifier {
-
-  AudioController._internal() {
-    _player.playerStateStream.listen((state) {
-      final playing = state.playing && state.processingState == ProcessingState.ready;
-      if (playing != _isPlaying) {
-        _isPlaying = playing;
-        notifyListeners();
-      }
-    });
-  }
-
-  static final AudioController _instance = AudioController._internal();
-
-  factory AudioController() => _instance;
-
-  final AudioPlayer _player = AudioPlayer();
-
-  AudioPlayer get player => _player;
+  final AudioPlayer player = AudioPlayer();
 
   String? _currentUrl;
-  bool _isPlaying = false;
+  int _currentIndex = 0;
 
   String? get currentUrl => _currentUrl;
-  bool get isPlaying => _isPlaying;
+  int get currentIndex => _currentIndex;
 
-  void play() {
-    _isPlaying = true;
-  }
+  bool get isPlaying => player.playing;
 
-  void stop() {
-    _isPlaying = false;
-  }
-
-  Future<void> handleTap(String url) async {
-    try {
-      if (_currentUrl == url) {
-        if (_isPlaying) {
-          await _player.pause();
-        } else {
-          await _player.play();
-        }
-      } else {
-        await _player.stop();
-        await _player.setUrl(url);
-        _currentUrl = url;
-        await _player.play();
-      }
-    } catch (e) {
-      print('Audio error: $e');
-    }
-
+  void setCurrentUrl(String url, {required int index}) {
+    _currentUrl = url;
+    _currentIndex = index;
     notifyListeners();
   }
 
-  void disposePlayer() {
-    _player.dispose();
+  Future<void> playMix(String url, {required int index}) async {
+    if (_currentUrl == url) {
+      if (player.playing) {
+        await player.pause();
+      } else {
+        await player.play();
+      }
+    } else {
+      await player.setUrl(url);
+      _currentUrl = url;
+      _currentIndex = index;
+      await player.play();
+      notifyListeners();
+    }
   }
 }
 
