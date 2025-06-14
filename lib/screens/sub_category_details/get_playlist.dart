@@ -1,43 +1,38 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluffyhelpers_meditation/constants/app_colors.dart';
 import 'package:fluffyhelpers_meditation/constants/app_text_styles.dart';
+import 'package:fluffyhelpers_meditation/screens/sub_category_details/playlist_mixes_fetching.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'list_audio_controller.dart';
-import 'mixes_fetching.dart';
+import '../user_mixes_list/list_audio_controller.dart';
 
-class GetMixesList extends StatefulWidget {
+class GetPlaylist extends StatefulWidget {
+  final String playlistId;
   final VoidCallback? onUpdate;
 
-  const GetMixesList({super.key, this.onUpdate});
+  const GetPlaylist({super.key, required this.playlistId, this.onUpdate});
 
   @override
-  State<GetMixesList> createState() => _GetMixesListState();
+  State<GetPlaylist> createState() => _GetPlaylistState();
 }
 
-
-class _GetMixesListState extends State<GetMixesList> {
+class _GetPlaylistState extends State<GetPlaylist> {
   late Future<List<Map<String, dynamic>>> _futureMixes;
-  final _fetcher = MixesFetching();
+  final service = PlaylistService();
 
   @override
   void initState() {
     super.initState();
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      _futureMixes = _fetcher.fetchMixesByUser(user.uid);
-    }
+    _futureMixes = service.fetchSongsForPlaylist(widget.playlistId);
   }
 
   Future<void> _refresh() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      setState(() {
-        _futureMixes = _fetcher.fetchMixesByUser(user.uid);
-      });
-      widget.onUpdate?.call();
-    }
+    setState(() {
+      _futureMixes = service.fetchSongsForPlaylist(widget.playlistId);
+    });
+    widget.onUpdate?.call();
   }
+
 
 
   @override
@@ -140,4 +135,3 @@ class _GetMixesListState extends State<GetMixesList> {
     );
   }
 }
-

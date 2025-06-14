@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-
-import '../../constants/app_colors.dart';
-import '../../constants/app_routes.dart';
-import '../../constants/app_text_styles.dart';
 import '../../global_widgets/custom_app_bar.dart';
 import '../../l10n/app_localizations.dart';
 import '../library/models/sub_category.dart';
+import 'get_playlist.dart';
 import 'mocks/playlist_song.mocks.dart';
 import 'models/playlist_song.dart';
 
@@ -35,6 +32,7 @@ class SubCategoryDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final filteredMusic = filterMusic();
     final titleText = translateSubCategoryName(context, subCategory.name);
 
@@ -66,12 +64,13 @@ class SubCategoryDetails extends StatelessWidget {
           const SizedBox(height: 20),
           Expanded(
             child: MusicListView(filteredMusic: filteredMusic),
-          )
+          ),
         ],
       ),
     );
   }
 }
+
 
 class MusicListView extends StatefulWidget {
   final List<PlaylistSong> filteredMusic;
@@ -83,70 +82,16 @@ class MusicListView extends StatefulWidget {
 }
 
 class _MusicListViewState extends State<MusicListView> {
-  void toggleLikedState(int index) {
-    return setState(() {
-      widget.filteredMusic[index].isLiked =
-          !widget.filteredMusic[index].isLiked;
-    });
-  }
 
-  IconData changeLikedIcon(bool isLiked) {
-    return isLiked ? Icons.favorite : Icons.favorite_border;
+  void _triggerUpdate() {
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget.filteredMusic.length,
-      itemBuilder: (context, index) {
-        final song = widget.filteredMusic[index];
-        return GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, AppRoutes.player);
-          },
-          child: Card(
-            color: AppColors.secondaryBackground,
-            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            elevation: 4,
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Row(
-                children: [
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          song.name,
-                          style: AppTextStyles.title,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          song.duration,
-                          style: AppTextStyles.body,
-                        ),
-                      ],
-                    ),
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.play_circle_fill_rounded,
-                      //changeLikedIcon(song.isLiked),
-                      size: 50,
-                    ),
-                    color: AppColors.highlight,
-                    onPressed: () {
-                      toggleLikedState(index);
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
+    return Scaffold(
+      //TODO: сюди зробити передачу айді
+      //body: GetPlaylist(onUpdate: _triggerUpdate, playlistId: ),
     );
   }
 }
