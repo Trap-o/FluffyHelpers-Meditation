@@ -6,6 +6,7 @@ import 'package:fluffyhelpers_meditation/constants/app_routes.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_images_paths.dart';
+import '../../constants/app_spacing.dart';
 import '../../constants/app_text_styles.dart';
 import '../../constants/private_data.dart';
 import '../../l10n/app_localizations.dart';
@@ -13,20 +14,23 @@ import '../../l10n/app_localizations.dart';
 class Auth extends StatelessWidget {
   const Auth({super.key});
 
+  static FirebaseAuth fireAuth = FirebaseAuth.instance;
+  static FirebaseFirestore fireStore = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
 
     return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
+      stream: fireAuth.authStateChanges(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return PopScope(
             canPop: false,
             child: SignInScreen(
-              resizeToAvoidBottomInset: true,
+              resizeToAvoidBottomInset: false,
               showAuthActionSwitch: false,
-              headerMaxExtent: 600,
+              headerMaxExtent: MediaQuery.sizeOf(context).height / 1.5,
               oauthButtonVariant: OAuthButtonVariant.icon_and_text,
               providers: [
                 GoogleProvider(clientId: PrivateData.googleProviderClientId),
@@ -44,7 +48,7 @@ class Auth extends StatelessWidget {
                           width: 300,
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: AppSpacing.small),
                       Text(
                         localizations.welcome,
                         style: AppTextStyles.title,
@@ -57,55 +61,56 @@ class Auth extends StatelessWidget {
             ),
           );
         }
+
         WidgetsBinding.instance.addPostFrameCallback((_) async {
           await navigateToMain(context);
         });
+
         return const Scaffold(
-          body: Center(child: CircularProgressIndicator()),
+          body: Center(
+            child: CircularProgressIndicator())
+          ,
         );
       },
     );
   }
 
   Future<void> navigateToMain(BuildContext context) async {
-    var user = FirebaseAuth.instance.currentUser;
+    var user = fireAuth.currentUser;
     final navigator = Navigator.of(context);
-    bool isDuplicateName = await checkUniqueName(user?.uid);
+    bool isDuplicateName = await checkIsUserExists(user?.uid);
     if (!isDuplicateName) {
       await addUser(user!);
     }
-    navigator.pushNamedAndRemoveUntil(AppRoutes.main, (Route<dynamic> route) => false);
+
+    navigator.pushNamedAndRemoveUntil(
+        AppRoutes.main, (Route<dynamic> route) => false);
   }
 
-  Future<bool> checkUniqueName(String? userId) async {
-    QuerySnapshot query =
-    await FirebaseFirestore.instance
+  Future<bool> checkIsUserExists(String? userId) async {
+    QuerySnapshot query = await fireStore
         .collection('users')
         .where('userId', isEqualTo: userId)
         .get();
+
     return query.docs.isNotEmpty;
   }
 
-  String _getHighResUserImage(String photoUrl) {
-    String lowResProfileImage = "s96-c";
-    String highResProfileImage = "s400-c";
+  String _getHighResUserImage(String photoUrl) {  // завантаження аватару з кращим розширенням
+    String lowResImageSuffix = "s96-c";
+    String highResImageSuffix = "s400-c";
 
-    return photoUrl.replaceFirst(lowResProfileImage, highResProfileImage);
+    return photoUrl.replaceFirst(lowResImageSuffix, highResImageSuffix);
   }
 
   Future<void> addUser(User user) async {
     String highResAvatar = _getHighResUserImage(user.photoURL!);
 
-    FirebaseFirestore.instance
-      .collection('users')
-      .doc(user.uid)
-      .set(
-        <String, dynamic>{
-          'name': user.displayName,
-          'avatar': highResAvatar,
-          'email': user.email,
-          'userId': user.uid,
-        }
-      );
+    fireStore.collection('users').doc(user.uid).set(<String, dynamic>{
+      'name': user.displayName,
+      'avatar': highResAvatar,
+      'email': user.email,
+      'userId': user.uid,
+    });
   }
 }

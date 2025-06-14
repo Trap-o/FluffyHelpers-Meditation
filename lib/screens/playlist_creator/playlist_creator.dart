@@ -21,7 +21,7 @@ import '../../global_widgets/custom_app_bar.dart';
 import '../../global_widgets/custom_exception.dart';
 import '../../global_widgets/return_to_main_icon_button.dart';
 import '../../l10n/app_localizations.dart';
-import '../../services/supabase_storage_service.dart';
+import '../../services/supabase/supabase_storage_service.dart';
 import '../library/mocks/main_category.mocks.dart';
 
 typedef DropdownEntry = DropdownMenuEntry<String>;
@@ -72,8 +72,10 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
     QuerySnapshot querySnapshot = await firestoreInstance
         .collection('music')
         .orderBy('name', descending: true)
-        //.where("userId", isEqualTo: user.uid) // TODO зробити це
+        .where("creatorId", isEqualTo: user.uid)
         .get();
+
+    print('Playlists from Firebase: ${querySnapshot.docs.length}');
 
     return querySnapshot.docs.map((doc) {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
@@ -100,6 +102,7 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
         throw CustomException(localizations.noImageError);
       }
       if (musicIdList.isEmpty) {
+        // TODO else if?
         throw CustomException(localizations.noMusicError);
       }
       final imageUrl = await uploadImageToStorage(_image!);
@@ -126,7 +129,8 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
   final TextEditingController descriptionController = TextEditingController();
   late String dropdownCategoriesValue;
 
-  Future<void> savePlaylist(BuildContext context, AppLocalizations localizations) async {
+  Future<void> savePlaylist(
+      BuildContext context, AppLocalizations localizations) async {
     try {
       String name = widget.playlistName;
       String description = descriptionController.text;
@@ -146,12 +150,14 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
         SnackBar(
           backgroundColor: AppColors.success,
           duration: const Duration(seconds: 2),
-          content: Text(localizations.playlistCreated, style: AppTextStyles.form),
+          content:
+              Text(localizations.playlistCreated, style: AppTextStyles.form),
         ),
       );
 
       Future.delayed(const Duration(seconds: 2));
-      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.main, (route) => false);
+      Navigator.pushNamedAndRemoveUntil(
+          context, AppRoutes.main, (route) => false);
     } on Exception catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -224,7 +230,8 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(localizations.addPhotoLabel, style: AppTextStyles.body),
+                            Text(localizations.addPhotoLabel,
+                                style: AppTextStyles.body),
                             const SizedBox(height: AppSpacing.small),
                             FloatingActionButton(
                               onPressed: getImageFromGallery,
@@ -267,7 +274,8 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
                 Column(
                   spacing: AppSpacing.small,
                   children: [
-                    Text(localizations.chooseCategoryLabel, style: AppTextStyles.title),
+                    Text(localizations.chooseCategoryLabel,
+                        style: AppTextStyles.title),
                     SizedBox(
                       child: DropdownMenu<String>(
                         expandedInsets: null,
@@ -283,7 +291,8 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
                     ),
                   ],
                 ),
-                Text(localizations.chooseDescriptionLabel, style: AppTextStyles.title),
+                Text(localizations.chooseDescriptionLabel,
+                    style: AppTextStyles.title),
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width - 40,
                   child: TextField(
@@ -307,8 +316,8 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
                       textStyle: AppTextStyles.form,
                       decoration: const BoxDecoration(
                           color: AppColors.secondaryBackground,
-                          borderRadius:
-                              BorderRadius.vertical(bottom: Radius.circular(10))),
+                          borderRadius: BorderRadius.vertical(
+                              bottom: Radius.circular(10))),
                       onTap: (value) {
                         _selectedMusic.remove(value);
                         return _selectedMusic;

@@ -102,10 +102,11 @@ class Profile extends StatelessWidget {
   }
 
   String _getHighResUserImage(String photoUrl) {
-    String lowResProfileImage = "s96-c";
-    String highResProfileImage = "s400-c";
+    // завантаження аватару з кращим розширенням
+    String lowResImageSuffix = "s96-c";
+    String highResImageSuffix = "s400-c";
 
-    return photoUrl.replaceFirst(lowResProfileImage, highResProfileImage);
+    return photoUrl.replaceFirst(lowResImageSuffix, highResImageSuffix);
   }
 
   Future<void> signOutUser(BuildContext context) async {
