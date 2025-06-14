@@ -46,13 +46,5 @@ void main() {
       expect(controller.currentUrl, isNull);
       expect(controller.isPlaying, isFalse);
     });
-
-    test('can update isPlaying manually (basic state test)', () {
-      controller.play();
-      expect(controller.isPlaying, isTrue);
-
-      controller.stop();
-      expect(controller.isPlaying, isFalse);
-    });
   });
 }

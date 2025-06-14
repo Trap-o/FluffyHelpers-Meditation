@@ -87,7 +87,8 @@ class _GetMixesListState extends State<GetMixesList> {
                   color: isCurrent ? AppColors.accent : AppColors.text,
                 ),
                 onTap: () {
-                  audioController.handleTap(mix['url']);
+                  final index = mixes.indexOf(mix);
+                  audioController.playMix(mix['url'], index: index);
                   widget.onUpdate?.call();
                 },
               );
