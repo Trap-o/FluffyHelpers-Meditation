@@ -51,10 +51,10 @@ class SubCategoryDetails extends StatelessWidget {
               child: SizedBox(
                 height: MediaQuery.of(context).size.width - 20,
                 width: MediaQuery.of(context).size.width - 20,
-                child: subCategory.pathToImage.contains("supabase")
+                child: subCategory.pathToImage.contains("supabase") // TODO пофіксити фото
                     ? Image.network(
                         subCategory.pathToImage,
-                        fit: BoxFit.fitWidth,
+                        fit: BoxFit.fitHeight,
                       )
                     : Image.asset(
                         subCategory.pathToImage,
