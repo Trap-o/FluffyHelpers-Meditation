@@ -4,6 +4,7 @@ import 'package:fluffyhelpers_meditation/constants/app_text_styles.dart';
 import 'package:fluffyhelpers_meditation/screens/sub_category_details/playlist_mixes_fetching.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../user_mixes_list/list_audio_controller.dart';
 
 class GetPlaylist extends StatefulWidget {
@@ -32,8 +33,6 @@ class _GetPlaylistState extends State<GetPlaylist> {
     });
     widget.onUpdate?.call();
   }
-
-
 
   @override
   Widget build(BuildContext context) {

@@ -4,14 +4,20 @@ class PlaylistService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<List<Map<String, dynamic>>> fetchSongsForPlaylist(String playlistId) async {
-    final playlistDoc = await _firestore.collection('playlists').doc(playlistId).get();
+    final querySnapshot = await _firestore
+        .collection('playlists')
+        .where('id', isEqualTo: playlistId)
+        .limit(1)
+        .get();
 
-    if (!playlistDoc.exists) {
+    if (querySnapshot.docs.isEmpty) {
       throw Exception('Playlist not found');
     }
 
+    final playlistDoc = querySnapshot.docs.first;
     final playlistData = playlistDoc.data();
-    if (playlistData == null || !playlistData.containsKey('musicList')) {
+
+    if (!playlistData.containsKey('musicList')) {
       return [];
     }
 
