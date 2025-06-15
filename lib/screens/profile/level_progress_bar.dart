@@ -7,11 +7,11 @@ class LevelProgressBar extends StatelessWidget {
   final int maxExp;
 
   const LevelProgressBar({
-    Key? key,
+    super.key,
     required this.level,
     required this.currentExp,
     required this.maxExp,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

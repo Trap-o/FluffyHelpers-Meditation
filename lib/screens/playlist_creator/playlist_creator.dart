@@ -121,7 +121,7 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
       };
 
       await FirebaseFirestore.instance.collection('playlists').add(adData);
-    } on Exception catch (e) {
+    } catch (e) {
       rethrow;
     }
   }
@@ -131,9 +131,11 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
 
   Future<void> savePlaylist(
       BuildContext context, AppLocalizations localizations) async {
+    final navigator = Navigator.of(context);
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    String name = widget.playlistName;
+    String description = descriptionController.text;
     try {
-      String name = widget.playlistName;
-      String description = descriptionController.text;
       List<String> categories = [dropdownCategoriesValue];
       if (description.isEmpty) {
         throw CustomException(localizations.noDescriptionError);
@@ -146,7 +148,7 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
 
       descriptionController.clear();
 
-      ScaffoldMessenger.of(context).showSnackBar(
+      scaffoldMessenger.showSnackBar(
         SnackBar(
           backgroundColor: AppColors.success,
           duration: const Duration(seconds: 2),
@@ -156,10 +158,9 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
       );
 
       Future.delayed(const Duration(seconds: 2));
-      Navigator.pushNamedAndRemoveUntil(
-          context, AppRoutes.main, (route) => false);
+      navigator.pushNamedAndRemoveUntil(AppRoutes.main, (route) => false);
     } on Exception catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      scaffoldMessenger.showSnackBar(
         SnackBar(
           backgroundColor: AppColors.error,
           duration: const Duration(seconds: 2),

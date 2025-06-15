@@ -62,7 +62,6 @@ class _SettingsState extends State<Settings> {
   }
 
   void _loadSelectedPet() async {
-    AnimalManager manager = AnimalManager();
     final prefs = await SharedPreferences.getInstance();
     final savedPet = prefs.getString('pet') ?? 'cat';
     setState(() {

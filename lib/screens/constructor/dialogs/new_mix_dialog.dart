@@ -1,5 +1,6 @@
 import 'package:fluffyhelpers_meditation/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+
 import '../../../constants/app_form_styles.dart';
 import '../../../l10n/app_localizations.dart';
 import '../music_subsystem/mix_creation.dart';
@@ -14,6 +15,7 @@ class NewMixDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
     final TextEditingController controller = TextEditingController();
+    final navigator = Navigator.of(context);
 
     final MixUploading mixUploading = MixUploading();
 
@@ -29,7 +31,7 @@ class NewMixDialog extends StatelessWidget {
       actions: [
         ElevatedButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            navigator.pop();
           },
           child: Text(localizations.cancelButton),
         ),
@@ -46,7 +48,7 @@ class NewMixDialog extends StatelessWidget {
             print('Введено: $value');
 
             showDialog(
-              context: context,
+              context: context, // TODO придумати як пофіксити
               barrierDismissible: false,
               builder: (context) {
                 return const Center(
@@ -66,8 +68,8 @@ class NewMixDialog extends StatelessWidget {
               print('❌ Uploading error: $e\n$stack');
             }
 
-            Navigator.of(context).pop();
-            Navigator.of(context).pop();
+            navigator.pop();
+            navigator.pop();
           },
           child: Text(localizations.okButton),
         ),

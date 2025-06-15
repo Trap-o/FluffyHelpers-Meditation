@@ -33,7 +33,7 @@ class NewPlaylistDialog extends StatelessWidget {
           children: [
             Text(localizations.playlistNameText, style: AppTextStyles.title, textAlign: TextAlign.center,),
             const SizedBox(height: AppSpacing.small,),
-            TextFormField(controller: nameController,),
+            TextFormField(controller: nameController, maxLength: 25,),
             const SizedBox(height: AppSpacing.small,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

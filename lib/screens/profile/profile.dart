@@ -6,9 +6,8 @@ import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_spacing.dart';
 import '../../l10n/app_localizations.dart';
-import '../../services/animal_service/floating_animal.dart';
-import 'level_progress_bar.dart';
 import 'dialogs/confirm_deleting_account_dialog.dart';
+import 'level_progress_bar.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});

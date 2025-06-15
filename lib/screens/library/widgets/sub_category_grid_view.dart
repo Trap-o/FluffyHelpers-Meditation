@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_routes.dart';
+import '../../../constants/app_spacing.dart';
 import '../../../constants/app_text_styles.dart';
 import '../../../l10n/app_localizations.dart';
 import '../models/sub_category.dart';
@@ -45,16 +48,12 @@ class SubCategoriesGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
     return Scaffold(
-      body: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: (MediaQuery.of(context).size.width / 150).floor(),
-            crossAxisSpacing: 5,
-            mainAxisSpacing: 5,
-            mainAxisExtent: 600
-          ),
+      body: MasonryGridView.count(
           itemCount: filteredSubCategories.length,
+          crossAxisCount: 2,
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 20,
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
             return GestureDetector(
@@ -63,49 +62,59 @@ class SubCategoriesGridView extends StatelessWidget {
                     arguments: filteredSubCategories[index]);
               },
               child: Card(
-                elevation: 6,
                 color: AppColors.secondaryBackground,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
+                    borderRadius: BorderRadius.circular(10),
+                    side:
+                        const BorderSide(width: 2, color: AppColors.accent)),
                 child: Padding(
-                  padding: const EdgeInsets.all(0.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Expanded(
+                        Flexible(
                             flex: 3,
-                            child: SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              width: MediaQuery.of(context).size.width,
-                              child: filteredSubCategories[index]
-                                      .pathToImage
-                                      .contains("supabase")
-                                  ? Image.network(
-                                      filteredSubCategories[index].pathToImage,
-                                      fit: BoxFit.fitWidth,
-                                    )
-                                  : Image.asset(
-                                      filteredSubCategories[index].pathToImage,
-                                      fit: BoxFit.fitHeight,
-                                    ),
+                            fit: FlexFit.loose,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                child: CachedNetworkImage(
+                                  imageUrl: filteredSubCategories[index].pathToImage,
+                                  fit: BoxFit.fitWidth,
+                                  placeholder: (context, url) => const CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                                ),
+                                // child: filteredSubCategories[index]
+                                //         .pathToImage
+                                //         .contains("supabase")
+                                //     ? Image.network(
+                                //         filteredSubCategories[index].pathToImage,
+                                //         fit: BoxFit.fitWidth,
+                                //       )
+                                //     : Image.asset(
+                                //         filteredSubCategories[index].pathToImage,
+                                //         fit: BoxFit.fitHeight,
+                                //       ),
+                              ),
                             )),
                         const SizedBox(height: 20),
                         Flexible(
-                          flex: 1,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 5),
-                            child: Text(
-                              translateSubCategoryName(
-                                  context, filteredSubCategories[index].name),
-                              style: AppTextStyles.title,
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.fade,
-                              softWrap: true,
-                            ),
-                          )
-                        ),
-                        const SizedBox(height: 10),
+                            flex: 1,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5),
+                              child: Text(
+                                translateSubCategoryName(
+                                    context, filteredSubCategories[index].name),
+                                style: AppTextStyles.title,
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.fade,
+                                softWrap: true,
+                              ),
+                            )),
+                        const SizedBox(height: AppSpacing.small),
                         Flexible(
                           flex: 2,
                           child: Padding(
@@ -120,6 +129,7 @@ class SubCategoriesGridView extends StatelessWidget {
                             ),
                           ),
                         ),
+                        const SizedBox(height: AppSpacing.small),
                       ]),
                 ),
               ),
