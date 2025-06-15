@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 class LevelProgressBar extends StatelessWidget {
   final int level;
   final int currentExp;
+  final int fullExp;
   final int maxExp;
 
   const LevelProgressBar({
     Key? key,
     required this.level,
     required this.currentExp,
+    required this.fullExp,
     required this.maxExp,
   }) : super(key: key);
 
@@ -92,7 +94,7 @@ class LevelProgressBar extends StatelessWidget {
         Align(
           alignment: Alignment.center,
           child: Text(
-            '$currentExp XP',
+            '$fullExp XP',
             style: const TextStyle(color: AppColors.accent),
           ),
         ),

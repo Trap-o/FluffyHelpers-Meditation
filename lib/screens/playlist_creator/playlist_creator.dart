@@ -21,6 +21,7 @@ import '../../global_widgets/custom_app_bar.dart';
 import '../../global_widgets/custom_exception.dart';
 import '../../global_widgets/return_to_main_icon_button.dart';
 import '../../l10n/app_localizations.dart';
+import '../../services/level_service/level_manager.dart';
 import '../../services/supabase/supabase_storage_service.dart';
 import '../library/mocks/main_category.mocks.dart';
 
@@ -145,6 +146,8 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
           user.displayName!, context, localizations);
 
       descriptionController.clear();
+
+      LevelManager.instance.addExp(20);
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

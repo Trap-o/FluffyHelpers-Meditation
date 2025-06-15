@@ -3,6 +3,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import '../../constants/app_colors.dart';
 import '../../services/animal_service/floating_animal.dart';
+import '../../services/level_service/level_manager.dart';
 import '../user_mixes_list/list_audio_controller.dart';
 
 class Player extends StatefulWidget {
@@ -108,6 +109,8 @@ class _PlayerState extends State<Player> {
     } else {
       _next();
     }
+
+    LevelManager.instance.addExp(5);
   }
 
   void _toggleRepeatMode() {
