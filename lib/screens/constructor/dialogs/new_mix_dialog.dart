@@ -1,7 +1,9 @@
+import 'package:fluffyhelpers_meditation/constants/app_button_styles.dart';
 import 'package:fluffyhelpers_meditation/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/app_form_styles.dart';
+import '../../../constants/app_text_styles.dart';
 import '../../../l10n/app_localizations.dart';
 import '../music_subsystem/mix_creation.dart';
 import '../music_subsystem/mix_uploading.dart';
@@ -19,61 +21,74 @@ class NewMixDialog extends StatelessWidget {
 
     final MixUploading mixUploading = MixUploading();
 
-    return AlertDialog(
-      backgroundColor: AppColors.secondaryBackground,
-      content: TextField(
-        controller: controller,
-        decoration: AppFormStyles.formInputDecorationDefault(
-          labelText: localizations.mixNameText,
-          isError: false,
-        ),
-      ),
-      actions: [
-        ElevatedButton(
-          onPressed: () {
-            navigator.pop();
-          },
-          child: Text(localizations.cancelButton),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            String value = controller.text;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        double maxWidth = constraints.maxWidth * 0.8;
 
-            try {
-              await createSoundMix();
-            }catch(e, stack){
-              print('❌ createSoundMix error: $e\n$stack');
-            }
+        return AlertDialog(
+          backgroundColor: AppColors.secondaryBackground,
+          content: SizedBox(
+            width: maxWidth,
+            child: TextField(
+              controller: controller,
+              maxLength: 25,
+              decoration: AppFormStyles.formInputDecorationDefault(
+                labelText: localizations.mixNameText,
+                isError: false,
+              ),
+            ),
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () async {
+                String value = controller.text.trim();
 
-            print('Введено: $value');
+                if (value.isEmpty) return;
 
-            showDialog(
-              context: context, // TODO придумати як пофіксити
-              barrierDismissible: false,
-              builder: (context) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                try {
+                  await createSoundMix();
+                } catch (e, stack) {
+                  print('createSoundMix error: $e\n$stack');
+                }
+
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  },
                 );
+
+                await Future.delayed(const Duration(seconds: 5));
+
+                try {
+                  mixUploading.loadMixToFirebase(
+                    value,
+                    await mixUploading.loadMixToSupabase(),
+                  );
+                } catch (e, stack) {
+                  print('Uploading error: $e\n$stack');
+                }
+
+                navigator.pop();
+                navigator.pop();
               },
-            );
+              style: AppButtonStyles.primary,
+              child: Text(localizations.okButton, style: AppTextStyles.buttonPrimary),
+            ),
 
-            await Future.delayed(const Duration(seconds: 5));
-
-            try {
-              mixUploading.loadMixToFirebase(
-                value,
-                await mixUploading.loadMixToSupabase(),
-              );
-            }catch(e, stack){
-              print('❌ Uploading error: $e\n$stack');
-            }
-
-            navigator.pop();
-            navigator.pop();
-          },
-          child: Text(localizations.okButton),
-        ),
-      ],
+            ElevatedButton(
+              onPressed: () {
+                navigator.pop();
+              },
+              style: AppButtonStyles.delete,
+              child: Text(localizations.cancelButton, style: AppTextStyles.buttonSecondary),
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -18,19 +18,25 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final LevelManager manager = LevelManager.instance;
+  late VoidCallback _listener;
 
   @override
   void initState() {
     super.initState();
     manager.startListeningToExp();
-    manager.addListener(() {
-      setState(() {});
-    });
+
+    _listener = () {
+      if (mounted) {
+        setState(() {});
+      }
+    };
+
+    manager.addListener(_listener);
   }
 
   @override
   void dispose() {
-    manager.removeListener(() {});
+    manager.removeListener(_listener);
     manager.stopListening();
     super.dispose();
   }

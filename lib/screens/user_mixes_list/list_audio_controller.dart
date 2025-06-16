@@ -19,6 +19,7 @@ class AudioController extends ChangeNotifier {
   }
 
   Future<void> playMix(String url, {required int index}) async {
+    notifyListeners();
     if (_currentUrl == url) {
       if (player.playing) {
         await player.pause();
@@ -30,8 +31,9 @@ class AudioController extends ChangeNotifier {
       _currentUrl = url;
       _currentIndex = index;
       await player.play();
-      notifyListeners();
     }
+    notifyListeners();
+    await Future.delayed(const Duration(milliseconds: 500));
   }
 }
 

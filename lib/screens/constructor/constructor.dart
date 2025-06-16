@@ -160,10 +160,11 @@ class _ConstructorState extends State<Constructor> {
 
                     if(allFalse){
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(localizations.snakeBarText),
-                          duration: const Duration(seconds: 2),
-                        ),
+                          SnackBar(
+                            content: Text(localizations.snakeBarText),
+                            duration: const Duration(seconds: 2),
+                            backgroundColor: Colors.grey[800],
+                          )
                       );
                     }else{
                       _showInputDialog(context);

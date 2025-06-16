@@ -71,9 +71,10 @@ class _GetPlaylistState extends State<GetPlaylist> {
               final isPlaying = audioController.isPlaying;
 
               return GestureDetector(
-                onTap: () {
-                  audioController.playMix(mix['url'], index: index);
+                onTap: () async{
+                  await audioController.playMix(mix['url'], index: index);
                   widget.onUpdate?.call();
+                  setState(() {});
                 },
                 child: Card(
                   color: AppColors.secondaryBackground,
@@ -117,10 +118,11 @@ class _GetPlaylistState extends State<GetPlaylist> {
                           ),
                           color:
                           isCurrent ? AppColors.accent : AppColors.highlight,
-                          onPressed: () {
-                            audioController.playMix(mix['url'], index: index);
-                            widget.onUpdate?.call();
-                          },
+                            onPressed: () async {
+                              await audioController.playMix(mix['url'], index: index);
+                              widget.onUpdate?.call();
+                              setState(() {});
+                          }
                         ),
                       ],
                     ),
