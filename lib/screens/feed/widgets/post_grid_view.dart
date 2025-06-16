@@ -83,7 +83,6 @@ class _PostsListViewState extends State<PostsListView> {
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Column(
-                    spacing: AppSpacing.small,
                     children: [
                       Row(
                         spacing: AppSpacing.small,
@@ -102,6 +101,7 @@ class _PostsListViewState extends State<PostsListView> {
                         color: AppColors.accent,
                         thickness: 2,
                       ),
+                      const SizedBox(height: AppSpacing.small,),
                       Column(
                         children: [
                           Text(
@@ -161,6 +161,7 @@ class _PostsListViewState extends State<PostsListView> {
                           ),
                         ],
                       ),
+                      const SizedBox(height: AppSpacing.small,),
                       const Divider(
                         height: AppSpacing.small,
                         color: AppColors.accent,
@@ -174,7 +175,6 @@ class _PostsListViewState extends State<PostsListView> {
                               PostLikeButton(
                                 postId: post.id,
                               ),
-                              const SizedBox(width: 4),
                             ],
                           ),
                           Text(date, style: AppTextStyles.orderTitle),

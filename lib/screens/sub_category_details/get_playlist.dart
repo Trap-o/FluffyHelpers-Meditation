@@ -101,6 +101,7 @@ class _GetPlaylistState extends State<GetPlaylist> {
                                       : FontWeight.normal,
                                 ),
                                 overflow: TextOverflow.ellipsis,
+                                maxLines: 5,
                               ),
                               const SizedBox(height: 8),
                               Text(
