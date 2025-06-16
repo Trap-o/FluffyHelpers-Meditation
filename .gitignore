@@ -165,3 +165,4 @@ android/app/google-services.json
 /android/app/.cxx/RelWithDebInfo/3vl6031z/x86/CMakeFiles/TargetDirectories.txt
 /android/app/.cxx/RelWithDebInfo/3vl6031z/x86_64/CMakeFiles/TargetDirectories.txt
 upload-keystore.jks
+android/app/src/google-services.json

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
+
 import '../../constants/app_colors.dart';
 import '../../services/animal_service/floating_animal.dart';
 import '../../services/level_service/level_manager.dart';
@@ -68,7 +69,7 @@ class _PlayerState extends State<Player> {
       await _player.setUrl(url);
       audioController.setCurrentUrl(url, index: _index);
     } catch (e) {
-      print(e);
+      //print(e);
     }
 
     if (mounted) {
@@ -127,7 +128,6 @@ class _PlayerState extends State<Player> {
       case RepeatMode.repeatAll:
         return Icons.repeat;
       case RepeatMode.none:
-      default:
         return Icons.repeat;
     }
   }
@@ -246,7 +246,7 @@ class _PlayerState extends State<Player> {
               ],
             ),
           ),
-          FloatingAnimal(),
+          const FloatingAnimal(),
         ],
       ),
     );

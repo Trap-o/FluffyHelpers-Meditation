@@ -1,9 +1,10 @@
+import 'dart:io';
+
 import 'package:ffmpeg_kit_flutter_new/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_new/ffprobe_kit.dart';
 import 'package:ffmpeg_kit_flutter_new/return_code.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
-import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
 Future<double> getAudioDuration(String filePath) async {
   final session = await FFprobeKit.getMediaInformation(filePath);
@@ -64,12 +65,12 @@ Future<void> createMixedTrack(List<int?> activeIndices, Duration length) async {
   final returnCode = await session.getReturnCode();
 
   if (ReturnCode.isSuccess(returnCode)) {
-    print('FFmpeg команда виконана успішно');
+    //print('FFmpeg команда виконана успішно');
   } else {
-    print('Помилка FFmpeg, код: $returnCode');
+    //print('Помилка FFmpeg, код: $returnCode');
     final failStackTrace = await session.getFailStackTrace();
     if (failStackTrace != null) {
-      print('StackTrace: $failStackTrace');
+      //print('StackTrace: $failStackTrace');
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:fluffyhelpers_meditation/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+
 import '../../../constants/app_button_styles.dart';
 import '../../../constants/app_form_styles.dart';
 import '../../../constants/app_text_styles.dart';
@@ -46,8 +47,8 @@ class NewMixDialog extends StatelessWidget {
 
                 try {
                   await createSoundMix();
-                } catch (e, stack) {
-                  print('createSoundMix error: $e\n$stack');
+                } catch (e) {
+                  //print('createSoundMix error: $e\n$stack');
                 }
 
             if(context.mounted){ // використав для уникнення помилки Don't use 'BuildContext' across async gaps
@@ -69,8 +70,8 @@ class NewMixDialog extends StatelessWidget {
                     value,
                     await mixUploading.loadMixToSupabase(),
                   );
-                } catch (e, stack) {
-                  print('Uploading error: $e\n$stack');
+                } catch (e) {
+                  //print('Uploading error: $e\n$stack');
                 }
 
                 navigator.pop();

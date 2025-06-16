@@ -16,7 +16,6 @@ class AnimalManager {
     final prefs = await SharedPreferences.getInstance();
     final savedPet = prefs.getString('pet') ?? 'cat';
     selectedPet.value = savedPet;
-    print('AnimalManager: pet set to $savedPet');
   }
 }
 

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math'; // Для pi
+
 import 'package:fluffyhelpers_meditation/services/animal_service/animal_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -64,7 +65,7 @@ class _FloatingAnimalState extends State<FloatingAnimal> {
     String petName = manager.selectedPet.value;
 
     return Positioned(
-      top: MediaQuery.of(context).size.height * 0.75,
+      bottom: MediaQuery.of(context).padding.bottom - 23,
       left: _left,
       child: SizedBox(
         width: _animalWidth,

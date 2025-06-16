@@ -42,10 +42,12 @@ class _PostLikeButtonState extends State<PostLikeButton> {
     final likeDocData =
         await postDoc.reference.collection('likes').doc(userId).get();
 
-    setState(() {
-      likeCount = postData['likesNumber'];
-      isLiked = likeDocData.exists;
-    });
+    if(mounted){
+      setState(() {
+        likeCount = postData['likesNumber'];
+        isLiked = likeDocData.exists;
+      });
+    }
   }
 
   Future<void> _toggleLike() async {

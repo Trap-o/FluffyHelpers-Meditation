@@ -120,45 +120,46 @@ class _PostsListViewState extends State<PostsListView> {
                           const SizedBox(
                             height: AppSpacing.medium,
                           ),
-                          SizedBox(
-                            height: 150,
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pushNamed(
-                                    AppRoutes.subCategoryDetails,
-                                    arguments: playlists.first);
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: AppColors.highlight,
-                                    width: 3,
-                                  ),
-                                  color: AppColors.secondaryBackground,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Flexible(
-                                        flex: 2,
-                                        child: Text(
-                                          playlists.first.name,
-                                          textAlign: TextAlign.center,
-                                          style: AppTextStyles.setting,
-                                        )),
-                                    Flexible(
-                                      flex: 2,
-                                      child: Image.network(
-                                        playlists.first.pathToImage,
-                                        fit: BoxFit.fitWidth,
-                                      ),
+                            if (playlists.isNotEmpty)
+                            SizedBox(
+                              height: 150,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(
+                                      AppRoutes.subCategoryDetails,
+                                      arguments: playlists.first);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: AppColors.highlight,
+                                      width: 3,
                                     ),
-                                  ],
+                                    color: AppColors.secondaryBackground,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Flexible(
+                                          flex: 2,
+                                          child: Text(
+                                            playlists.first.name,
+                                            textAlign: TextAlign.center,
+                                            style: AppTextStyles.setting,
+                                          )),
+                                      Flexible(
+                                        flex: 2,
+                                        child: Image.network(
+                                          playlists.first.pathToImage,
+                                          fit: BoxFit.fitWidth,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
                         ],
                       ),
                       const SizedBox(height: AppSpacing.small,),

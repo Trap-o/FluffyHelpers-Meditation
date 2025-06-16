@@ -205,183 +205,187 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
         title: titleText,
         leading: const ReturnToMainIconButton(),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.small),
-        child: Wrap(children: [
-          Center(
-            child: Column(
-              spacing: AppSpacing.small,
-              children: [
-                const SizedBox(height: AppSpacing.small),
-                Text(
-                  localizations.chooseImageLabel,
-                  style: AppTextStyles.title,
-                  textAlign: TextAlign.center,
-                  softWrap: true,
-                ),
-                _image == null
-                    ? Container(
-                        width: MediaQuery.sizeOf(context).width - 40,
-                        height: 260,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.highlight),
-                          color: AppColors.secondaryBackground,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(localizations.addPhotoLabel,
-                                style: AppTextStyles.body),
-                            const SizedBox(height: AppSpacing.small),
-                            FloatingActionButton(
-                              onPressed: getImageFromGallery,
-                              tooltip: 'Pick Image',
-                              child: const Icon(Icons.add_a_photo),
-                            ),
-                          ],
-                        ),
-                      )
-                    : Container(
-                        width: MediaQuery.sizeOf(context).width - 40,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: AppColors.highlight,
-                            width: 3,
+      body: SafeArea(
+        bottom: true,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.small),
+          child: Wrap(children: [
+            Center(
+              child: Column(
+                spacing: AppSpacing.small,
+                children: [
+                  const SizedBox(height: AppSpacing.small),
+                  Text(
+                    localizations.chooseImageLabel,
+                    style: AppTextStyles.title,
+                    textAlign: TextAlign.center,
+                    softWrap: true,
+                  ),
+                  _image == null
+                      ? Container(
+                          width: MediaQuery.sizeOf(context).width - 40,
+                          height: 260,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: AppColors.highlight),
+                            color: AppColors.secondaryBackground,
                           ),
-                          color: AppColors.secondaryBackground,
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              spacing: AppSpacing.small,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  localizations.addAnotherPhotoLabel,
-                                  style: AppTextStyles.body,
-                                ),
-                                FloatingActionButton(
-                                  onPressed: getImageFromGallery,
-                                  tooltip: 'Pick Image',
-                                  child: const Icon(Icons.add_a_photo),
-                                ),
-                              ],
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(localizations.addPhotoLabel,
+                                  style: AppTextStyles.body),
+                              const SizedBox(height: AppSpacing.small),
+                              FloatingActionButton(
+                                onPressed: getImageFromGallery,
+                                tooltip: 'Pick Image',
+                                child: const Icon(Icons.add_a_photo),
+                              ),
+                            ],
+                          ),
+                        )
+                      : Container(
+                          width: MediaQuery.sizeOf(context).width - 40,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: AppColors.highlight,
+                              width: 3,
                             ),
-                            Image.file(File(_image!.path)),
-                          ],
+                            color: AppColors.secondaryBackground,
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                spacing: AppSpacing.small,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    localizations.addAnotherPhotoLabel,
+                                    style: AppTextStyles.body,
+                                  ),
+                                  FloatingActionButton(
+                                    onPressed: getImageFromGallery,
+                                    tooltip: 'Pick Image',
+                                    child: const Icon(Icons.add_a_photo),
+                                  ),
+                                ],
+                              ),
+                              Image.file(File(_image!.path)),
+                            ],
+                          ),
+                        ),
+                  Column(
+                    spacing: AppSpacing.small,
+                    children: [
+                      Text(localizations.chooseCategoryLabel,
+                          style: AppTextStyles.title),
+                      SizedBox(
+                        child: DropdownMenu<String>(
+                          expandedInsets: null,
+                          textStyle: AppTextStyles.body,
+                          initialSelection: mainCategories[2].key,
+                          dropdownMenuEntries: categoriesEntries,
+                          onSelected: (String? value) {
+                            setState(() {
+                              dropdownCategoriesValue = value!;
+                            });
+                          },
                         ),
                       ),
-                Column(
-                  spacing: AppSpacing.small,
-                  children: [
-                    Text(localizations.chooseCategoryLabel,
-                        style: AppTextStyles.title),
-                    SizedBox(
-                      child: DropdownMenu<String>(
-                        expandedInsets: null,
-                        textStyle: AppTextStyles.body,
-                        initialSelection: mainCategories[2].key,
-                        dropdownMenuEntries: categoriesEntries,
-                        onSelected: (String? value) {
-                          setState(() {
-                            dropdownCategoriesValue = value!;
-                          });
+                    ],
+                  ),
+                  Text(localizations.chooseDescriptionLabel,
+                      style: AppTextStyles.title),
+                  SizedBox(
+                    width: MediaQuery.sizeOf(context).width - 40,
+                    child: TextField(
+                      maxLength: 100,
+                      maxLines: 5,
+                      style: AppTextStyles.form,
+                      decoration: InputDecoration(
+                        hintText: localizations.hintDescriptionLabel,
+                      ),
+                      controller: descriptionController,
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.sizeOf(context).width - 40,
+                    child: MultiSelectDialogField <Music?>(
+                      items: _allMusic
+                          .map((e) => MultiSelectItem<Music?>(e, e!.name))
+                          .toList(),
+                      chipDisplay: MultiSelectChipDisplay(
+                        chipColor: AppColors.highlight,
+                        textStyle: AppTextStyles.form,
+                        decoration: const BoxDecoration(
+                            color: AppColors.secondaryBackground,
+                            borderRadius: BorderRadius.vertical(
+                                bottom: Radius.circular(10))),
+                        onTap: (value) {
+                          _selectedMusic.remove(value);
+                          return _selectedMusic;
                         },
                       ),
-                    ),
-                  ],
-                ),
-                Text(localizations.chooseDescriptionLabel,
-                    style: AppTextStyles.title),
-                SizedBox(
-                  width: MediaQuery.sizeOf(context).width - 40,
-                  child: TextField(
-                    maxLength: 100,
-                    maxLines: 5,
-                    style: AppTextStyles.form,
-                    decoration: InputDecoration(
-                      hintText: localizations.hintDescriptionLabel,
-                    ),
-                    controller: descriptionController,
-                  ),
-                ),
-                SizedBox(
-                  width: MediaQuery.sizeOf(context).width - 40,
-                  child: MultiSelectBottomSheetField<Music?>(
-                    items: _allMusic
-                        .map((e) => MultiSelectItem<Music?>(e, e!.name))
-                        .toList(),
-                    chipDisplay: MultiSelectChipDisplay(
-                      chipColor: AppColors.highlight,
-                      textStyle: AppTextStyles.form,
+                      title: Text(
+                        localizations.yourCompositionsLabel,
+                        style: AppTextStyles.title,
+                        textAlign: TextAlign.center,
+                      ),
+                      buttonText: Text(
+                        localizations.compositionsSelectorLabel,
+                        style: AppTextStyles.buttonPrimary,
+                      ),
                       decoration: const BoxDecoration(
-                          color: AppColors.secondaryBackground,
-                          borderRadius: BorderRadius.vertical(
-                              bottom: Radius.circular(10))),
-                      onTap: (value) {
-                        _selectedMusic.remove(value);
-                        return _selectedMusic;
+                          color: AppColors.highlight,
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(10))),
+                      buttonIcon: const Icon(
+                        Icons.arrow_drop_down_rounded,
+                        color: AppColors.text,
+                      ),
+                      selectedColor: AppColors.accent,
+                      backgroundColor: AppColors.secondaryBackground,
+                      dialogHeight: MediaQuery.sizeOf(context).height / 2,
+                      dialogWidth: MediaQuery.sizeOf(context).width - 80,
+                      separateSelectedItems: false,
+                      checkColor: AppColors.text,
+                      selectedItemsTextStyle: AppTextStyles.body,
+                      itemsTextStyle: AppTextStyles.body,
+                      confirmText: Text(
+                        localizations.okButton,
+                        style: AppTextStyles.buttonPrimary,
+                      ),
+                      cancelText: Text(
+                        localizations.cancelButton,
+                        style: AppTextStyles.buttonSecondary,
+                      ),
+                      onConfirm: (values) {
+                        setState(() {
+                          _selectedMusic = values.whereType<Music>().toList();
+                        });
                       },
+                      listType: MultiSelectListType.LIST,
                     ),
-                    title: Text(
-                      localizations.yourCompositionsLabel,
+                  ),
+                  const SizedBox(height: AppSpacing.large),
+                  TextButton.icon(
+                    label: Text(
+                      localizations.saveButton,
                       style: AppTextStyles.title,
                     ),
-                    buttonText: Text(
-                      localizations.compositionsSelectorLabel,
-                      style: AppTextStyles.buttonPrimary,
-                    ),
-                    initialChildSize: 0.5,
-                    maxChildSize: 0.5,
-                    decoration: const BoxDecoration(
-                        color: AppColors.highlight,
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(10))),
-                    buttonIcon: const Icon(
-                      Icons.arrow_drop_down_rounded,
-                      color: AppColors.text,
-                    ),
-                    selectedColor: AppColors.accent,
-                    backgroundColor: AppColors.secondaryBackground,
-                    separateSelectedItems: false,
-                    checkColor: AppColors.text,
-                    selectedItemsTextStyle: AppTextStyles.body,
-                    itemsTextStyle: AppTextStyles.body,
-                    confirmText: Text(
-                      localizations.okButton,
-                      style: AppTextStyles.buttonPrimary,
-                    ),
-                    cancelText: Text(
-                      localizations.cancelButton,
-                      style: AppTextStyles.buttonSecondary,
-                    ),
-                    onConfirm: (values) {
-                      setState(() {
-                        _selectedMusic = values.whereType<Music>().toList();
-                      });
+                    icon: const Icon(Icons.save_rounded,
+                        color: AppColors.text, size: AppFontSizes.title),
+                    style: AppButtonStyles.primary,
+                    onPressed: () {
+                      savePlaylist(context, localizations);
                     },
-                    listType: MultiSelectListType.LIST,
                   ),
-                ),
-                const SizedBox(height: AppSpacing.large),
-                TextButton.icon(
-                  label: Text(
-                    localizations.saveButton,
-                    style: AppTextStyles.title,
-                  ),
-                  icon: const Icon(Icons.save_rounded,
-                      color: AppColors.text, size: AppFontSizes.title),
-                  style: AppButtonStyles.primary,
-                  onPressed: () {
-                    savePlaylist(context, localizations);
-                  },
-                ),
-                const SizedBox(height: AppSpacing.medium),
-              ],
+                  const SizedBox(height: AppSpacing.medium),
+                ],
+              ),
             ),
-          ),
-        ]),
+          ]),
+        ),
       ),
     );
   }

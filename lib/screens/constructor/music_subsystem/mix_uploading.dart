@@ -28,7 +28,7 @@ class MixUploading{
         bucketName: 'musics'
       );
     } catch (e) {
-      print(e);
+      //print(e);
     }
 
     return publicUrl;
