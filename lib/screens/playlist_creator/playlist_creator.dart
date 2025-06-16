@@ -76,8 +76,6 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
         .where("creatorId", isEqualTo: user.uid)
         .get();
 
-    print('Playlists from Firebase: ${querySnapshot.docs.length}');
-
     return querySnapshot.docs.map((doc) {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
       return Music(
@@ -103,7 +101,6 @@ class _PlaylistCreatorState extends State<PlaylistCreator> {
         throw CustomException(localizations.noImageError);
       }
       if (musicIdList.isEmpty) {
-        // TODO else if?
         throw CustomException(localizations.noMusicError);
       }
       final imageUrl = await uploadImageToStorage(_image!);

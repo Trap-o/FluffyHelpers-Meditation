@@ -9,7 +9,6 @@ import '../../../constants/app_routes.dart';
 import '../../../l10n/app_localizations.dart';
 
 class NewPlaylistDialog extends StatelessWidget {
-
   const NewPlaylistDialog({
     super.key,
   });
@@ -31,27 +30,47 @@ class NewPlaylistDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(localizations.playlistNameText, style: AppTextStyles.title, textAlign: TextAlign.center,),
-            const SizedBox(height: AppSpacing.small,),
-            TextFormField(controller: nameController, maxLength: 25,),
-            const SizedBox(height: AppSpacing.small,),
+            Text(
+              localizations.playlistNameText,
+              style: AppTextStyles.title,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(
+              height: AppSpacing.small,
+            ),
+            TextFormField(
+              controller: nameController,
+              maxLength: 25,
+            ),
+            const SizedBox(
+              height: AppSpacing.small,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
                   onPressed: () {
-                    navigateToPlaylistCreator(nameController, context, localizations);
+                    navigateToPlaylistCreator(
+                        nameController, context, localizations);
                   },
                   style: AppButtonStyles.primary,
-                  child: Text(localizations.okButton, style: AppTextStyles.buttonPrimary,),
+                  child: Text(
+                    localizations.okButton,
+                    style: AppTextStyles.buttonPrimary,
+                  ),
                 ),
-                const SizedBox(width: AppSpacing.large,),
+                const SizedBox(
+                  width: AppSpacing.large,
+                ),
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
                   style: AppButtonStyles.delete,
-                  child: Text(localizations.cancelButton, style: AppTextStyles.buttonSecondary,),
+                  child: Text(
+                    localizations.cancelButton,
+                    style: AppTextStyles.buttonSecondary,
+                  ),
                 ),
               ],
             )
@@ -61,12 +80,13 @@ class NewPlaylistDialog extends StatelessWidget {
     );
   }
 
-  void navigateToPlaylistCreator(TextEditingController nameController, BuildContext context, AppLocalizations localizations) {
+  void navigateToPlaylistCreator(TextEditingController nameController,
+      BuildContext context, AppLocalizations localizations) {
     try {
-      if(nameController.text.isNotEmpty){
-        Navigator.pushNamed(context, AppRoutes.playlistCreator, arguments: nameController.text);
-      }
-      else{
+      if (nameController.text.isNotEmpty) {
+        Navigator.pushNamed(context, AppRoutes.playlistCreator,
+            arguments: nameController.text);
+      } else {
         throw CustomException(localizations.noNameError);
       }
     } on Exception catch (e) {

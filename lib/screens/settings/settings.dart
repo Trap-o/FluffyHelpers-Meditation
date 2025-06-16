@@ -19,16 +19,19 @@ const String githubCodeURL =
 bool areNotificationsEnabled = true;
 
 const Map<String, String> languages = {'en': 'English', 'uk': 'Українська'};
-final languagesItems = languages.entries.map(
-  (lan) => DropdownMenuItem<String>(value: lan.key, child: Text(lan.value),)
-).toList();
+final languagesItems = languages.entries
+    .map((lan) => DropdownMenuItem<String>(
+          value: lan.key,
+          child: Text(lan.value),
+        ))
+    .toList();
 
-
-List<DropdownMenuItem<String>> petsOptionItems(AppLocalizations loc){
+List<DropdownMenuItem<String>> petsOptionItems(AppLocalizations loc) {
   return petOptions.map((pet) {
     final label = loc.petOption(pet.key);
     return DropdownMenuItem<String>(
-      value: pet.key, child: Text(label),
+      value: pet.key,
+      child: Text(label),
     );
   }).toList();
 }
@@ -36,7 +39,11 @@ List<DropdownMenuItem<String>> petsOptionItems(AppLocalizations loc){
 class Settings extends StatefulWidget {
   final Function(String) onLocaleToggle;
   final Function(String) onPetToggle;
-  const Settings({super.key, required this.onLocaleToggle, required this.onPetToggle,});
+  const Settings({
+    super.key,
+    required this.onLocaleToggle,
+    required this.onPetToggle,
+  });
 
   @override
   State<Settings> createState() => _SettingsState();
@@ -93,11 +100,12 @@ class _SettingsState extends State<Settings> {
     AnimalManager manager = AnimalManager();
 
     return Scaffold(
-      appBar: CustomAppBar(title: titleText, leading: null,),
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          SettingsList(
+      appBar: CustomAppBar(
+        title: titleText,
+        leading: null,
+      ),
+      body: Stack(alignment: Alignment.center, children: [
+        SettingsList(
             lightTheme: const SettingsThemeData(
               settingsListBackground: AppColors.primaryBackground,
               leadingIconsColor: AppColors.accent,
@@ -130,24 +138,28 @@ class _SettingsState extends State<Settings> {
                     ),
                     trailing: DropdownButtonHideUnderline(
                       child: ButtonTheme(
-                        alignedDropdown: true, // щоб меню не виходило за рамки кнопки
+                        alignedDropdown:
+                            true, // щоб меню не виходило за рамки кнопки
                         child: DropdownButton<String>(
-                          value: selectedLanguage,
-                          style: AppTextStyles.form,
-                          icon: const Icon(Icons.keyboard_arrow_down_rounded, color: AppColors.secondaryText,),
-                          dropdownColor: AppColors.highlight,
-                          alignment: Alignment.center,
-                          borderRadius: const BorderRadius.all(Radius.circular(20)),
-                          onChanged: (String? value) {
-                            if(value != null && value != selectedLanguage){
-                              widget.onLocaleToggle(value);
-                              setState(() {
-                                selectedLanguage = value;
-                              });
-                            }
-                          },
-                          items: languagesItems
-                        ),
+                            value: selectedLanguage,
+                            style: AppTextStyles.form,
+                            icon: const Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: AppColors.secondaryText,
+                            ),
+                            dropdownColor: AppColors.highlight,
+                            alignment: Alignment.center,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20)),
+                            onChanged: (String? value) {
+                              if (value != null && value != selectedLanguage) {
+                                widget.onLocaleToggle(value);
+                                setState(() {
+                                  selectedLanguage = value;
+                                });
+                              }
+                            },
+                            items: languagesItems),
                       ),
                     ),
                   ),
@@ -161,25 +173,30 @@ class _SettingsState extends State<Settings> {
                     ),
                     trailing: DropdownButtonHideUnderline(
                       child: ButtonTheme(
-                        alignedDropdown: true, // щоб меню не виходило за рамки кнопки
-                          child: DropdownButton<String>(
+                        alignedDropdown:
+                            true, // щоб меню не виходило за рамки кнопки
+                        child: DropdownButton<String>(
                             value: selectedPet,
                             style: AppTextStyles.form,
-                            icon: const Icon(Icons.keyboard_arrow_down_rounded, color: AppColors.secondaryText,),
+                            icon: const Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: AppColors.secondaryText,
+                            ),
                             dropdownColor: AppColors.highlight,
                             alignment: Alignment.center,
-                            borderRadius: const BorderRadius.all(Radius.circular(20)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20)),
                             onChanged: (String? value) {
-                              if(value != null && value != selectedPet){
+                              if (value != null && value != selectedPet) {
                                 widget.onPetToggle(value);
                                 setState(() {
                                   selectedPet = value;
-                                  manager.selectedPet.value = value; // тут було AnimalManager()
+                                  manager.selectedPet.value =
+                                      value; // тут було AnimalManager()
                                 });
                               }
                             },
-                            items: petsItems
-                          ),
+                            items: petsItems),
                       ),
                     ),
                   ),
@@ -192,7 +209,8 @@ class _SettingsState extends State<Settings> {
                 ),
                 tiles: <SettingsTile>[
                   SettingsTile.navigation(
-                    trailing: const Icon(Icons.arrow_forward_ios_rounded, color: AppColors.text),
+                    trailing: const Icon(Icons.arrow_forward_ios_rounded,
+                        color: AppColors.text),
                     leading: const Icon(Icons.folder_zip_rounded),
                     title: Text(
                       'GitHub',
@@ -205,7 +223,8 @@ class _SettingsState extends State<Settings> {
                     onPressed: (context) async => _launchURL(githubCodeURL),
                   ),
                   SettingsTile.navigation(
-                    trailing: const Icon(Icons.arrow_forward_ios_rounded, color: AppColors.text),
+                    trailing: const Icon(Icons.arrow_forward_ios_rounded,
+                        color: AppColors.text),
                     leading: const Icon(Icons.support_rounded),
                     title: Text(
                       localizations.supportTitle,
@@ -215,10 +234,12 @@ class _SettingsState extends State<Settings> {
                       localizations.supportText,
                       style: AppTextStyles.smallDescription,
                     ),
-                    onPressed: (context) async => _sendingMails(subject, message),
+                    onPressed: (context) async =>
+                        _sendingMails(subject, message),
                   ),
                   SettingsTile.navigation(
-                    trailing: const Icon(Icons.arrow_forward_ios_rounded, color: AppColors.text),
+                    trailing: const Icon(Icons.arrow_forward_ios_rounded,
+                        color: AppColors.text),
                     leading: const Icon(Icons.feedback_rounded),
                     title: Text(
                       localizations.feedbackTitle,
@@ -228,14 +249,13 @@ class _SettingsState extends State<Settings> {
                       localizations.feedbackText,
                       style: AppTextStyles.smallDescription,
                     ),
-                    onPressed: (context) async => _launchURL(githubDiscussionsURL),
+                    onPressed: (context) async =>
+                        _launchURL(githubDiscussionsURL),
                   ),
                 ],
               )
-            ]
-          ),
-        ]
-      ),
+            ]),
+      ]),
       bottomNavigationBar: BottomAppBar(
         color: AppColors.primaryBackground,
         height: AppFontSizes.title * 2.2,

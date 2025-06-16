@@ -47,15 +47,17 @@ class NewMixDialog extends StatelessWidget {
 
             print('Введено: $value');
 
-            showDialog(
-              context: context, // TODO придумати як пофіксити
-              barrierDismissible: false,
-              builder: (context) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              },
-            );
+            if(context.mounted){ // використав для уникнення помилки Don't use 'BuildContext' across async gaps
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              );
+            }
 
             await Future.delayed(const Duration(seconds: 5));
 

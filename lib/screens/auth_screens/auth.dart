@@ -67,9 +67,7 @@ class Auth extends StatelessWidget {
         });
 
         return const Scaffold(
-          body: Center(
-            child: CircularProgressIndicator())
-          ,
+          body: Center(child: CircularProgressIndicator()),
         );
       },
     );
@@ -96,7 +94,8 @@ class Auth extends StatelessWidget {
     return query.docs.isNotEmpty;
   }
 
-  String _getHighResUserImage(String photoUrl) {  // завантаження аватару з кращим розширенням
+  String _getHighResUserImage(String photoUrl) {
+    // завантаження аватару з кращим розширенням
     String lowResImageSuffix = "s96-c";
     String highResImageSuffix = "s400-c";
 

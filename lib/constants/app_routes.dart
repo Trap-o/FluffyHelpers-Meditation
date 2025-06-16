@@ -39,7 +39,9 @@ class AppRoutes {
           case feed:
             return const Feed();
           case player:
-            return const Player(mixes: [],);
+            return const Player(
+              mixes: [],
+            );
           case constructor:
             return Constructor(onCreated: () {});
           case postCreator:
@@ -47,7 +49,9 @@ class AppRoutes {
           case profile:
             return const Profile();
           case settingsScreen:
-            return Settings(onLocaleToggle: changeLanguageCallback!, onPetToggle: changePetCallback!);
+            return Settings(
+                onLocaleToggle: changeLanguageCallback!,
+                onPetToggle: changePetCallback!);
           case subCategoryDetails:
             final subCategory = settings.arguments as SubCategory;
             return SubCategoryDetails(subCategory: subCategory);

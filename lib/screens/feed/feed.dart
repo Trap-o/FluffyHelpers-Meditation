@@ -28,6 +28,7 @@ class _FeedState extends State<Feed> {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
       return Post(
+        id: data['id'],
         title: data['title'],
         description: data['description'],
         playlistsIdList: List<String>.from(data['playlistList']),
@@ -59,41 +60,47 @@ class _FeedState extends State<Feed> {
     final String titleText = localizations.feedTitle;
 
     return Scaffold(
-      appBar: CustomAppBar(title: titleText, leading: null,),
-      floatingActionButton: SizedBox(
-        width: 65,
-        height: 65,
-        child: FittedBox(
-          child: FloatingActionButton(
-            heroTag: 'feed',
-            backgroundColor: AppColors.highlight,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-              side: const BorderSide(color: AppColors.secondaryText),
-            ),
-            onPressed: () {
-              Navigator.of(context).pushNamed('/postCreator');
-            },
-            child: const Icon(Icons.add_rounded, color: AppColors.text, size: 45,),
-          ),
+        appBar: CustomAppBar(
+          title: titleText,
+          leading: null,
         ),
-      ),
-      backgroundColor: AppColors.primaryBackground,
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: () async {
-            await initFeed();
-          },
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: PostsListView(posts: posts),
+        floatingActionButton: SizedBox(
+          width: 65,
+          height: 65,
+          child: FittedBox(
+            child: FloatingActionButton(
+              heroTag: 'feed',
+              backgroundColor: AppColors.highlight,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+                side: const BorderSide(color: AppColors.secondaryText),
               ),
-            ],
+              onPressed: () {
+                Navigator.of(context).pushNamed('/postCreator');
+              },
+              child: const Icon(
+                Icons.add_rounded,
+                color: AppColors.text,
+                size: 45,
+              ),
+            ),
           ),
         ),
-      )
-    );
+        backgroundColor: AppColors.primaryBackground,
+        body: SafeArea(
+          child: RefreshIndicator(
+            onRefresh: () async {
+              await initFeed();
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: PostsListView(posts: posts),
+                ),
+              ],
+            ),
+          ),
+        ));
   }
 }

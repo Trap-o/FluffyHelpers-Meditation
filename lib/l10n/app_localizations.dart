@@ -191,6 +191,12 @@ abstract class AppLocalizations {
   /// **'Ваші плейлисти:'**
   String get yourPlaylistsLabel;
 
+  /// No description provided for @noPlaylistsLabel.
+  ///
+  /// In uk, this message translates to:
+  /// **'Створіть свій перший плейлист'**
+  String get noPlaylistsLabel;
+
   /// No description provided for @noContentError.
   ///
   /// In uk, this message translates to:

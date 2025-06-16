@@ -1,4 +1,5 @@
 class Post {
+  final String id;
   final String? title;
   final String? description;
   final String ownerId;
@@ -9,7 +10,8 @@ class Post {
   final String createdAt;
 
   Post(
-      {required this.title,
+      {required this.id,
+      required this.title,
       required this.description,
       required this.ownerId,
       required this.ownerName,

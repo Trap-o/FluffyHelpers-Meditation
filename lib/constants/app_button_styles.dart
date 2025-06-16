@@ -66,7 +66,8 @@ class AppButtonStyles {
     side: WidgetStateProperty.all(
       const BorderSide(
         color: AppColors.highlight,
-        width: 2,),
+        width: 2,
+      ),
     ),
   );
 }

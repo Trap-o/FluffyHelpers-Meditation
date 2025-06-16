@@ -9,6 +9,5 @@ final List<MainCategory> mainCategories = [
 ];
 
 final Map<String, MainCategory> mainCategoriesMap = {
-  for(var category in mainCategories)
-    category.key : category
+  for (var category in mainCategories) category.key: category
 };

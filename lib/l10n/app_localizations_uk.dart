@@ -57,6 +57,9 @@ class AppLocalizationsUk extends AppLocalizations {
   String get yourPlaylistsLabel => 'Ваші плейлисти:';
 
   @override
+  String get noPlaylistsLabel => 'Створіть свій перший плейлист';
+
+  @override
   String get noContentError => 'Помилка: додайте опис чи плейлисти';
 
   @override

@@ -55,11 +55,10 @@ class SubCategoryDetails extends StatelessWidget {
             child: SizedBox(
               height: MediaQuery.of(context).size.width - 20,
               width: MediaQuery.of(context).size.width - 20,
-              child: subCategory.pathToImage
-                      .contains("supabase") // TODO пофіксити фото
+              child: subCategory.pathToImage.contains("supabase")
                   ? Image.network(
                       subCategory.pathToImage,
-                      fit: BoxFit.fitHeight,
+                      fit: BoxFit.scaleDown,
                     )
                   : Image.asset(
                       subCategory.pathToImage,
@@ -95,15 +94,14 @@ class _MusicListViewState extends State<MusicListView> {
   static FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
 
   static Future<List<SubCategory>> getPlaylists() async {
-    QuerySnapshot querySnapshot =
-        await firestoreInstance.collection('playlists').
-        where("id", isEqualTo: subCategoryId)
+    QuerySnapshot querySnapshot = await firestoreInstance
+        .collection('playlists')
+        .where("id", isEqualTo: subCategoryId)
         .get();
 
     return querySnapshot.docs.map((doc) {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
       final List<String> categoryKeys = List<String>.from(data['category']);
-      print(data['id']);
 
       return SubCategory(
         id: data['id'],
@@ -140,17 +138,13 @@ class _MusicListViewState extends State<MusicListView> {
     if (subCategories.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     }
-    print('subCategoryId: "$subCategoryId"');
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () async {
-          await initPlaylist();
-        },
-        child: GetPlaylist(
-          onUpdate: _triggerUpdate,
-          playlistId: subCategories.first.id
-        )
-      ),
+          onRefresh: () async {
+            await initPlaylist();
+          },
+          child: GetPlaylist(
+              onUpdate: _triggerUpdate, playlistId: subCategories.first.id)),
     );
   }
 }

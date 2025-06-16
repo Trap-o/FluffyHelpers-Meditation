@@ -77,7 +77,8 @@ class _GetPlaylistState extends State<GetPlaylist> {
                 },
                 child: Card(
                   color: AppColors.secondaryBackground,
-                  margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   elevation: 4,
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
@@ -115,8 +116,9 @@ class _GetPlaylistState extends State<GetPlaylist> {
                                 : Icons.play_circle_fill_rounded,
                             size: 50,
                           ),
-                          color:
-                          isCurrent ? AppColors.accent : AppColors.highlight,
+                          color: isCurrent
+                              ? AppColors.accent
+                              : AppColors.highlight,
                           onPressed: () {
                             audioController.playMix(mix['url'], index: index);
                             widget.onUpdate?.call();

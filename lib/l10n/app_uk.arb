@@ -58,6 +58,7 @@
             },
             "playlistsSelectorLabel": "Оберіть плейлисти:",
             "yourPlaylistsLabel": "Ваші плейлисти:",
+            "noPlaylistsLabel": "Створіть свій перший плейлист",
 
         "@_SCAFFOLD_MESSAGES": {
             },

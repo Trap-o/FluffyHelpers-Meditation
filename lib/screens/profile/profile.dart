@@ -3,6 +3,7 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:fluffyhelpers_meditation/constants/app_button_styles.dart';
 import 'package:fluffyhelpers_meditation/services/level_service/level_manager.dart';
 import 'package:flutter/material.dart';
+
 import '../../constants/app_colors.dart';
 import '../../constants/app_spacing.dart';
 import '../../l10n/app_localizations.dart';
@@ -24,7 +25,9 @@ class _ProfileState extends State<Profile> {
     super.initState();
     manager.startListeningToExp();
     manager.addListener(() {
-      setState(() {});
+      if (context.mounted) {
+        setState(() {});
+      }
     });
   }
 
@@ -48,65 +51,62 @@ class _ProfileState extends State<Profile> {
       child: Scaffold(
         body: user == null
             ? const Scaffold(
-          body: Center(child: Text('User not logged in')),
-        )
+                body: Center(child: Text('User not logged in')),
+              )
             : Stack(children: [
-          Positioned(
-            top: -10,
-            right: 10,
-            child: IconButton(
-                icon: const Icon(Icons.settings_rounded),
-                color: AppColors.highlight,
-                iconSize: 40,
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/settings');
-                }),
-          ),
-          Center(
-            child: Column(
-              spacing: AppSpacing.small,
-              children: [
-                const SizedBox(
-                  height: AppSpacing.small,
+                Positioned(
+                  top: -10,
+                  right: 10,
+                  child: IconButton(
+                      icon: const Icon(Icons.settings_rounded),
+                      color: AppColors.highlight,
+                      iconSize: 40,
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/settings');
+                      }),
                 ),
-                _buildUserAvatar(user),
-                const EditableUserDisplayName(),
-
-                ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    minWidth: 200,
-                    maxWidth: 350,
+                Center(
+                  child: Column(
+                    spacing: AppSpacing.small,
+                    children: [
+                      const SizedBox(
+                        height: AppSpacing.small,
+                      ),
+                      _buildUserAvatar(user),
+                      const EditableUserDisplayName(),
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          minWidth: 200,
+                          maxWidth: 350,
+                        ),
+                        child: LevelProgressBar(
+                          level: level,
+                          currentExp: currentLevelExp,
+                          fullExp: currentExp,
+                          maxExp: expPerLevel,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton.icon(
+                        style: AppButtonStyles.primary,
+                        label: Text(localizations.exitButton),
+                        icon: const Icon(Icons.logout_rounded),
+                        onPressed: () async {
+                          await signOutUser(context);
+                        },
+                      ),
+                      ElevatedButton.icon(
+                        style: AppButtonStyles.delete,
+                        label: Text(localizations.deleteButton),
+                        icon: const Icon(Icons.delete_rounded),
+                        onPressed: () {
+                          showConfirmDeletingDialog(context);
+                        },
+                      ),
+                    ],
                   ),
-                  child: LevelProgressBar(
-                    level: level,
-                    currentExp: currentLevelExp,
-                    fullExp: currentExp,
-                    maxExp: expPerLevel,
-                  ),
                 ),
-
-                const SizedBox(height: 20),
-
-                ElevatedButton.icon(
-                  style: AppButtonStyles.primary,
-                  label: Text(localizations.exitButton),
-                  icon: const Icon(Icons.logout_rounded),
-                  onPressed: () async {
-                    await signOutUser(context);
-                  },
-                ),
-                ElevatedButton.icon(
-                  style: AppButtonStyles.delete,
-                  label: Text(localizations.deleteButton),
-                  icon: const Icon(Icons.delete_rounded),
-                  onPressed: () {
-                    showConfirmDeletingDialog(context);
-                  },
-                ),
-              ],
-            ),
-          ),
-        ]),
+              ]),
       ),
     );
   }
