@@ -66,9 +66,9 @@ class _PlayerState extends State<Player> {
 
     try {
       await _player.setUrl(url);
-      audioController.setCurrentUrl(url, index: _index); // синхронізуємо контролер
+      audioController.setCurrentUrl(url, index: _index);
     } catch (e) {
-      print("Audio load error: $e");
+      print(e);
     }
 
     if (mounted) {
@@ -142,7 +142,7 @@ class _PlayerState extends State<Player> {
 
     if (widget.mixes == null || widget.mixes!.isEmpty) {
       return const Scaffold(
-        body: Center(child: Text("😕 У вас ще немає композицій")),
+        body: Center(child: Text("Something went wrong")),
       );
     }
 
