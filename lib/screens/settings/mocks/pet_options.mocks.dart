@@ -12,6 +12,5 @@ final List<PetOption> petOptions = [
 ];
 
 final Map<String, PetOption> petOptionsMap = {
-  for(var pet in petOptions)
-    pet.key : pet
+  for (var pet in petOptions) pet.key: pet
 };

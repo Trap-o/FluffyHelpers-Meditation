@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluffyhelpers_meditation/constants/app_routes.dart';
+import 'package:fluffyhelpers_meditation/screens/feed/widgets/post_like_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/app_colors.dart';
@@ -123,7 +124,9 @@ class _PostsListViewState extends State<PostsListView> {
                             height: 150,
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.of(context).pushNamed(AppRoutes.subCategoryDetails, arguments: playlists.first);
+                                Navigator.of(context).pushNamed(
+                                    AppRoutes.subCategoryDetails,
+                                    arguments: playlists.first);
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -134,16 +137,16 @@ class _PostsListViewState extends State<PostsListView> {
                                   color: AppColors.secondaryBackground,
                                 ),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     Flexible(
-                                      flex: 2,
-                                      child: Text(
-                                        playlists.first.name,
-                                        textAlign: TextAlign.center,
-                                        style: AppTextStyles.setting,
-                                      )
-                                    ),
+                                        flex: 2,
+                                        child: Text(
+                                          playlists.first.name,
+                                          textAlign: TextAlign.center,
+                                          style: AppTextStyles.setting,
+                                        )),
                                     Flexible(
                                       flex: 2,
                                       child: Image.network(
@@ -168,10 +171,10 @@ class _PostsListViewState extends State<PostsListView> {
                         children: [
                           Row(
                             children: [
-                              const Icon(Icons.favorite,
-                                  size: 25, color: AppColors.text),
+                              PostLikeButton(
+                                postId: post.id,
+                              ),
                               const SizedBox(width: 4),
-                              Text(post.likesNumber.toString()),
                             ],
                           ),
                           Text(date, style: AppTextStyles.orderTitle),

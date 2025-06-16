@@ -29,8 +29,14 @@ class ConfirmDeletingAccountDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(localizations.confirmationText, style: AppTextStyles.title, textAlign: TextAlign.center,),
-            const SizedBox(height: AppSpacing.small,),
+            Text(
+              localizations.confirmationText,
+              style: AppTextStyles.title,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(
+              height: AppSpacing.small,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -39,15 +45,23 @@ class ConfirmDeletingAccountDialog extends StatelessWidget {
                     await deleteUser(user!, context);
                   },
                   style: AppButtonStyles.primary,
-                  child: Text(localizations.okButton, style: AppTextStyles.buttonPrimary,),
+                  child: Text(
+                    localizations.okButton,
+                    style: AppTextStyles.buttonPrimary,
+                  ),
                 ),
-                const SizedBox(width: AppSpacing.large,),
+                const SizedBox(
+                  width: AppSpacing.large,
+                ),
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
                   style: AppButtonStyles.delete,
-                  child: Text(localizations.cancelButton, style: AppTextStyles.buttonSecondary,),
+                  child: Text(
+                    localizations.cancelButton,
+                    style: AppTextStyles.buttonSecondary,
+                  ),
                 ),
               ],
             )
@@ -58,12 +72,12 @@ class ConfirmDeletingAccountDialog extends StatelessWidget {
   }
 
   Future<void> deleteUser(User user, BuildContext context) async {
+    // TODO зробити видалення всіх даних
     final navigator = Navigator.of(context);
 
     await reauthenticateUser(user);
     await FirebaseFirestore.instance.collection('users').doc(user.uid).delete();
     await user.delete();
-    //await FirebaseAuth.instance.signOut(); // TODO перевірити?
 
     navigator.pushReplacementNamed('/auth');
   }

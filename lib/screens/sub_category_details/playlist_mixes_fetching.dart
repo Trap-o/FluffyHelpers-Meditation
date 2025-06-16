@@ -3,7 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class PlaylistService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<List<Map<String, dynamic>>> fetchSongsForPlaylist(String playlistId) async {
+  Future<List<Map<String, dynamic>>> fetchSongsForPlaylist(
+      String playlistId) async {
     final querySnapshot = await _firestore
         .collection('playlists')
         .where('id', isEqualTo: playlistId)
@@ -37,4 +38,3 @@ class PlaylistService {
     return songs;
   }
 }
-

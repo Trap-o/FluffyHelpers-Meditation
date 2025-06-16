@@ -83,6 +83,5 @@ List<SubCategory> subCategories = [
 ];
 
 final Map<String, SubCategory> subCategoriesMap = {
-  for(var category in subCategories)
-    category.name : category
+  for (var category in subCategories) category.name: category
 };

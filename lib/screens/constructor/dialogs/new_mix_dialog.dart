@@ -1,7 +1,6 @@
-import 'package:fluffyhelpers_meditation/constants/app_button_styles.dart';
 import 'package:fluffyhelpers_meditation/constants/app_colors.dart';
 import 'package:flutter/material.dart';
-
+import '../../../constants/app_button_styles.dart';
 import '../../../constants/app_form_styles.dart';
 import '../../../constants/app_text_styles.dart';
 import '../../../l10n/app_localizations.dart';
@@ -51,15 +50,17 @@ class NewMixDialog extends StatelessWidget {
                   print('createSoundMix error: $e\n$stack');
                 }
 
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (context) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  },
-                );
+            if(context.mounted){ // використав для уникнення помилки Don't use 'BuildContext' across async gaps
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              );
+            }
 
                 await Future.delayed(const Duration(seconds: 5));
 

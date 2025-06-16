@@ -65,8 +65,7 @@ class SubCategoriesGridView extends StatelessWidget {
                 color: AppColors.secondaryBackground,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
-                    side:
-                        const BorderSide(width: 2, color: AppColors.accent)),
+                    side: const BorderSide(width: 2, color: AppColors.accent)),
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Column(
@@ -81,10 +80,17 @@ class SubCategoriesGridView extends StatelessWidget {
                               child: SizedBox(
                                 width: MediaQuery.of(context).size.width,
                                 child: CachedNetworkImage(
-                                  imageUrl: filteredSubCategories[index].pathToImage,
+                                  imageUrl:
+                                      filteredSubCategories[index].pathToImage,
                                   fit: BoxFit.fitWidth,
-                                  placeholder: (context, url) => const CircularProgressIndicator(),
-                                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                                  placeholder: (context, url) => const SizedBox(
+                                      height: 200,
+                                      child: CircularProgressIndicator(
+                                        padding:
+                                            EdgeInsets.all(AppSpacing.small),
+                                      )),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
                                 ),
                                 // child: filteredSubCategories[index]
                                 //         .pathToImage

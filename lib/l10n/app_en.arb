@@ -81,6 +81,7 @@
             },
             "playlistsSelectorLabel": "Select playlists:",
             "yourPlaylistsLabel": "Your playlists:",
+            "noPlaylistsLabel": "Create your first playlist",
 
         "@_SCAFFOLD_MESSAGES": {
             },

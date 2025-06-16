@@ -11,11 +11,10 @@ class MainCategoriesChips extends StatelessWidget {
   final ValueChanged<String> onCategorySelected;
 
   const MainCategoriesChips(
-    {super.key,
+      {super.key,
       required this.selectedCategory,
       required this.mainCategories,
-      required this.onCategorySelected}
-    );
+      required this.onCategorySelected});
 
   @override
   Widget build(BuildContext context) {

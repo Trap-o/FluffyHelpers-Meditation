@@ -108,12 +108,8 @@ class _MyAppState extends State<MyApp> {
         GlobalWidgetsLocalizations.delegate,
         FirebaseUILocalizations.delegate,
       ],
-      supportedLocales: const [
-        Locale('en'),
-        Locale('uk')
-      ],
+      supportedLocales: const [Locale('en'), Locale('uk')],
       locale: _locale,
-
       debugShowCheckedModeBanner: false,
     );
   }
@@ -144,7 +140,7 @@ class _MainPageState extends State<MainPage> {
         setState(() {
           mixes = fetchedMixes;
         });
-      }else{
+      } else {
         fetchedMixes = await EmbeddedMusic().fetchEmbeddedMixes();
         setState(() {
           mixes = fetchedMixes;

@@ -57,6 +57,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get yourPlaylistsLabel => 'Your playlists:';
 
   @override
+  String get noPlaylistsLabel => 'Create your first playlist';
+
+  @override
   String get noContentError => 'Error: add description or playlists';
 
   @override

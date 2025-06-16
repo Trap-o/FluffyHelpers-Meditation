@@ -29,8 +29,7 @@ class PostCreator extends StatefulWidget {
 }
 
 class _PostCreatorState extends State<PostCreator> {
-  SubCategory?
-      _selectedPlaylist; // TODO пофіксити щоб вибір лише одного плейлиста
+  SubCategory? _selectedPlaylist;
   List<SubCategory?> _allPlaylists = [];
 
   final FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
@@ -42,8 +41,6 @@ class _PostCreatorState extends State<PostCreator> {
         .orderBy('name', descending: true)
         .where("ownerId", isEqualTo: user.uid)
         .get();
-
-    // print('Playlists from Firebase: ${querySnapshot.docs.length}');
 
     return querySnapshot.docs.map((doc) {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
@@ -202,10 +199,14 @@ class _PostCreatorState extends State<PostCreator> {
                 ),
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width - 40,
-                  child: DropdownButtonFormField<SubCategory>( // TODO якщо пусто, то треба щоб було про це повідомлення
+                  child: DropdownButtonFormField<SubCategory>(
                     value: _selectedPlaylist,
                     hint: Text(
                       localizations.playlistsSelectorLabel,
+                      style: AppTextStyles.title,
+                    ),
+                    disabledHint: Text(
+                      localizations.noPlaylistsLabel,
                       style: AppTextStyles.title,
                     ),
                     isExpanded: true,
@@ -228,64 +229,6 @@ class _PostCreatorState extends State<PostCreator> {
                           EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     ),
                   ),
-
-                  // MultiSelectBottomSheetField<SubCategory?>(
-                  //   items: _allPlaylists
-                  //       .map((e) => MultiSelectItem<SubCategory?>(e, e!.name))
-                  //       .toList(),
-                  //   chipDisplay: MultiSelectChipDisplay(
-                  //     chipColor: AppColors.highlight,
-                  //     textStyle: AppTextStyles.form,
-                  //     decoration: const BoxDecoration(
-                  //       color: AppColors.secondaryBackground,
-                  //       borderRadius:
-                  //       BorderRadius.vertical(bottom: Radius.circular(10))
-                  //     ),
-                  //     onTap: (value) {
-                  //       _selectedPlaylist.remove(value);
-                  //       return _selectedPlaylist;
-                  //     },
-                  //   ),
-                  //   title: Text(
-                  //     localizations.yourPlaylistsLabel,
-                  //     style: AppTextStyles.title,
-                  //   ),
-                  //   buttonText: Text(
-                  //     localizations.playlistsSelectorLabel,
-                  //     style: AppTextStyles.buttonPrimary,
-                  //   ),
-                  //   initialChildSize: 0.5,
-                  //   maxChildSize: 0.5,
-                  //   decoration: const BoxDecoration(
-                  //     color: AppColors.highlight,
-                  //     borderRadius:
-                  //     BorderRadius.vertical(top: Radius.circular(10))
-                  //   ),
-                  //   buttonIcon: const Icon(
-                  //     Icons.arrow_drop_down_rounded,
-                  //     color: AppColors.text,
-                  //   ),
-                  //   selectedColor: AppColors.accent,
-                  //   backgroundColor: AppColors.secondaryBackground,
-                  //   separateSelectedItems: false,
-                  //   checkColor: AppColors.text,
-                  //   selectedItemsTextStyle: AppTextStyles.body,
-                  //   itemsTextStyle: AppTextStyles.body,
-                  //   confirmText: Text(
-                  //     localizations.okButton,
-                  //     style: AppTextStyles.buttonPrimary,
-                  //   ),
-                  //   cancelText: Text(
-                  //     localizations.cancelButton,
-                  //     style: AppTextStyles.buttonSecondary,
-                  //   ),
-                  //   onConfirm: (values) {
-                  //     setState(() {
-                  //       _selectedPlaylist = values.whereType<SubCategory>().toList();
-                  //     });
-                  //   },
-                  //   listType: MultiSelectListType.LIST,
-                  // ),
                 ),
                 const SizedBox(height: AppSpacing.large),
                 TextButton.icon(

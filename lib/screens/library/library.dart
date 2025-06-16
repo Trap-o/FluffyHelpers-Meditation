@@ -45,14 +45,14 @@ class _LibraryState extends State<Library> {
   }
 
   void selectCategory(category) => setState(() {
-    _selectedCategory = category;
-    filteredSubCategories = _selectedCategory == _defaultCategory
-        ? subCategories
-        : subCategories
-        .where((subCategory) =>
-        subCategory.categories.any((cat) => cat.key == _selectedCategory))
-        .toList();
-  });
+        _selectedCategory = category;
+        filteredSubCategories = _selectedCategory == _defaultCategory
+            ? subCategories
+            : subCategories
+                .where((subCategory) => subCategory.categories
+                    .any((cat) => cat.key == _selectedCategory))
+                .toList();
+      });
 
   void showNewPlaylistDialog(BuildContext context) {
     showDialog(
@@ -100,14 +100,15 @@ class _LibraryState extends State<Library> {
     setState(() {
       var subCategoriesSet = Set.from(subCategories);
       var categoriesFromFirebase = Set.from(fromFirebase);
-      subCategories = List.from(subCategoriesSet.difference(categoriesFromFirebase));
+      subCategories =
+          List.from(subCategoriesSet.difference(categoriesFromFirebase));
       subCategories.addAll(fromFirebase);
       filteredSubCategories = _selectedCategory == _defaultCategory
           ? subCategories
           : subCategories
-          .where((subCategory) =>
-            subCategory.categories.any((cat) => cat.key == _selectedCategory))
-          .toList();
+              .where((subCategory) => subCategory.categories
+                  .any((cat) => cat.key == _selectedCategory))
+              .toList();
       _isInitialized = true;
     });
   }
@@ -118,49 +119,51 @@ class _LibraryState extends State<Library> {
     final String titleText = localizations.libraryTitle;
 
     return Scaffold(
-      appBar: CustomAppBar(title: titleText, leading: null,),
-      floatingActionButton: SizedBox(
-        width: 65,
-        height: 65,
-        child: FittedBox(
-          child: FloatingActionButton(
-            heroTag: 'library',
-            backgroundColor: AppColors.highlight,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-              side: const BorderSide(color: AppColors.secondaryText),
+        appBar: CustomAppBar(
+          title: titleText,
+          leading: null,
+        ),
+        floatingActionButton: SizedBox(
+          width: 65,
+          height: 65,
+          child: FittedBox(
+            child: FloatingActionButton(
+              heroTag: 'library',
+              backgroundColor: AppColors.highlight,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+                side: const BorderSide(color: AppColors.secondaryText),
+              ),
+              onPressed: () {
+                showNewPlaylistDialog(context);
+              },
+              child: const Icon(
+                Icons.add_rounded,
+                color: AppColors.text,
+                size: 45,
+              ),
             ),
-            onPressed: () {
-              showNewPlaylistDialog(context);
-            },
-            child: const Icon(Icons.add_rounded, color: AppColors.text, size: 45,),
           ),
         ),
-      ),
-      backgroundColor: AppColors.primaryBackground,
-      body: SafeArea(
-        child:
-        RefreshIndicator(
-          onRefresh: () async {
-            await initLibrary();
-          },
+        backgroundColor: AppColors.primaryBackground,
+        body: SafeArea(
+          child: RefreshIndicator(
+            onRefresh: () async {
+              await initLibrary();
+            },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 MainCategoriesChips(
-                  selectedCategory: _selectedCategory,
-                  mainCategories: mainCategories,
-                  onCategorySelected: selectCategory
-                ),
+                    selectedCategory: _selectedCategory,
+                    mainCategories: mainCategories,
+                    onCategorySelected: selectCategory),
                 Expanded(
-                  child: SubCategoriesGridView(
-                    filteredSubCategories: filteredSubCategories
-                  )
-                ),
+                    child: SubCategoriesGridView(
+                        filteredSubCategories: filteredSubCategories)),
               ],
             ),
           ),
-      )
-    );
+        ));
   }
 }
